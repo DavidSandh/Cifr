@@ -2,7 +2,9 @@ package se.mah.ag7406.cifr;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
+/**
+Det här är main activity
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
