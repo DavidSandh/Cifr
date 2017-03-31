@@ -3,7 +3,7 @@ package se.mah.ag7406.cifr;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 /**
-Det här är main activity
+Det här är main activity hej
  */
 public class MainActivity extends AppCompatActivity {
 
