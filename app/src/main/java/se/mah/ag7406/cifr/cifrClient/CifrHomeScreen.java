@@ -32,6 +32,7 @@ public class CifrHomeScreen extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     public void register(View view){
         Intent intent = new Intent(this, CifrRegistrationScreen.class);
         intent.putExtra("Controller", cont);

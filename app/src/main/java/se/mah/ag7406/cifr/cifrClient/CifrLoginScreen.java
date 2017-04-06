@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import se.mah.ag7406.cifr.R;
 
@@ -28,13 +29,17 @@ public class CifrLoginScreen extends AppCompatActivity {
         EditText password = (EditText) findViewById(R.id.passwordlogin);
         String name = username.getText().toString();
         String pass = password.getText().toString();
-        Log.d("före if sats", "username: "+ username + "passwoed: " + pass);
+
+        Log.d("före if sats", "username: "+ name + "passwoed: " + pass);
+
         if (cont.checkLogin(name, pass)){
             Intent intent = new Intent(this, ConversationList.class);
             startActivity(intent);
+
             Log.d("efter if sats", "vart true = kontakt med controller från login");
         } else {
-
+            Toast.makeText(this, "Felaktigt lösenord eller användarnamn!",
+                    Toast.LENGTH_LONG).show();
         }
 
 
