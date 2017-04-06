@@ -25,9 +25,25 @@
             android:name=".cifrClient.CifrContactList"
             android:label="Contacts"
             android:parentActivityName=".cifrClient.CifrHomeScreen" />
-        <activity android:name=".cifrClient.CifrLoginScreen" />
+        <activity
+            android:name=".cifrClient.CifrLoginScreen"
+            android:parentActivityName=".cifrClient.CifrHomeScreen">
+
+        <!-- The meta-data tag is required if you support API level 15 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".cifrClient.CifrHomeScreen" />
+    </activity>
         <activity android:name=".ConversationList" />
-        <activity android:name=".cifrClient.CifrRegistrationScreen"></activity>
+        <activity
+            android:name=".cifrClient.CifrRegistrationScreen"
+            android:parentActivityName=".cifrClient.CifrHomeScreen">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".cifrClient.CifrHomeScreen" />
+        </activity>
     </application>
 
 </manifest>

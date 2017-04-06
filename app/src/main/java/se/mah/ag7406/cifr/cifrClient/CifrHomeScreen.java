@@ -25,13 +25,13 @@ public class CifrHomeScreen extends AppCompatActivity {
     }
 
     public void logIn(View view){
-        //Intent intent = new Intent(this, LogInActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, CifrLoginScreen.class);
+        startActivity(intent);
     }
 
     public void register(View view){
-        //Intent intent = new Intent(this, RegisterActivity.class);
-        //startActivity(intent);
-        //test
+        Intent intent = new Intent(this, CifrRegistrationScreen.class);
+        startActivity(intent);
+
     }
 }
