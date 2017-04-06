@@ -1,6 +1,7 @@
 package se.mah.ag7406.cifr.message;
 
-import android.media.Image;
+import android.graphics.Bitmap;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,13 +9,14 @@ import java.util.Date;
  * @author Lucas Knutsäter
  *
  */
-public class Message {
-    static final int LOGIN = 0, MESSAGE = 1;
-    private Image image;
+public class Message implements Serializable {
+    static final int LOGIN = 0, REGISTER = 1, MESSAGE = 2, STATUS = 3;
+    private Bitmap image;
     private String sender;
     private String recipient;
     private String username;
     private String password;
+    private boolean status;
     private Date date;
     private int type;
 
@@ -22,25 +24,29 @@ public class Message {
      *  Constructor add all information and put date when sent.
      * @param sender Sender of message
      * @param recipient Recipient of message
-     * @param image image to send
+     * @param Bitmap image to send
      */
-    public Message(String sender, String recipient, Image image) {
+    public Message(int type, String sender, String recipient, Bitmap image) {
         this.sender = sender;
         this.type = 1;
         this.recipient = recipient;
         this.image = image;
         this.date = new Date();
     }
-    public Message(String username, String password) {
+    public Message(int type, String username, String password) {
         this.username = username;
         this.password = password;
-        this.type = 0;
+        this.type = type;
+    }
+    public Message(int type, boolean status) {
+        this.status = status;
+        this.type = type;
     }
     /**
      * returns image
      * @return image in message
      */
-    public Image getImage() {
+    public Bitmap getImage() {
         return image;
     }
     /**
@@ -64,5 +70,33 @@ public class Message {
     public Date getDate() {
         //ska nog göras om till att retunera tid istället och inte objektet.
         return date;
+    }
+    /**
+     * returns Type.
+     * @return type to return
+     */
+    public int getType() {
+        return type;
+    }
+    /**
+     * returns username
+     * @return username
+     */
+    public String getUsername() {
+        return username;
+    }
+    /**
+     * returns password
+     * @return password
+     */
+    public String getPassword() {
+        return password;
+    }
+    /**
+     * returns status
+     * @return status
+     */
+    public boolean getStatus() {
+        return status;
     }
 }

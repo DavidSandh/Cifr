@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import se.mah.ag7406.cifr.ConversationList;
+//import se.mah.ag7406.cifr.ConversationList;
 import se.mah.ag7406.cifr.R;
 
 public class CifrRegistrationScreen extends AppCompatActivity {

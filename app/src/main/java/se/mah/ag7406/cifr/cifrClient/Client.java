@@ -17,12 +17,11 @@ public class Client extends Thread {
     private ObjectOutputStream oos;
     private ObjectInputStream ois;
     private Socket socket;
-    private String message;
-    private messageclass msgclass;
-    private
+    private Message message;
 
-    public Client(msgclass class,Integer IP, String Name ) {
-        this.msgclass = class;
+
+    public Client(Message message, Integer IP, String Name ) {
+        this.message = message;
 
 
 
@@ -49,11 +48,8 @@ public class Client extends Thread {
             //skicka bild
             oos.writeObject(obj);
             Message mess =(Message)ois.readObject();
-
-            Boolean aaBoolean = mess.ge
-            Boolean aBoolean = msgclass.getStatus();
+            Boolean aBoolean = message.getStatus();
             oos.flush();
-
             return aBoolean;
 
         }
@@ -87,4 +83,4 @@ public class Client extends Thread {
 
 
 
-}
+
