@@ -15,6 +15,7 @@ import se.mah.ag7406.cifr.R;
  */
 public class CifrHomeScreen extends AppCompatActivity {
     private boolean loggedIn = true;
+    private Controller cont;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,15 +23,18 @@ public class CifrHomeScreen extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        cont = new Controller();
     }
 
     public void logIn(View view){
         Intent intent = new Intent(this, CifrLoginScreen.class);
+        intent.putExtra("Controller", cont);
         startActivity(intent);
     }
 
     public void register(View view){
         Intent intent = new Intent(this, CifrRegistrationScreen.class);
+        intent.putExtra("Controller", cont);
         startActivity(intent);
 
     }
