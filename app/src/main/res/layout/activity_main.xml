@@ -4,22 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_dark"
     tools:context="se.mah.ag7406.cifr.cifrClient.CifrHomeScreen">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Det funkar kansek"
-        tools:layout_editor_absoluteX="145dp"
-        tools:layout_editor_absoluteY="199dp" />
+        android:fontFamily="sans-serif-condensed"
+        android:text="Cifr"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="36sp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="116dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:layout_marginBottom="108dp"
+        android:layout_marginRight="91dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="sans-serif-condensed"
+        android:onClick="register"
+        android:text="Register"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="108dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="sans-serif-condensed"
+        android:onClick="logIn"
+        android:text="Log in"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="321dp" />
+        app:layout_constraintRight_toLeftOf="@+id/button" />
 </android.support.constraint.ConstraintLayout>
+
