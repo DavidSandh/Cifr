@@ -25,7 +25,8 @@
             android:name=".cifrClient.CifrContactList"
             android:label="Contacts"
             android:parentActivityName=".cifrClient.CifrHomeScreen" />
-        <activity android:name=".cifrClient.CifrLoginScreen"></activity>
+        <activity android:name=".cifrClient.CifrLoginScreen" />
+        <activity android:name=".ConversationList"></activity>
     </application>
 
 </manifest>
