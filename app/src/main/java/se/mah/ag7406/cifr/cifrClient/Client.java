@@ -9,7 +9,7 @@ import java.net.Socket;
 import se.mah.ag7406.cifr.message.Message;
 
 /**
- * Created by Max on 2017-04-06.
+ *
  */
 
 public class Client extends Thread {
@@ -18,68 +18,78 @@ public class Client extends Thread {
     private ObjectInputStream ois;
     private Socket socket;
     private Message message;
+    private String IP;
+    private int port;
+    private ObjectOutputStream output;
+    private ObjectInputStream input;
 
-
-    public Client(Message message, Integer IP, String Name ) {
+    public Client(Message message, String IP, int port) {
         this.message = message;
-
-
-
-
+        this.IP = IP;
+        this.port=port;
+        new ServerListener(IP, port);
     }
 
-    protected void connect(Integer IP, String Name) {
-        try {
-            Socket socket = new Socket(Name,IP);
-            oos = new ObjectOutputStream(socket.getOutputStream());
-            ois = new ObjectInputStream(socket.getInputStream());
-            new Thread(this).start();
+    private class ServerListener extends Thread {
+        private String ip;
+        private int port;
+        /**
+         *  Constructor that sets ip and port and opens a new input and output stream.
+         *  Also sends username to server.
+         * @param ip ip to use
+         * @param port port to use
+         */
+        public ServerListener(String ip, int port) {
+            this.ip = ip;
+            this.port = port;
+            try {
+                socket = new Socket(ip, port);
 
-        } catch (IOException e) {
-
-
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+            try {
+                input = new ObjectInputStream(socket.getInputStream());
+                output = new ObjectOutputStream(socket.getOutputStream());
+                output.flush();
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+            start();
+        }
+        /**
+         * Method that recieves messages from server.
+         */
+        public void run() {
+            Message message;
+            while (true) {
+                try {
+                    message = (Message)input.readObject();
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                } catch (ClassNotFoundException cnfe) {
+                    cnfe.printStackTrace();
+                }
+            }
         }
     }
-
-
         public boolean sendMessage(Object obj) throws IOException, ClassNotFoundException {
-            //spara inkommande bild
-            Object out = obj;
-            //skicka bild
-            oos.writeObject(obj);
-            Message mess =(Message)ois.readObject();
-            Boolean aBoolean = message.getStatus();
-            oos.flush();
-            return aBoolean;
 
+            return false;
         }
 
 
         public void run(){
-
             while (!socket.isClosed()) {
                 try {
-
                     Object in = ois.readObject();
                     sendMessage(new Object());
-
-
-
-
                 } catch(IOException | ClassNotFoundException e){
 
-
+                }
             }
-
-
-            }
-
     }
-
-
-
-
-    }
+}
 
 
 
