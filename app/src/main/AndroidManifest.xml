@@ -34,7 +34,7 @@
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".cifrClient.CifrHomeScreen" />
     </activity>
-        <activity android:name=".ConversationList" />
+        <activity android:name=".cifrClient.ConversationList" />
         <activity
             android:name=".cifrClient.CifrRegistrationScreen"
             android:parentActivityName=".cifrClient.CifrHomeScreen">

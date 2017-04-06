@@ -9,7 +9,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 
-import se.mah.ag7406.cifr.ConversationList;
 import se.mah.ag7406.cifr.R;
 
 public class CifrLoginScreen extends AppCompatActivity {

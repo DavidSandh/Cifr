@@ -1,4 +1,4 @@
-package se.mah.ag7406.cifr;
+package se.mah.ag7406.cifr.cifrClient;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,8 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import se.mah.ag7406.cifr.R;
 
 /**
  * Created by Viktor on 2017-04-06.
@@ -15,11 +16,11 @@ import android.widget.TextView;
 
 public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecyclerViewAdapter.ViewHolder> {
     private LayoutInflater inflater;
-    //private Data[] data; Den data som ska fylla rutorna, dvs. bilder och användarnamn.
+    private GridItem[] gridItems;
 
-    public CustomRecyclerViewAdapter(Context context/*, Data[] data*/) {
+    public CustomRecyclerViewAdapter(Context context, GridItem[] array) {
         this.inflater = LayoutInflater.from(context);
-        //this.data = data;
+        this.gridItems = array;
     }
 
     public CustomRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -30,19 +31,24 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.textView.setText(gridItems[position].getUsername());
+        holder.imageView.setImageResource(gridItems[position].getImage());
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return gridItems.length;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public View view;
-        public ViewHolder (View conversationItem) {
-            super(conversationItem);
-            view = conversationItem;
+        private TextView textView;
+        private ImageView imageView;
+
+        public ViewHolder (View view) {
+            super(view);
+            textView = (TextView) view.findViewById(R.id.conversationItemTextView);
+            imageView = (ImageView) view.findViewById(R.id.conversationItemImageView);
         }
     }
 
