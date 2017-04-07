@@ -23,11 +23,6 @@ public class CifrRegistrationScreen extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_cifr_registration_screen);
         cont = (Controller)getIntent().getSerializableExtra("Controller");
-        new Thread() {
-            public void run() {
-                new Client().clientRun();
-            }
-        }.start();
     }
 
     public void logIn(View view){

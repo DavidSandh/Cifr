@@ -1,4 +1,4 @@
-package se.mah.ag7406.cifr.message;
+package message;
 
 import android.graphics.Bitmap;
 import java.io.Serializable;
@@ -10,8 +10,8 @@ import java.util.Date;
  *
  */
 public class Message implements Serializable {
-    static final int LOGIN = 0, REGISTER = 1, MESSAGE = 2, STATUS = 3;
-    private Bitmap image;
+    public static final int LOGIN = 0, REGISTER = 1, MESSAGE = 2, STATUS = 3;
+    private Object image;
     private String sender;
     private String recipient;
     private String username;
@@ -26,7 +26,7 @@ public class Message implements Serializable {
      * @param recipient Recipient of message
      * @param Bitmap image to send
      */
-    public Message(int type, String sender, String recipient, Bitmap image) {
+    public Message(int type, String sender, String recipient, Object image) {
         this.sender = sender;
         this.type = 1;
         this.recipient = recipient;
@@ -46,7 +46,7 @@ public class Message implements Serializable {
      * returns image
      * @return image in message
      */
-    public Bitmap getImage() {
+    public Object getImage() {
         return image;
     }
     /**

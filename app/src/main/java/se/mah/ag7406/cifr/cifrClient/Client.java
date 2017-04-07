@@ -1,15 +1,13 @@
 package se.mah.ag7406.cifr.cifrClient;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import java.io.IOException;
-import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import se.mah.ag7406.cifr.message.Message;
+import message.Message;
 
 /**
  *
@@ -29,16 +27,15 @@ public class Client {
     public Client(String IP, int port) {
         this.IP = IP;
         this.port=port;
-        listener = new ServerListener("192.168.43.79", 1337);
-    }
-    public Client() {
-        this.IP = "192.168.43.79";
-        this.port = 1337;
+        listener = new ServerListener("IP", port);
+        clientRun();
     }
     public void clientRun() {
         try {
             System.out.println("föresocket");
             Socket socket = new Socket(IP, port);
+            output = new ObjectOutputStream(socket.getOutputStream());
+            output.writeObject((Object)new Message(Message.REGISTER,"Hejsanaaa", "hej"));
             System.out.println("eftersocket");
         }catch(IOException e){}
     }

@@ -1,11 +1,8 @@
 package se.mah.ag7406.cifr.cifrClient;
 
-import android.widget.EditText;
-
-import java.io.IOException;
 import java.io.Serializable;
 
-import se.mah.ag7406.cifr.message.Message;
+import message.Message;
 
 /**
  * Created by Jens on 2017-04-06.
@@ -15,7 +12,11 @@ public class Controller implements Serializable {
     private Client client;
 
     public Controller(){
-      //  client = new Client("ip", 1337);
+        new Thread() {
+            public void run() {
+                new Client("192.168.43.79",1337);
+            }
+        }.start();
     }
 
     public boolean checkLogin(String Username, String Password){
