@@ -29,10 +29,19 @@ public class Client {
     public Client(String IP, int port) {
         this.IP = IP;
         this.port=port;
-        listener = new ServerListener("127.0.0.1", 1337);
-        listener.execute();
+        listener = new ServerListener("192.168.43.79", 1337);
     }
-
+    public Client() {
+        this.IP = "192.168.43.79";
+        this.port = 1337;
+    }
+    public void clientRun() {
+        try {
+            System.out.println("föresocket");
+            Socket socket = new Socket(IP, port);
+            System.out.println("eftersocket");
+        }catch(IOException e){}
+    }
     /**
      * Test av jens, behöver input av er andra
      */
@@ -59,7 +68,7 @@ public class Client {
         // annars kör på meddelandehantering.
     }
 
-    private class ServerListener extends AsyncTask<Void, Void, Void> {
+    private class ServerListener extends Thread {
         private Socket socket;
         private String ip;
         private int port;
@@ -76,8 +85,6 @@ public class Client {
             this.ip = ip;
             this.port = port;
         }
-
-        @Override
         protected Void doInBackground(Void... voids) {
             Message message;
             Log.d("Serverlistener  ", "i run metod");
@@ -95,17 +102,19 @@ public class Client {
 
         }
 
-        @Override
         protected void onProgressUpdate(Void... values) {
 
         }
 
         protected void onPreExecute(){
             try {
+                System.out.println("föresocket");
                 socket = new Socket(ip, port);
+                System.out.println("efter socket");
                 Log.d("Serverlistener  ", "efter socket");
             } catch (IOException ioe) {
                 ioe.printStackTrace();
+                System.out.println("ioexception");
                 Log.d("Serverlistener  ", "catch efter socket");
             }
             try {

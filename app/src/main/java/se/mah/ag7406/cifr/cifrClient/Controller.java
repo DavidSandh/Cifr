@@ -15,7 +15,7 @@ public class Controller implements Serializable {
     private Client client;
 
     public Controller(){
-        client = new Client("ip", 1337);
+      //  client = new Client("ip", 1337);
     }
 
     public boolean checkLogin(String Username, String Password){
