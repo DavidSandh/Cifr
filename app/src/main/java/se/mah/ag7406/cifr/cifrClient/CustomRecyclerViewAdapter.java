@@ -1,6 +1,7 @@
 package se.mah.ag7406.cifr.cifrClient;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,14 +30,12 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
         return viewHolder;
     }
 
-    @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.textView.setText(gridItems[position].getUsername());
         holder.imageView.setImageResource(gridItems[position].getImage());
 
     }
 
-    @Override
     public int getItemCount() {
         return gridItems.length;
     }
@@ -44,11 +43,22 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView textView;
         private ImageView imageView;
+        private Context context;
 
         public ViewHolder (View view) {
             super(view);
             textView = (TextView) view.findViewById(R.id.conversationItemTextView);
             imageView = (ImageView) view.findViewById(R.id.conversationItemImageView);
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final Intent intent;
+                    context = view.getContext();
+                    intent = new Intent(context, Conversation.class);
+                    intent.putExtra("username", textView.getText());
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 
