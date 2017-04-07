@@ -32,11 +32,11 @@
             android:name=".cifrClient.CifrLoginScreen"
             android:parentActivityName=".cifrClient.CifrHomeScreen">
 
-        <!-- The meta-data tag is required if you support API level 15 and lower -->
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".cifrClient.CifrHomeScreen" />
-    </activity>
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".cifrClient.CifrHomeScreen" />
+        </activity>
         <activity android:name=".cifrClient.ConversationList" />
         <activity
             android:name=".cifrClient.CifrRegistrationScreen"
@@ -47,6 +47,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".cifrClient.CifrHomeScreen" />
         </activity>
+        <activity android:name=".cifrClient.Conversation"></activity>
     </application>
 
 </manifest>
