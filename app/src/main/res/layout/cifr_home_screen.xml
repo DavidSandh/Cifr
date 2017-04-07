@@ -5,52 +5,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_blue_dark"
-    tools:context="se.mah.ag7406.cifr.cifrClient.CifrLoginScreen">
+    tools:context="se.mah.ag7406.cifr.cifrClient.CifrHomeScreen">
 
-    <EditText
-        android:id="@+id/usernamelogin"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="85dp"
-        android:layout_marginTop="110dp"
-        android:ems="10"
         android:fontFamily="sans-serif-condensed"
-        android:inputType="textPersonName"
-        android:text="@string/username"
+        android:text="Cifr"
+        android:textAlignment="center"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/passwordlogin"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="36sp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/passwordlogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:fontFamily="sans-serif-condensed"
-        android:inputType="textPassword"
-        android:text="Passwd"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="190dp"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
-        android:layout_marginLeft="85dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:layout_marginTop="116dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="111dp"
-        android:layout_marginLeft="148dp"
+        android:layout_marginBottom="108dp"
+        android:layout_marginRight="91dp"
         android:background="@android:color/transparent"
         android:fontFamily="sans-serif-condensed"
-        android:onClick="logIn"
-        android:text="Log In"
+        android:onClick="register"
+        android:text="Register"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="108dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="sans-serif-condensed"
+        android:onClick="logIn"
+        android:text="Log in"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/button" />
 </android.support.constraint.ConstraintLayout>
+
