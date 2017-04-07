@@ -1,26 +1,30 @@
 package se.mah.ag7406.cifr.cifrClient;
 
-import android.widget.EditText;
-
 import java.io.Serializable;
+
+import message.Message;
 
 /**
  * Created by Jens on 2017-04-06.
  */
 
 public class Controller implements Serializable {
-
+    private Client client;
 
     public Controller(){
-
+        new Thread() {
+            public void run() {
+                new Client("192.168.43.79",1337);
+            }
+        }.start();
     }
-    public void test(){
 
-
-    }
     public boolean checkLogin(String Username, String Password){
+        boolean response;
+        client.sendRequest(new Message(0, Username, Password));
+        response = client.response();
         //kollar om användarnamn och lösen stämmer mot servern
-        return true;
+        return response;
     }
 
 
