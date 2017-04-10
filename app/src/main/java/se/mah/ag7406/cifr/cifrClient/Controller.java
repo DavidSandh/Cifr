@@ -9,7 +9,7 @@ import message.Message;
  */
 
 public class Controller implements Serializable {
-    private static Client client;
+    private static Client client = new Client("10.0.2.2",1337);
 
     public Controller(){
 
@@ -17,16 +17,22 @@ public class Controller implements Serializable {
     public void startClient(){
         new Thread() {
             public void run() {
-                client = new Client("10.0.2.2",1337);
+                client.clientRun();
+
             }
         }.start();
     }
 
-    public boolean checkLogin(String Username, String Password){
+    public boolean checkLogin(final String Username, final String Password){
         System.out.println("Checkogin");
+        new Thread() {
+            public void run(){
+                client.sendRequest(new Message(Message.LOGIN, Username, Password));
+            }
+        }.start();
         boolean response;
-        client.sendRequest(new Message(Message.LOGIN, Username, Password));
-        response = client.response();
+
+
         return true;
     }
 

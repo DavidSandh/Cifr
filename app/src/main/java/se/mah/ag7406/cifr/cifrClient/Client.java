@@ -26,7 +26,7 @@ public class Client {
         this.IP = IP;
         this.port=port;
         //listener = new ServerListener("IP", port);
-        clientRun();
+        //clientRun();
     }
     public void clientRun() {
         try {
