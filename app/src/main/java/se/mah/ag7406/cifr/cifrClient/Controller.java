@@ -22,8 +22,8 @@ public class Controller implements Serializable {
     public boolean checkLogin(String Username, String Password){
         System.out.println("Checkogin");
         boolean response;
-        //client.sendRequest(new Message(Message.LOGIN, Username, Password));
-        //response = client.response();
+        client.sendRequest(new Message(Message.LOGIN, Username, Password));
+        response = client.response();
         return true;
     }
 
