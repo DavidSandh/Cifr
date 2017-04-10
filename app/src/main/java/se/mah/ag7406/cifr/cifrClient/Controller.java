@@ -24,6 +24,7 @@ public class Controller implements Serializable {
     }
 
     public boolean checkLogin(final String Username, final String Password){
+        startClient();
         System.out.println("Checkogin");
         new Thread() {
             public void run(){

@@ -33,7 +33,7 @@ public class Client {
             System.out.println("föresocket");
             Socket socket = new Socket(IP, port);
             output = new ObjectOutputStream(socket.getOutputStream());
-            output.writeObject(new Message(Message.LOGIN, "Tjeeeenare", "tjena"));
+            //output.writeObject(new Message(Message.LOGIN, "Tjeeeenare", "tjena"));
             System.out.println("eftersocket");
         }catch(IOException e){}
     }
