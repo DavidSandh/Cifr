@@ -9,12 +9,15 @@ import message.Message;
  */
 
 public class Controller implements Serializable {
-    private Client client;
+    private static Client client;
 
     public Controller(){
+
+    }
+    public void startClient(){
         new Thread() {
             public void run() {
-                client = new Client("localhost",1337);
+                client = new Client("10.0.2.2",1337);
             }
         }.start();
     }

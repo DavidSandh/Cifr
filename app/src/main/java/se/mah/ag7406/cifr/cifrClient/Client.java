@@ -9,9 +9,7 @@ import java.net.Socket;
 
 import message.Message;
 
-/**
- *
- */
+
 
 public class Client {
 
@@ -35,13 +33,14 @@ public class Client {
             System.out.println("föresocket");
             Socket socket = new Socket(IP, port);
             output = new ObjectOutputStream(socket.getOutputStream());
-            output.writeObject(new Message(Message.REGISTER, "Tjeeeenare", "tjena"));
+            output.writeObject(new Message(Message.LOGIN, "Tjeeeenare", "tjena"));
             System.out.println("eftersocket");
         }catch(IOException e){}
     }
     /**
      * Test av jens, behöver input av er andra
      */
+
     public void sendRequest(Message message){
         try {
             output.writeObject(message);
@@ -117,6 +116,8 @@ public class Client {
             try {
                 input = new ObjectInputStream(socket.getInputStream());
                 output = new ObjectOutputStream(socket.getOutputStream());
+                output.writeObject(new Message(Message.LOGIN, "Test5", "hash"));
+
                 output.flush();
             } catch (IOException ioe) {
                 ioe.printStackTrace();
@@ -126,7 +127,6 @@ public class Client {
 
     }
 }
-
 
 
 

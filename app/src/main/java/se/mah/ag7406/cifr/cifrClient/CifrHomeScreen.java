@@ -15,7 +15,7 @@ import se.mah.ag7406.cifr.R;
  */
 public class CifrHomeScreen extends AppCompatActivity {
     private boolean loggedIn = true;
-    private Controller cont;
+    private Controller cont = new Controller();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
