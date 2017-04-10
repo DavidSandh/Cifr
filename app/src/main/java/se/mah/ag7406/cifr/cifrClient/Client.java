@@ -75,13 +75,13 @@ public class Client {
          * @param port port to use
          */
 
-
         public ServerListener(String ip, int port) {
             Log.d("Serverlistener  ", "Konstruktor");
             this.ip = ip;
             this.port = port;
+            start();
         }
-        protected Void doInBackground(Void... voids) {
+        public void run() {
             Message message;
             Log.d("Serverlistener  ", "i run metod");
             while (true) {
@@ -93,38 +93,8 @@ public class Client {
                 } catch (ClassNotFoundException cnfe) {
                     cnfe.printStackTrace();
                 }
-                return null;
-            }
-
-        }
-
-        protected void onProgressUpdate(Void... values) {
-
-        }
-
-        protected void onPreExecute(){
-            try {
-                System.out.println("föresocket");
-                socket = new Socket(ip, port);
-                System.out.println("efter socket");
-                Log.d("Serverlistener  ", "efter socket");
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
-                System.out.println("ioexception");
-                Log.d("Serverlistener  ", "catch efter socket");
-            }
-            try {
-                input = new ObjectInputStream(socket.getInputStream());
-                output = new ObjectOutputStream(socket.getOutputStream());
-                output.writeObject(new Message(Message.LOGIN, "Test5", "hash"));
-
-                output.flush();
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
-                Log.d("Serverlistener  ", "Catch efter strömmar");
             }
         }
-
     }
 }
 
