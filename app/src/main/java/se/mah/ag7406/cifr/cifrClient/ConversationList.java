@@ -21,7 +21,7 @@ public class ConversationList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation_list);
-        setGridData();
+        setGridData(); //Via controller.
         Log.d("setGridData","körd");
         recyclerView = (RecyclerView) findViewById(R.id.conversationList);
         Log.d("findviewbyId","körd");

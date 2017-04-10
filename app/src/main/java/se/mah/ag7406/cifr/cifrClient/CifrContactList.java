@@ -13,7 +13,6 @@ public class CifrContactList extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private String[] usernames;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cifr_contact_list);
