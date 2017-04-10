@@ -14,7 +14,7 @@ import android.widget.Toast;
 import se.mah.ag7406.cifr.R;
 
 public class CifrRegistrationScreen extends AppCompatActivity {
-    private Controller cont;
+    private Controller cont = new Controller();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +26,7 @@ public class CifrRegistrationScreen extends AppCompatActivity {
     }
 
     public void logIn(View view){
+        cont.startClient();
         EditText username = (EditText) findViewById(R.id.usernameregister);
         EditText pass1 = (EditText) findViewById(R.id.password1register);
         EditText pass2 = (EditText) findViewById(R.id.password2register);

@@ -25,6 +25,7 @@ public class CifrLoginScreen extends AppCompatActivity {
     }
 
     public void logIn(View view){
+
         EditText username = (EditText) findViewById(R.id.usernamelogin);
         EditText password = (EditText) findViewById(R.id.passwordlogin);
         String name = username.getText().toString();

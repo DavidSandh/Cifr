@@ -9,21 +9,36 @@ import message.Message;
  */
 
 public class Controller implements Serializable {
-    private Client client;
+    private static Client client = new Client("10.0.2.2",1337);
 
     public Controller(){
+
+    }
+    public void startClient(){
         new Thread() {
             public void run() {
-                new Client("192.168.43.79",1337);
+                client.clientRun();
+
             }
         }.start();
     }
 
-    public boolean checkLogin(String Username, String Password){
-        boolean response;
-        client.sendRequest(new Message(0, Username, Password));
-        response = client.response();
-        //kollar om användarnamn och lösen stämmer mot servern
+    public boolean checkLogin(final String Username, final String Password){
+        startClient();
+        System.out.println("Checkogin");
+        new Thread() {
+            public void run(){
+                client.sendRequest(new Message(Message.LOGIN, Username, Password));
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+        boolean response = client.response();
+
+
         return response;
     }
 
