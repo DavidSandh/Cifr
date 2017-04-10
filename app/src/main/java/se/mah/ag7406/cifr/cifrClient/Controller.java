@@ -14,17 +14,17 @@ public class Controller implements Serializable {
     public Controller(){
         new Thread() {
             public void run() {
-                new Client("192.168.43.79",1337);
+                client = new Client("localhost",1337);
             }
         }.start();
     }
 
     public boolean checkLogin(String Username, String Password){
+        System.out.println("Checkogin");
         boolean response;
-        client.sendRequest(new Message(0, Username, Password));
-        response = client.response();
-        //kollar om användarnamn och lösen stämmer mot servern
-        return response;
+        //client.sendRequest(new Message(Message.LOGIN, Username, Password));
+        //response = client.response();
+        return true;
     }
 
 

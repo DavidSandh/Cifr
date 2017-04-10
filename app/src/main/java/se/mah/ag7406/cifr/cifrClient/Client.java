@@ -27,7 +27,7 @@ public class Client {
     public Client(String IP, int port) {
         this.IP = IP;
         this.port=port;
-        listener = new ServerListener("IP", port);
+        //listener = new ServerListener("IP", port);
         clientRun();
     }
     public void clientRun() {
@@ -35,7 +35,7 @@ public class Client {
             System.out.println("föresocket");
             Socket socket = new Socket(IP, port);
             output = new ObjectOutputStream(socket.getOutputStream());
-            output.writeObject((Object)new Message(Message.REGISTER,"Hejsanaaa", "hej"));
+            output.writeObject(new Message(Message.REGISTER, "Tjeeeenare", "tjena"));
             System.out.println("eftersocket");
         }catch(IOException e){}
     }
