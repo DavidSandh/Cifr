@@ -29,12 +29,17 @@ public class Controller implements Serializable {
         new Thread() {
             public void run(){
                 client.sendRequest(new Message(Message.LOGIN, Username, Password));
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }.start();
-        boolean response;
+        boolean response = client.response();
 
 
-        return true;
+        return response;
     }
 
 

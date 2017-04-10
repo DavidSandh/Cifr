@@ -25,7 +25,7 @@ public class Client {
     public Client(String IP, int port) {
         this.IP = IP;
         this.port=port;
-        //listener = new ServerListener("IP", port);
+
         //clientRun();
     }
     public void clientRun() {
@@ -33,9 +33,11 @@ public class Client {
             System.out.println("föresocket");
             Socket socket = new Socket(IP, port);
             output = new ObjectOutputStream(socket.getOutputStream());
+            input = new ObjectInputStream(socket.getInputStream());
             //output.writeObject(new Message(Message.LOGIN, "Tjeeeenare", "tjena"));
             System.out.println("eftersocket");
         }catch(IOException e){}
+        listener = new ServerListener();
     }
     /**
      * Test av jens, behöver input av er andra
@@ -49,12 +51,7 @@ public class Client {
         }
     }
     public boolean response(){  //behöver synchronizera, via active?
-        while(!active){
-            try {
-                wait(30);
-            } catch (InterruptedException e) {}
-        }
-        active = false;
+
         return response;
     }
     public void handleEvent(Message message){
@@ -65,29 +62,20 @@ public class Client {
     }
 
     private class ServerListener extends Thread {
-        private Socket socket;
-        private String ip;
-        private int port;
-        /**
-         *  Constructor that sets ip and port and opens a new input and output stream.
-         *  Also sends username to server.
-         * @param ip ip to use
-         * @param port port to use
-         */
 
-        public ServerListener(String ip, int port) {
+        public ServerListener() {
             Log.d("Serverlistener  ", "Konstruktor");
-            this.ip = ip;
-            this.port = port;
+
             start();
         }
         public void run() {
-            Message message;
+            Object message;
             Log.d("Serverlistener  ", "i run metod");
             while (true) {
                 try {
-                    message = (Message)input.readObject();
-                    handleEvent(message);//tillagt av jens för test
+                    message = (Object)input.readObject();
+                    Message mess = (Message)message;
+                    handleEvent(mess);//tillagt av jens för test
                 } catch (IOException ioe) {
                     ioe.printStackTrace();
                 } catch (ClassNotFoundException cnfe) {
