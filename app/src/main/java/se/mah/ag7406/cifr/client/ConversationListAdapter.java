@@ -12,19 +12,21 @@ import android.widget.TextView;
 import se.mah.ag7406.cifr.R;
 
 /**
+ * Used to fill the conversation list with the right type of views and to fill these with data.
+ * Also enables activity change when a certain item is clicked.
  * Created by Viktor on 2017-04-06.
  */
 
-public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecyclerViewAdapter.ViewHolder> {
+public class ConversationListAdapter extends RecyclerView.Adapter<ConversationListAdapter.ViewHolder> {
     private LayoutInflater inflater;
     private GridItem[] gridItems;
 
-    public CustomRecyclerViewAdapter(Context context, GridItem[] array) {
+    public ConversationListAdapter(Context context, GridItem[] array) {
         this.inflater = LayoutInflater.from(context);
         this.gridItems = array;
     }
 
-    public CustomRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ConversationListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = (View) inflater.inflate(R.layout.conversation_list_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;

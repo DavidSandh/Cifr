@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
 import se.mah.ag7406.cifr.R;
 
@@ -29,7 +27,7 @@ public class ConversationList extends AppCompatActivity {
         Log.d("new gridlayoutManager","körd");
         recyclerView.setLayoutManager(layoutManager);
         Log.d("setLayoutManager","körd");
-        recyclerAdapter = new CustomRecyclerViewAdapter(this, gridItems);
+        recyclerAdapter = new ConversationListAdapter(this, gridItems);
         Log.d("new CustomRecycler","körd");
         recyclerView.setAdapter(recyclerAdapter);
         Log.d("setAdapter","körd");
