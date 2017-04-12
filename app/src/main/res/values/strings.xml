@@ -2,6 +2,10 @@
     <string name="app_name">Cifr</string>
     <string name="title_activity_cifr_login">Sign in</string>
     <string name="username">Username</string>
+    <string name="btnRemoveUser">Delete</string>
+    <string name="btnBlockUser">Block</string>
+    <string name="createMessageText">Write your message here...</string>
+    <string name="btnSend">Send</string>
 
 
     <!-- Strings related to login -->

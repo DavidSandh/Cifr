@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import se.mah.ag7406.cifr.R;
 
@@ -19,7 +21,7 @@ public class ConversationList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation_list);
-        setGridData();
+        setGridData(); //Via controller.
         Log.d("setGridData","körd");
         recyclerView = (RecyclerView) findViewById(R.id.conversationList);
         Log.d("findviewbyId","körd");
@@ -33,6 +35,8 @@ public class ConversationList extends AppCompatActivity {
         Log.d("setAdapter","körd");
 
 
+
+
     }
 
     public void setGridData() { //Testmetod. Ska ändra att ta emot en parameter med array-datan när test inte behövs.
@@ -44,5 +48,4 @@ public class ConversationList extends AppCompatActivity {
         gridItems[1] = gridItem2;
         gridItems[2] = gridItem3;
     }
-
 }
