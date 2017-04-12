@@ -32,6 +32,12 @@ public class Controller implements Serializable {
                 client.sendRequest(new Message(Message.LOGIN, Username, Password));
             }
         }.start();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+
+        }
         response = client.response();
         return response;
     }

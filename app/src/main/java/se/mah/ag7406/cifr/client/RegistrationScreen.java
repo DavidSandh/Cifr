@@ -44,7 +44,7 @@ public class RegistrationScreen extends AppCompatActivity {
         String password1 = pass1.getText().toString();
         String password2 = pass2.getText().toString();
         Log.d("test registration", "Un: " + name + " p1: " + password1 + " p2: " + password2); // för test
-        if(controller.checkUsername(name)){
+        if(controller.checkUsername(name) && controller.checkUsernameFormat(name)){
             Log.d("test registration", "kollat username och godkänt"); // för test
             if(controller.checkpassword(password1, password2)){
                 Intent intent = new Intent(this, ConversationList.class);
