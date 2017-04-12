@@ -21,6 +21,7 @@ public class Client {
     private boolean active = false;
     private boolean response = false;
     private ServerListener listener;
+    private Buffer<Message> buffer = new Buffer();
 
     public Client(String IP, int port) {
         this.IP = IP;

@@ -25,20 +25,14 @@ public class Controller implements Serializable {
 
     public boolean checkLogin(final String Username, final String Password){
         startClient();
+        boolean response;
         System.out.println("Checkogin");
         new Thread() {
             public void run(){
                 client.sendRequest(new Message(Message.LOGIN, Username, Password));
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
         }.start();
-        boolean response = client.response();
-
-
+        response = client.response();
         return response;
     }
 
