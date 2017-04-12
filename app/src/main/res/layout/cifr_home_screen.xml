@@ -48,7 +48,7 @@
         android:layout_marginRight="16dp"
         android:background="@android:color/transparent"
         android:fontFamily="sans-serif-condensed"
-        android:onClick="logIn"
+        android:onClick="login"
         android:text="Log in"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
