@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="se.mah.ag7406.cifr.cifrClient.CreateMessage">
+    tools:context="se.mah.ag7406.cifr.client.CreateMessage">
 
     <ImageView
         android:id="@+id/createMessageImage"

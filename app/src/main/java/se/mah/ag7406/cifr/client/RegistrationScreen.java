@@ -1,4 +1,4 @@
-package se.mah.ag7406.cifr.cifrClient;
+package se.mah.ag7406.cifr.client;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,12 +9,18 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
-
-//import se.mah.ag7406.cifr.ConversationList;
 import se.mah.ag7406.cifr.R;
 
-public class CifrRegistrationScreen extends AppCompatActivity {
-    private Controller cont = new Controller();
+/**
+ *
+ */
+public class RegistrationScreen extends AppCompatActivity {
+    private Controller controller = new Controller();
+
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,11 +28,15 @@ public class CifrRegistrationScreen extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_cifr_registration_screen);
-        cont = (Controller)getIntent().getSerializableExtra("Controller");
+        controller = (Controller)getIntent().getSerializableExtra("Controller");
     }
 
-    public void logIn(View view){
-        cont.startClient();
+    /**
+     *
+     * @param view
+     */
+    public void login(View view){
+        controller.startClient();
         EditText username = (EditText) findViewById(R.id.usernameregister);
         EditText pass1 = (EditText) findViewById(R.id.password1register);
         EditText pass2 = (EditText) findViewById(R.id.password2register);
@@ -34,10 +44,9 @@ public class CifrRegistrationScreen extends AppCompatActivity {
         String password1 = pass1.getText().toString();
         String password2 = pass2.getText().toString();
         Log.d("test registration", "Un: " + name + " p1: " + password1 + " p2: " + password2); // för test
-
-        if(cont.checkUsername(name)){
+        if(controller.checkUsername(name)){
             Log.d("test registration", "kollat username och godkänt"); // för test
-            if(cont.checkpassword(password1, password2)){
+            if(controller.checkpassword(password1, password2)){
                 Intent intent = new Intent(this, ConversationList.class);
                 startActivity(intent);
             } else {
@@ -46,7 +55,7 @@ public class CifrRegistrationScreen extends AppCompatActivity {
             }
         } else {
             Log.d("test registration", "kollat username inte godkänt"); // för test
-            if (cont.checkUsernameFormat(name)){
+            if (controller.checkUsernameFormat(name)){
                 Toast.makeText(this, "Användarnamnet är upptaget",
                         Toast.LENGTH_LONG).show();
             } else {
@@ -54,6 +63,5 @@ public class CifrRegistrationScreen extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         }
-
     }
 }

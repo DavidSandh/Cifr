@@ -1,21 +1,24 @@
-package se.mah.ag7406.cifr.cifrClient;
+package se.mah.ag7406.cifr.client;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-
 import se.mah.ag7406.cifr.R;
 
 /**
  * The Home-Screen for the Cifr-app
  */
-public class CifrHomeScreen extends AppCompatActivity {
+public class HomeScreen extends AppCompatActivity {
     private boolean loggedIn = true;
-    private Controller cont = new Controller();
+    private Controller controller = new Controller();
+
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,20 +26,26 @@ public class CifrHomeScreen extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.cifr_home_screen);
-        cont = new Controller();
+        controller = new Controller();
     }
 
-    public void logIn(View view){
-        Intent intent = new Intent(this, CifrLoginScreen.class);
-        intent.putExtra("Controller", cont);
+    /**
+     *
+     *
+     */
+    protected void login(View view){
+        Intent intent = new Intent(this, LoginScreen.class);
+        intent.putExtra("Controller", controller);
         startActivity(intent);
     }
 
-
-    public void register(View view){
-        Intent intent = new Intent(this, CifrRegistrationScreen.class);
-        intent.putExtra("Controller", cont);
+    /**
+     *
+     *
+     */
+    protected void register(View view){
+        Intent intent = new Intent(this, RegistrationScreen.class);
+        intent.putExtra("Controller", controller);
         startActivity(intent);
-
     }
 }

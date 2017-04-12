@@ -1,4 +1,4 @@
-package se.mah.ag7406.cifr.cifrClient;
+package se.mah.ag7406.cifr.client;
 
 /**
  * Created by Viktor on 2017-04-07.

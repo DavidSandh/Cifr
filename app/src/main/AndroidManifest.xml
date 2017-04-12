@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".cifrClient.CifrHomeScreen">
+        <activity android:name=".client.HomeScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,30 +24,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".cifrClient.CifrContactList"
+            android:name=".client.ContactList"
             android:label="Contacts"
-            android:parentActivityName=".cifrClient.CifrHomeScreen" />
+            android:parentActivityName=".client.HomeScreen" />
         <activity
-            android:name=".cifrClient.CifrLoginScreen"
-            android:parentActivityName=".cifrClient.CifrHomeScreen">
+            android:name=".client.LoginScreen"
+            android:parentActivityName=".client.HomeScreen">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".cifrClient.CifrHomeScreen" />
+                android:value=".client.HomeScreen" />
         </activity>
-        <activity android:name=".cifrClient.ConversationList" />
+        <activity android:name=".client.ConversationList" />
         <activity
-            android:name=".cifrClient.CifrRegistrationScreen"
-            android:parentActivityName=".cifrClient.CifrHomeScreen">
+            android:name=".client.RegistrationScreen"
+            android:parentActivityName=".client.HomeScreen">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".cifrClient.CifrHomeScreen" />
+                android:value=".client.HomeScreen" />
         </activity>
-        <activity android:name=".cifrClient.Conversation" />
-        <activity android:name=".cifrClient.CreateMessage"></activity>
+        <activity android:name=".client.Conversation" />
+        <activity android:name=".client.CreateMessage"></activity>
     </application>
 
 </manifest>

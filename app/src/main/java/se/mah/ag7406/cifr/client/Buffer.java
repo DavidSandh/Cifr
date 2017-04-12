@@ -1,4 +1,4 @@
-package se.mah.ag7406.cifr.cifrClient;
+package se.mah.ag7406.cifr.client;
 
 import java.util.LinkedList;
 

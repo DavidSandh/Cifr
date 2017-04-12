@@ -1,4 +1,4 @@
-package se.mah.ag7406.cifr.cifrClient;
+package se.mah.ag7406.cifr.client;
 
 import android.util.Log;
 
@@ -36,6 +36,7 @@ public class Client {
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
             //output.writeObject(new Message(Message.LOGIN, "Tjeeeenare", "tjena"));
+            output.flush();
             System.out.println("eftersocket");
         }catch(IOException e){}
         listener = new ServerListener();
@@ -46,6 +47,7 @@ public class Client {
 
     public void sendRequest(Message message){
         try {
+            clientRun();
             output.writeObject(message);
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,4 +1,4 @@
-package se.mah.ag7406.cifr.cifrClient;
+package se.mah.ag7406.cifr.client;
 
 import java.io.Serializable;
 
@@ -20,7 +20,7 @@ public class Controller implements Serializable {
                 client.clientRun();
 
             }
-        }.start();
+        };
     }
 
     public boolean checkLogin(final String Username, final String Password){
