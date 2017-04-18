@@ -81,7 +81,7 @@
         android:background="@android:color/transparent"
         android:elevation="0dp"
         android:fontFamily="sans-serif-condensed"
-        android:onClick="logIn"
+        android:onClick="login"
         android:text="Done"
         android:textAllCaps="false"
         android:textColor="@android:color/white"

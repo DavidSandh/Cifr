@@ -18,16 +18,13 @@ public class Client {
     private int port;
     private ObjectOutputStream output;
     private ObjectInputStream input;
-    private boolean active = false;
-    private boolean response = false;
-    private ServerListener listener;
-    private Buffer<Message> buffer = new Buffer();
+    private Controller controller;
 
-    public Client(String IP, int port) {
+    public Client(String IP, int port, Controller controller) {
         this.IP = IP;
         this.port=port;
+        this.controller = controller;
 
-        //clientRun();
     }
     public void clientRun() {
         try {
@@ -35,50 +32,51 @@ public class Client {
             Socket socket = new Socket(IP, port);
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
-            //output.writeObject(new Message(Message.LOGIN, "Tjeeeenare", "tjena"));
             output.flush();
             System.out.println("eftersocket");
         }catch(IOException e){}
-        listener = new ServerListener();
+        new ServerListener().start();
     }
-    /**
-     * Test av jens, behöver input av er andra
-     */
 
     public void sendRequest(Message message){
         try {
-            clientRun();
             output.writeObject(message);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public boolean response(){  //behöver synchronizera, via active?
 
-        return response;
-    }
     public void handleEvent(Message message){
-        // om meddelandet är svar på en förfrågan. via type?
-        response = message.getStatus();
-        active = true;
-        // annars kör på meddelandehantering.
+        System.out.println("i Handleevent");
+        int type = message.getType();
+        switch (type){
+            case 0 : controller.responseLogin(message.getStatus());
+                    System.out.println("i case 0");
+                    break;//Login
+            case 1 : controller.responseRegister(message.getStatus());
+                    System.out.println("i case 1");
+                    break; //Register
+            case 2 : controller.recieveMessage(message);
+                    System.out.println("i case 2");
+                    break;//Message
+            case 3 : System.out.println("i case 3");
+                    break;//Status
+
+        }
     }
 
     private class ServerListener extends Thread {
 
-        public ServerListener() {
-            Log.d("Serverlistener  ", "Konstruktor");
-
-            start();
-        }
         public void run() {
             Object message;
             Log.d("Serverlistener  ", "i run metod");
             while (true) {
                 try {
+                    System.out.println("väntar på ett meddelande");
                     message = (Object)input.readObject();
                     Message mess = (Message)message;
-                    handleEvent(mess);//tillagt av jens för test
+                    System.out.println("fått ett meddelande");
+                    handleEvent(mess);
                 } catch (IOException ioe) {
                     ioe.printStackTrace();
                 } catch (ClassNotFoundException cnfe) {

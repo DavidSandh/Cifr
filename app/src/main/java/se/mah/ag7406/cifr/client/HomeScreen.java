@@ -12,7 +12,7 @@ import se.mah.ag7406.cifr.R;
  * The Home-Screen for the Cifr-app
  */
 public class HomeScreen extends AppCompatActivity {
-    private boolean loggedIn = true;
+
     private Controller controller = new Controller();
 
     /**
@@ -26,16 +26,17 @@ public class HomeScreen extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.cifr_home_screen);
-        controller = new Controller();
+        this.controller = new Controller();
     }
 
     /**
      *
      *
      */
-    protected void login(View view){
+
+    public void login(View view){
         Intent intent = new Intent(this, LoginScreen.class);
-        intent.putExtra("Controller", controller);
+        intent.putExtra("Controller", this.controller);
         startActivity(intent);
     }
 

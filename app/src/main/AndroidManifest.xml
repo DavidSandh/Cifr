@@ -47,7 +47,7 @@
                 android:value=".client.HomeScreen" />
         </activity>
         <activity android:name=".client.Conversation" />
-        <activity android:name=".client.CreateMessage"></activity>
+        <activity android:name=".client.CreateMessage" />
     </application>
 
 </manifest>

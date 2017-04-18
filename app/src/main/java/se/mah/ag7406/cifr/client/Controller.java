@@ -1,5 +1,8 @@
 package se.mah.ag7406.cifr.client;
 
+import android.content.Intent;
+import android.util.Log;
+
 import java.io.Serializable;
 
 import message.Message;
@@ -9,44 +12,60 @@ import message.Message;
  */
 
 public class Controller implements Serializable {
-    private static Client client = new Client("10.0.2.2",1337);
+    private Client client;
+    private LoginScreen login;
+    private RegistrationScreen register;
 
-    public Controller(){
-
-    }
     public void startClient(){
+        this.client = new Client("10.0.2.2",1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
-
             }
-        };
+        }.start();
     }
 
-    public boolean checkLogin(final String Username, final String Password){
-        startClient();
-        boolean response;
-        System.out.println("Checkogin");
+    public void saveToMachine(Object object){
+
+    }
+
+    public void recieveMessage(Message message){
+
+    }
+
+    public void recieveUserList(){
+
+    }
+
+    public void getGridItems(){
+
+    }
+
+    public void checkLogin(final String Username, final String Password, LoginScreen login){
+        this.login = login;
         new Thread() {
             public void run(){
                 client.sendRequest(new Message(Message.LOGIN, Username, Password));
             }
         }.start();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
 
-        }
-        response = client.response();
-        return response;
+    }
+    public void responseLogin(boolean response){
+        login.response(response);
     }
 
 
-    public boolean checkUsername(String name) {
-        //kollar om användarnamnet är upptaget
-        //kollar mot servern
-        return true;
+    public void checkUsername(final String name,final String password, RegistrationScreen register) {
+        this.register = register;
+        new Thread() {
+            public void run(){
+                client.sendRequest(new Message(Message.REGISTER, name, password));
+            }
+        }.start();
+    }
+
+    public void responseRegister(boolean response){
+        register.response(response);
     }
 
     public boolean checkpassword(String pass1, String pass2) {

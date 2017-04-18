@@ -26,6 +26,7 @@ public class LoginScreen extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_cifr_login_screen);
         controller = (Controller)getIntent().getSerializableExtra("Controller");
+        controller.startClient();
     }
 
     /**
@@ -38,13 +39,23 @@ public class LoginScreen extends AppCompatActivity {
         String name = username.getText().toString();
         String pass = password.getText().toString();
         Log.d("före if sats", "username: "+ name + "passwoed: " + pass);
-        if (controller.checkLogin(name, pass)){
+        controller.checkLogin(name, pass, this);
+    }
+
+    public void response(boolean response){
+        System.out.println("i response i login");
+        if(response){
             Intent intent = new Intent(this, ConversationList.class);
             startActivity(intent);
             Log.d("efter if sats", "vart true = kontakt med controller från login");
         } else {
-            Toast.makeText(this, "Felaktigt lösenord eller användarnamn!",
-                    Toast.LENGTH_LONG).show();
+            this.runOnUiThread(new Runnable() {
+                public void run() {
+                    Toast.makeText(LoginScreen.this , "Felaktigt lösenord eller användarnamn!",
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+
         }
     }
 }
