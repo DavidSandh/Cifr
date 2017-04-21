@@ -32,9 +32,6 @@ public class ConversationList extends AppCompatActivity {
         recyclerView.setAdapter(recyclerAdapter);
         Log.d("setAdapter","körd");
 
-
-
-
     }
 
     public void setGridData() { //Testmetod. Ska ändra att ta emot en parameter med array-datan när test inte behövs.
