@@ -1,7 +1,6 @@
 package se.mah.ag7406.cifr.client;
 
-import android.content.Intent;
-import android.util.Log;
+import android.content.Context;
 
 import java.io.Serializable;
 
@@ -15,6 +14,13 @@ public class Controller implements Serializable {
     private Client client;
     private LoginScreen login;
     private RegistrationScreen register;
+    private Context context;
+    private FileHandler filehandler;
+
+    public Controller(Context context){
+        this.context = context;
+        filehandler = new FileHandler(context);
+    }
 
     public void startClient(){
         this.client = new Client("10.0.2.2",1337, this);
@@ -24,11 +30,7 @@ public class Controller implements Serializable {
             }
         }.start();
     }
-
-    public void saveToMachine(Object object){
-
-    }
-
+    
     public void recieveMessage(Message message){
 
     }
