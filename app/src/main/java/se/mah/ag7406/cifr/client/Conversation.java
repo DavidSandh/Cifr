@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import se.mah.ag7406.cifr.R;
 
@@ -24,6 +25,8 @@ public class Conversation extends AppCompatActivity {
         setContentView(R.layout.activity_conversation);
         //controller.getConversationData(conversationUsername); //Metod i controller för att få data till conversationen. /Viktor
         setConversationData();
+        TextView usernameTextView = (TextView) findViewById(R.id.conversationUser);
+        usernameTextView.setText(conversationUsername);
         recyclerView = (RecyclerView) findViewById(R.id.conversationView);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
