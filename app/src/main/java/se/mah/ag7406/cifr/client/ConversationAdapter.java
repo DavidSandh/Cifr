@@ -49,6 +49,11 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
             super(view);
             imageView = (ImageView) view.findViewById(R.id.conversationImageView);
             textView = (TextView) view.findViewById(R.id.conversationTextView);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    //Gör bilden fullskärm. Ska kanske, kanske inte vara här.
+                }
+            });
         }
     }
 }

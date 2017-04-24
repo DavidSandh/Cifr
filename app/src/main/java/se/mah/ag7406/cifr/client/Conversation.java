@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import se.mah.ag7406.cifr.R;
 
@@ -13,15 +15,18 @@ public class Conversation extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ConversationItem[] conversationItems;
+    private String conversationUsername;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
+        conversationUsername = intent.getStringExtra("username");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
-        //controller.getConversationData(username); //Metod i controller för att få data till conversationen. /Viktor
+        //controller.getConversationData(conversationUsername); //Metod i controller för att få data till conversationen. /Viktor
         setConversationData();
+        TextView usernameTextView = (TextView) findViewById(R.id.conversationUser);
+        usernameTextView.setText(conversationUsername);
         recyclerView = (RecyclerView) findViewById(R.id.conversationView);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -43,7 +48,12 @@ public class Conversation extends AppCompatActivity {
         conversationItems[2] = item3;
         conversationItems[3] = item4;
         conversationItems[4] = item5;
+    }
 
+    public void sendMessageActivityButton(View view) {
+        Intent intent = new Intent(this, CreateMessage.class);
+        intent.putExtra("username", conversationUsername);
+        startActivity(intent);
     }
 
 }

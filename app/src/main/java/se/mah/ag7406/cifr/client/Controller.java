@@ -91,7 +91,7 @@ public class Controller implements Serializable {
 
     public boolean checkUsernameFormat(String name) {
         // KOllar formatet på username
-        if (name.length()>6 && name.length()<15){
+        if (name.length()>=6 && name.length()<=15){
             for(int i=0;i<name.length(); i++){
                 if(name.charAt(i)==','){
                     return false;
