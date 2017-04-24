@@ -1,10 +1,12 @@
 package se.mah.ag7406.cifr.client;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 
 import se.mah.ag7406.cifr.R;
 
@@ -43,4 +45,21 @@ public class ConversationList extends AppCompatActivity {
         gridItems[1] = gridItem2;
         gridItems[2] = gridItem3;
     }
+    protected void contacts(MenuItem item){
+        Intent intent = new Intent(this, ContactList.class);
+        startActivity(intent);
+    }
+    public void addContact(MenuItem item){
+
+    }
+    public void search(MenuItem item){
+
+    }
+    public void blocked(MenuItem item){
+
+    }
+    public void logout(MenuItem item){
+
+    }
+
 }

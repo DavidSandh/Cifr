@@ -17,9 +17,9 @@ public class Controller implements Serializable {
     private Context context;
     private FileHandler filehandler;
 
-    public Controller(Context context){
-        this.context = context;
-        filehandler = new FileHandler(context);
+    public Controller(){
+        //this.context = context;
+        //filehandler = new FileHandler(context);
     }
 
     public void startClient(){
@@ -30,7 +30,7 @@ public class Controller implements Serializable {
             }
         }.start();
     }
-    
+
     public void recieveMessage(Message message){
 
     }
@@ -42,7 +42,7 @@ public class Controller implements Serializable {
     public void getGridItems(){
 
     }
-
+    
     public void checkLogin(final String Username, final String Password, LoginScreen login){
         this.login = login;
         new Thread() {
