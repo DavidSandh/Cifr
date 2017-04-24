@@ -11,6 +11,8 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:onClick="chooseImage"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,8 +25,8 @@
         android:layout_marginTop="28dp"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:text="@string/createMessageText"
         android:gravity="top|left"
+        android:hint="@string/createMessageText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createMessageImage" />

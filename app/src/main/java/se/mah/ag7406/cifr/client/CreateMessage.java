@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 import java.io.IOException;
@@ -20,9 +21,9 @@ public class CreateMessage extends AppCompatActivity {
         setContentView(R.layout.activity_create_message);
     }
 
-    public void chooseImage() {
+    public void chooseImage(View view) {
         Intent intent = new Intent();
-        intent.setType("image");
+        intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,"Choose image"), PICK_IMAGE_REQUEST);
     }
