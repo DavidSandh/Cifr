@@ -22,17 +22,11 @@ public class ConversationList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation_list);
         setGridData(); //Via controller.
-        Log.d("setGridData","körd");
         recyclerView = (RecyclerView) findViewById(R.id.conversationList);
-        Log.d("findviewbyId","körd");
         layoutManager = new GridLayoutManager(this, 2); //Hoppas att 2 betyder två kolumner. /Viktor
-        Log.d("new gridlayoutManager","körd");
         recyclerView.setLayoutManager(layoutManager);
-        Log.d("setLayoutManager","körd");
         recyclerAdapter = new ConversationListAdapter(this, gridItems);
-        Log.d("new CustomRecycler","körd");
         recyclerView.setAdapter(recyclerAdapter);
-        Log.d("setAdapter","körd");
 
     }
 

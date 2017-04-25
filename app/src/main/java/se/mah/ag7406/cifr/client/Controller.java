@@ -35,8 +35,32 @@ public class Controller implements Serializable {
 
     }
 
-    public void getGridItems(){
+    /**
+     * Gathers the data for the screen displaying the list of conversations.
+     * This data consists of a GridItem array. GridItem is an object containing
+     * the last sent image, and the username of the conversation partner. Each item
+     * of the array represents an ongoing conversation.
+     * @param username Username of the logged in user, used as a reference for the
+     *                 data gathering.
+     * @return The array of gathered GridItems for display.
+     */
+    public GridItem[] getGridItems(String username){
+        //Ta username, som är användaren, fyll arrayen med data.
+        //Den referensen behövs kanske inte ens, beror på hur datan ska sparas.
+        GridItem[] items = new GridItem[5];
+        return items;
+    }
 
+    /**
+     * Gathers the data of a conversation, to be displayed in the Conversation
+     * activity. The data is collected in an array of ConversationItems, which consist
+     * of the time a message was sent, and the image of the message.
+     * @param username Username of the conversation partner, used as a reference for data gathering.
+     * @return The array of gathered ConversationItems for display.
+     */
+    public ConversationItem[] getConversation(String username) {
+        ConversationItem[] conversation = new ConversationItem[5];
+        return conversation;
     }
     
     public void checkLogin(final String Username, final String Password, LoginScreen login){
