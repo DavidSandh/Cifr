@@ -13,7 +13,7 @@ import se.mah.ag7406.cifr.R;
  */
 public class HomeScreen extends AppCompatActivity {
 
-    private Controller controller;
+    private Controller controller = new Controller();
 
     /**
      *

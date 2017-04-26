@@ -20,6 +20,7 @@ public class FileHandler {
     private File[] files;
 
     public FileHandler(){
+        this.context = SuperClass.getContext();
         update();
     }
     public void update(){
