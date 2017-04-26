@@ -1,6 +1,7 @@
 package se.mah.ag7406.cifr.client;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,11 +39,11 @@ public class Conversation extends AppCompatActivity {
     public void setConversationData() { //Ska kallas i controllern? /Viktor
         //Test-data för tillfället.
         conversationItems = new ConversationItem[5];
-        ConversationItem item1 = new ConversationItem("Klockan är tio", R.mipmap.ic_launcher_round);
-        ConversationItem item2 = new ConversationItem("Klockan är elva", R.mipmap.ic_launcher_round);
-        ConversationItem item3 = new ConversationItem("Klockan är tolv", R.mipmap.ic_launcher_round);
-        ConversationItem item4 = new ConversationItem("Klockan är tretton", R.mipmap.ic_launcher_round);
-        ConversationItem item5 = new ConversationItem("Klockan är fjorton", R.mipmap.ic_launcher_round);
+        ConversationItem item1 = new ConversationItem("Klockan är tio", BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_round));
+        ConversationItem item2 = new ConversationItem("Klockan är elva", BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_round));
+        ConversationItem item3 = new ConversationItem("Klockan är tolv", BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_round));
+        ConversationItem item4 = new ConversationItem("Klockan är tretton", BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_round));
+        ConversationItem item5 = new ConversationItem("Klockan är fjorton", BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_round));
         conversationItems[0] = item1;
         conversationItems[1] = item2;
         conversationItems[2] = item3;
