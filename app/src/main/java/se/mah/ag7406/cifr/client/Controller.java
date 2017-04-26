@@ -31,8 +31,9 @@ public class Controller implements Serializable {
 
     }
 
-    public void recieveUserList(){
-
+    public String[] recieveUserList(){
+        String[] userlist = new String[5];
+        return userlist;
     }
 
     /**

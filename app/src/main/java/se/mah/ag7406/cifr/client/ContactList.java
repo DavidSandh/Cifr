@@ -13,11 +13,13 @@ public class ContactList extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private String[] usernames;
+    private Controller controller;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cifr_contact_list);
-        //controller fyller datan setContacts.
+        controller = (Controller)getIntent().getSerializableExtra("Controller");
+        usernames = controller.recieveUserList(); //controllern fyller listan med data.
         recyclerView = (RecyclerView) findViewById(R.id.contactListView);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

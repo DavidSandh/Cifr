@@ -44,6 +44,7 @@ public class ConversationList extends AppCompatActivity {
     }
     protected void contacts(MenuItem item){
         Intent intent = new Intent(this, ContactList.class);
+        intent.putExtra("Controller", controller);
         startActivity(intent);
     }
     public void addContact(MenuItem item){
