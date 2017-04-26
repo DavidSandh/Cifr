@@ -15,13 +15,16 @@ public class ConversationList extends AppCompatActivity {
     private RecyclerView.Adapter recyclerAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private GridItem[] gridItems; //null just nu /Viktor
+    private Controller controller;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation_list);
-        setGridData(); //Via controller.
+        controller = (Controller)getIntent().getSerializableExtra("Controller");
+        gridItems = controller.getGridItems("username"); //Om inte username redan finns i controllern?
+        setGridData(); //Via controller, detta är för test.
         recyclerView = (RecyclerView) findViewById(R.id.conversationList);
         layoutManager = new GridLayoutManager(this, 2); //Hoppas att 2 betyder två kolumner. /Viktor
         recyclerView.setLayoutManager(layoutManager);
