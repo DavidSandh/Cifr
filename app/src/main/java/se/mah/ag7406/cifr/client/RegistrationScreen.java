@@ -60,6 +60,7 @@ public class RegistrationScreen extends AppCompatActivity {
     public void response(boolean response){
         if(response){
             Intent intent = new Intent(this, ConversationList.class);
+            intent.putExtra("Controller", this.controller);
             startActivity(intent);
         } else {
             this.runOnUiThread(new Runnable() {
