@@ -25,6 +25,7 @@ public class FileHandler {
 
     public FileHandler(){
         this.context = SuperClass.getContext();
+        file = new File(context.getFilesDir()+ File.separator+"messages");
         update();
         fortest();
     }
@@ -37,7 +38,7 @@ public class FileHandler {
     }
 
     public void update(){
-        file = context.getFilesDir();
+
         files = file.listFiles();
     }
 
