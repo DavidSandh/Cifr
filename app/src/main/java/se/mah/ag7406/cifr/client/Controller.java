@@ -9,13 +9,13 @@ import message.Message;
  */
 
 public class Controller implements Serializable {
-    private Client client;
-    private LoginScreen login;
-    private RegistrationScreen register;
-    private FileHandler filehandler;
+    private transient Client client;
+    private transient LoginScreen login;
+    private transient RegistrationScreen register;
+    private transient FileHandler filehandler;
 
     public Controller(){
-        filehandler = new FileHandler();
+//        filehandler = new FileHandler();
     }
 
     public void startClient(){

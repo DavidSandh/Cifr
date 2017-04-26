@@ -28,6 +28,6 @@ public class ContactList extends AppCompatActivity {
     }
 
     public void setContacts(String[] data) {
-        this.usernames = data;
+//        this.usernames = data;
     }
 }

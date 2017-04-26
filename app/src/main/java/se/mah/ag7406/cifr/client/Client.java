@@ -12,8 +12,6 @@ import message.Message;
 
 
 public class Client {
-
-
     private String IP;
     private int port;
     private ObjectOutputStream output;
