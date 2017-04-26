@@ -45,6 +45,10 @@ public class LoginScreen extends AppCompatActivity {
     public void response(boolean response){
         System.out.println("i response i login");
         if(response){
+            //för test
+            EditText username = (EditText) findViewById(R.id.usernamelogin); // för test
+            String name = username.getText().toString(); // för test
+            controller.setMyName(name); //För test
             Intent intent = new Intent(this, ConversationList.class);
             intent.putExtra("Controller", controller);
             Log.d("efter if sats"

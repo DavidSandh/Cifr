@@ -1,7 +1,11 @@
 package se.mah.ag7406.cifr.client;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import message.Message;
@@ -15,6 +19,8 @@ public class Controller implements Serializable {
     private transient LoginScreen login;
     private transient RegistrationScreen register;
     private transient FileHandler filehandler;
+    private transient String[] userList;
+    private transient String myName;
 
     public Controller(){
         filehandler = new FileHandler();
@@ -28,11 +34,15 @@ public class Controller implements Serializable {
             }
         }.start();
     }
+    public void setMyName(String name){
+        this.myName = name;
+    }
 
-    public void readFiles(){
-        Message[] messages =(Message[])filehandler.read();
-        HashMap<String, ArrayList> map = new HashMap();
+    public HashMap<String, ArrayList<Message>> readFiles(){
+        Message[] messages =(Message[])filehandler.read();// måste kolla om null;
+        HashMap<String, ArrayList<Message>> map = new HashMap();
         ArrayList<Message> messageArrayList;
+        ArrayList<String> senders = new ArrayList();
         for(int i =0; i<messages.length; i++){
             String sender = messages[i].getSender();
             if(map.containsKey(sender)){
@@ -41,27 +51,48 @@ public class Controller implements Serializable {
                 map.remove(sender);
                 map.put(sender, messageArrayList);
             } else {
+                senders.add(sender);
                 messageArrayList = new ArrayList<>();
                 messageArrayList.add(messages[i]);
                 map.put(sender, messageArrayList);
             }
         }
-        for(int i=0; i<map.size(); i++){
-            
+        ArrayList<Message> myMessages = map.get(myName);
+        for(int i=0;i< myMessages.size();i++){
+            Message message = myMessages.get(i);
+            ArrayList<Message> reciever = map.get(message.getRecipient());
+            reciever.add(message);
+            map.remove(message.getRecipient());
+            map.put(message.getRecipient(), reciever);
         }
-
+        map.remove(myName);
+        setUserList((String[])senders.toArray());
+        for(int i=0; i<senders.size(); i++){
+            messageArrayList = map.get(senders.get(i));
+            Collections.sort(messageArrayList, new Comparator<Message>() {
+                @Override
+                public int compare(Message message, Message t1) {
+                    return message.getDate().compareTo(t1.getDate());
+                }
+            });
+            map.remove(senders.get(i));
+            map.put(senders.get(i), messageArrayList);
+        }
+        return map;
     }
     public void writeFile(Message message){
         filehandler.saveToMachine(message);
     }
 
     public void recieveMessage(Message message){
-
+        filehandler.saveToMachine(message);
+    }
+    public void setUserList(String[] list){
+        this.userList = list;
     }
 
     public String[] recieveUserList(){
-        String[] userlist = new String[5];
-        return userlist;
+        return userList;
     }
 
     /**
@@ -76,6 +107,16 @@ public class Controller implements Serializable {
     public GridItem[] getGridItems(String username){
         //Ta username, som är användaren, fyll arrayen med data.
         //Den referensen behövs kanske inte ens, beror på hur datan ska sparas.
+        HashMap<String, ArrayList<Message>> map = readFiles();
+        String[] userlist = recieveUserList();
+        ArrayList<GridItem> gridList = new ArrayList<>();
+        for (int i=0; i<userlist.length; i++){
+            if(map.containsKey(userlist[i])&&userlist[i]!=myName){
+                ArrayList<Message> arr = map.get(userlist[i]);
+                gridList.add(new GridItem(userlist[i],(Bitmap)arr.get(0).getImage()));
+            }
+        }
+        //return (GridItem[])gridList.toArray();
         GridItem[] items = new GridItem[5];
         return items;
     }
@@ -88,6 +129,13 @@ public class Controller implements Serializable {
      * @return The array of gathered ConversationItems for display.
      */
     public ConversationItem[] getConversation(String username) {
+        HashMap<String, ArrayList<Message>> map = readFiles();
+        ArrayList<Message> list = map.get(username);
+        ArrayList<ConversationItem> arrayList = new ArrayList();
+        for(int i=0;i<list.size();i++){
+            arrayList.add(new ConversationItem(list.get(i).getDate().toString(), (Bitmap)list.get(i).getImage()));
+        }
+        //return (ConversationItem[])arrayList.toArray();
         ConversationItem[] conversation = new ConversationItem[5];
         return conversation;
     }

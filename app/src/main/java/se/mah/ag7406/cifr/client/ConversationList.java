@@ -1,6 +1,7 @@
 package se.mah.ag7406.cifr.client;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -34,9 +35,9 @@ public class ConversationList extends AppCompatActivity {
 
     public void setGridData() { //Testmetod. Ska ändra att ta emot en parameter med array-datan när test inte behövs.
         gridItems = new GridItem[3];
-        GridItem gridItem1 = new GridItem("Sven",R.mipmap.ic_launcher);
-        GridItem gridItem2 = new GridItem("Klas",R.mipmap.ic_launcher_round);
-        GridItem gridItem3 = new GridItem("Olaf",R.mipmap.ic_launcher);
+        GridItem gridItem1 = new GridItem("Sven", BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
+        GridItem gridItem2 = new GridItem("Klas",BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_round));
+        GridItem gridItem3 = new GridItem("Olaf",BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
         gridItems[0] = gridItem1;
         gridItems[1] = gridItem2;
         gridItems[2] = gridItem3;

@@ -1,6 +1,7 @@
 package se.mah.ag7406.cifr.client;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,6 +10,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+
+import message.Message;
+import se.mah.ag7406.cifr.R;
 
 /**
  * Created by Jens on 2017-04-19.
@@ -22,7 +26,16 @@ public class FileHandler {
     public FileHandler(){
         this.context = SuperClass.getContext();
         update();
+        fortest();
     }
+    public void fortest(){
+        //int type, String sender, String recipient, Object image
+        saveToMachine(new Message(0,"klas", "Testare", BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder1)));
+        saveToMachine(new Message(0,"Testare", "klas", BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder2)));
+        saveToMachine(new Message(0,"klas", "Testare", BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder3)));
+        saveToMachine(new Message(0,"Testare", "klas", BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder4)));
+    }
+
     public void update(){
         file = context.getFilesDir();
         files = file.listFiles();

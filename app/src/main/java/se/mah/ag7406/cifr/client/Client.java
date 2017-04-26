@@ -59,6 +59,8 @@ public class Client {
                     break;//Message
             case 3 : System.out.println("i case 3");
                     break;//Status
+            //case 4 : controller.setUserList(message.getUserList);
+            //        break;
         }
     }
 
