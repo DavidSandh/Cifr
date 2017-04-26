@@ -31,18 +31,25 @@ public class Controller implements Serializable {
 
     public void readFiles(){
         Message[] messages =(Message[])filehandler.read();
-        HashMap map = new HashMap();
+        HashMap<String, ArrayList> map = new HashMap();
+        ArrayList<Message> messageArrayList;
         for(int i =0; i<messages.length; i++){
             String sender = messages[i].getSender();
             if(map.containsKey(sender)){
-                ArrayList<Message> messageArrayList = map.get(sender);
-
+                messageArrayList = map.get(sender);
+                messageArrayList.add(messages[i]);
+                map.remove(sender);
+                map.put(sender, messageArrayList);
             } else {
-                ArrayList<Message> messageArrayList = new ArrayList<>();
+                messageArrayList = new ArrayList<>();
                 messageArrayList.add(messages[i]);
                 map.put(sender, messageArrayList);
             }
         }
+        for(int i=0; i<map.size(); i++){
+            
+        }
+
     }
     public void writeFile(Message message){
         filehandler.saveToMachine(message);
