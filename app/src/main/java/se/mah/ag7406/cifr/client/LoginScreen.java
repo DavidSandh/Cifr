@@ -47,8 +47,10 @@ public class LoginScreen extends AppCompatActivity {
         if(response){
             Intent intent = new Intent(this, ConversationList.class);
             intent.putExtra("Controller", controller);
+            Log.d("efter if sats"
+                    , "vart true = kontakt med controller från login");
             startActivity(intent);
-            Log.d("efter if sats", "vart true = kontakt med controller från login");
+
         } else {
             this.runOnUiThread(new Runnable() {
                 public void run() {

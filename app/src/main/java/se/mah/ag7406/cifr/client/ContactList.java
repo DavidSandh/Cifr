@@ -2,6 +2,7 @@ package se.mah.ag7406.cifr.client;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -28,6 +29,9 @@ public class ContactList extends AppCompatActivity {
     }
 
     public void setContacts(String[] data) {
-        this.usernames = data;
+//        this.usernames = data;
+        usernames[0] = new String("Sven");
+        usernames[1] = new String("Klas");
+        usernames[2] = new String("Olaf");
     }
 }

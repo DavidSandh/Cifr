@@ -25,7 +25,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     }
 
     public ContactListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        TextView view = (TextView) inflater.inflate(R.layout.contact_item, parent, false);
+        View view = (TextView) inflater.inflate(R.layout.contact_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -43,9 +43,9 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView textView;
         private Context context;
-        public ViewHolder(TextView view) {
+        public ViewHolder(View view) {
             super(view);
-            textView = view;
+            textView = (TextView) view;
             textView.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     final Intent intent;

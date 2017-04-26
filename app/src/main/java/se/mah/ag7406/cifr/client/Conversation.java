@@ -23,7 +23,7 @@ public class Conversation extends AppCompatActivity {
         conversationUsername = intent.getStringExtra("username");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
-        //controller.getConversationData(conversationUsername); //Metod i controller för att få data till conversationen. /Viktor
+        //conversationItems = controller.getConversationData(conversationUsername); //Metod i controller för att få data till conversationen. /Viktor
         setConversationData();
         TextView usernameTextView = (TextView) findViewById(R.id.conversationUser);
         usernameTextView.setText(conversationUsername);

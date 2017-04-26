@@ -1,6 +1,8 @@
 package se.mah.ag7406.cifr.client;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import message.Message;
 
@@ -9,10 +11,10 @@ import message.Message;
  */
 
 public class Controller implements Serializable {
-    private Client client;
-    private LoginScreen login;
-    private RegistrationScreen register;
-    private FileHandler filehandler;
+    private transient Client client;
+    private transient LoginScreen login;
+    private transient RegistrationScreen register;
+    private transient FileHandler filehandler;
 
     public Controller(){
         filehandler = new FileHandler();
@@ -25,6 +27,32 @@ public class Controller implements Serializable {
                 client.clientRun();
             }
         }.start();
+    }
+
+    public void readFiles(){
+        Message[] messages =(Message[])filehandler.read();
+        HashMap<String, ArrayList> map = new HashMap();
+        ArrayList<Message> messageArrayList;
+        for(int i =0; i<messages.length; i++){
+            String sender = messages[i].getSender();
+            if(map.containsKey(sender)){
+                messageArrayList = map.get(sender);
+                messageArrayList.add(messages[i]);
+                map.remove(sender);
+                map.put(sender, messageArrayList);
+            } else {
+                messageArrayList = new ArrayList<>();
+                messageArrayList.add(messages[i]);
+                map.put(sender, messageArrayList);
+            }
+        }
+        for(int i=0; i<map.size(); i++){
+            
+        }
+
+    }
+    public void writeFile(Message message){
+        filehandler.saveToMachine(message);
     }
 
     public void recieveMessage(Message message){
