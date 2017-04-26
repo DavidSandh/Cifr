@@ -49,6 +49,7 @@
         </activity>
         <activity android:name=".client.Conversation" />
         <activity android:name=".client.CreateMessage" />
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>
