@@ -26,6 +26,7 @@ public class HomeScreen extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.cifr_home_screen);
+
         this.controller = new Controller();
     }
 

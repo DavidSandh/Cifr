@@ -32,7 +32,9 @@ public class Client {
             input = new ObjectInputStream(socket.getInputStream());
             output.flush();
             System.out.println("eftersocket");
-        }catch(IOException e){}
+        }catch(IOException e){
+
+        }
         new ServerListener().start();
     }
 
@@ -48,7 +50,7 @@ public class Client {
         System.out.println("i Handleevent");
         int type = message.getType();
         switch (type){
-            case 0 : controller.responseLogin(message.getStatus());
+            case 0 : controller.responseLogin(message);
                     System.out.println("i case 0");
                     break;//Login
             case 1 : controller.responseRegister(message.getStatus());

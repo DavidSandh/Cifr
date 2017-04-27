@@ -1,6 +1,7 @@
 package se.mah.ag7406.cifr.client;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import message.Message;
 import se.mah.ag7406.cifr.R;
 
 public class LoginScreen extends AppCompatActivity {
@@ -42,9 +45,10 @@ public class LoginScreen extends AppCompatActivity {
         controller.checkLogin(name, pass, this);
     }
 
-    public void response(boolean response){
+    public void response(Message response){
         System.out.println("i response i login");
-        if(response){
+
+        if(response.getStatus()){
             //för test
             EditText username = (EditText) findViewById(R.id.usernamelogin); // för test
             String name = username.getText().toString(); // för test
@@ -54,7 +58,6 @@ public class LoginScreen extends AppCompatActivity {
             Log.d("efter if sats"
                     , "vart true = kontakt med controller från login");
             startActivity(intent);
-
         } else {
             this.runOnUiThread(new Runnable() {
                 public void run() {

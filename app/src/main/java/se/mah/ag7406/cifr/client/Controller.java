@@ -152,7 +152,7 @@ public class Controller implements Serializable {
         }.start();
 
     }
-    public void responseLogin(boolean response){
+    public void responseLogin(Message response){
         login.response(response);
     }
 
