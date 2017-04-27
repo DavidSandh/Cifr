@@ -6,4 +6,6 @@
     android:layout_centerVertical="true"
     android:textSize="22dp"
     android:text="TextView"
+    android:textAlignment="center"
+    android:padding="16dp"
     xmlns:android="http://schemas.android.com/apk/res/android" />

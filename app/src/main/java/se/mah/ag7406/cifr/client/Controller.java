@@ -23,7 +23,7 @@ public class Controller implements Serializable {
     private transient String myName;
 
     public Controller(){
-//        filehandler = new FileHandler();
+        filehandler = new FileHandler();
     }
 
     public void startClient(){
