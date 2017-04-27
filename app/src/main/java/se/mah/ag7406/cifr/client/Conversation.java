@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import se.mah.ag7406.cifr.R;
 
@@ -17,6 +19,7 @@ public class Conversation extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private ConversationItem[] conversationItems;
     private String conversationUsername;
+    private Controller controller;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,7 @@ public class Conversation extends AppCompatActivity {
         conversationUsername = intent.getStringExtra("username");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
+        controller = (Controller)getIntent().getSerializableExtra("Controller");
         //conversationItems = controller.getConversationData(conversationUsername); //Metod i controller för att få data till conversationen. /Viktor
         setConversationData();
         TextView usernameTextView = (TextView) findViewById(R.id.conversationUser);
@@ -55,6 +59,22 @@ public class Conversation extends AppCompatActivity {
         Intent intent = new Intent(this, CreateMessage.class);
         intent.putExtra("username", conversationUsername);
         startActivity(intent);
+    }
+
+
+    protected void contacts(MenuItem item){
+        Intent intent = new Intent(this, ContactList.class);
+        intent.putExtra("Controller", controller);
+        startActivity(intent);
+    }
+    public void search(MenuItem item){
+
+    }
+    public void blocked(MenuItem item){
+
+    }
+    public void logout(MenuItem item){
+
     }
 
 }

@@ -26,8 +26,9 @@ public class FileHandler {
     public FileHandler(){
         this.context = SuperClass.getContext();
         file = new File(context.getFilesDir()+ File.separator+"messages");
-        update();
         fortest();
+        update();
+
     }
     public void fortest(){
         //int type, String sender, String recipient, Object image
@@ -38,7 +39,6 @@ public class FileHandler {
     }
 
     public void update(){
-
         files = file.listFiles();
     }
 
@@ -53,7 +53,7 @@ public class FileHandler {
     public void saveToMachine(Object object){
         update();
         String filename;
-        if(files.length != 0){
+        if(files != null){
             String lastFile = files[files.length-1].getName();
             String[] parts = lastFile.split("_");
             int number = Integer.parseInt(parts[1])+1;
@@ -93,7 +93,7 @@ public class FileHandler {
         update();
         ArrayList<Object> list = new ArrayList();
         Object obj;
-        for (int i=0; i < file.listFiles().length; i++) {
+        for (int i=0; i < files.length; i++) {
             obj = readObject(file + "/file_" + i+1);
             list.add(obj);
         }

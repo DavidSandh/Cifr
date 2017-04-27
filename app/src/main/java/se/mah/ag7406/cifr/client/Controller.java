@@ -23,7 +23,7 @@ public class Controller implements Serializable {
     private transient String myName;
 
     public Controller(){
-        filehandler = new FileHandler();
+//        filehandler = new FileHandler();
     }
 
     public void startClient(){
@@ -39,6 +39,7 @@ public class Controller implements Serializable {
     }
 
     public HashMap<String, ArrayList<Message>> readFiles(){
+        filehandler = new FileHandler();
         Message[] messages =(Message[])filehandler.read();// måste kolla om null;
         HashMap<String, ArrayList<Message>> map = new HashMap();
         ArrayList<Message> messageArrayList;
@@ -81,10 +82,12 @@ public class Controller implements Serializable {
         return map;
     }
     public void writeFile(Message message){
+        filehandler = new FileHandler();
         filehandler.saveToMachine(message);
     }
 
     public void recieveMessage(Message message){
+        filehandler = new FileHandler();
         filehandler.saveToMachine(message);
     }
     public void setUserList(String[] list){
@@ -116,9 +119,9 @@ public class Controller implements Serializable {
                 gridList.add(new GridItem(userlist[i],(Bitmap)arr.get(0).getImage()));
             }
         }
-        //return (GridItem[])gridList.toArray();
-        GridItem[] items = new GridItem[5];
-        return items;
+        return (GridItem[])gridList.toArray();
+        //GridItem[] items = new GridItem[5];
+        //return items;
     }
 
     /**
@@ -135,9 +138,9 @@ public class Controller implements Serializable {
         for(int i=0;i<list.size();i++){
             arrayList.add(new ConversationItem(list.get(i).getDate().toString(), (Bitmap)list.get(i).getImage()));
         }
-        //return (ConversationItem[])arrayList.toArray();
-        ConversationItem[] conversation = new ConversationItem[5];
-        return conversation;
+        return (ConversationItem[])arrayList.toArray();
+        //ConversationItem[] conversation = new ConversationItem[5];
+        //return conversation;
     }
     
     public void checkLogin(final String Username, final String Password, LoginScreen login){

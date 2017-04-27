@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.view.MenuItem;
 
 import se.mah.ag7406.cifr.R;
+
 
 /**
  * Created by Viktor on 2017-04-10.
@@ -45,10 +48,10 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         private Context context;
         public ViewHolder(View view) {
             super(view);
-            textView = (TextView) view;
+            textView = (TextView) view.findViewById(R.id.contactItemTextView);
             textView.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    final Intent intent;
+                    Intent intent;
                     context = view.getContext();
                     intent = new Intent(context, Conversation.class);
                     intent.putExtra("username", textView.getText());
@@ -57,12 +60,27 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             });
             textView.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View view) {
-                    PopupMenu popup = new PopupMenu(view.getContext(), view);
-                    popup.getMenuInflater().inflate(R.menu.contact_list_popup_menu, popup.getMenu());
-                    popup.show(); //Behövs antagligen mer här sen.
+                    showPopup(view.getContext(), view);
                     return true;
+
                 }
             });
         }
+        public void showPopup(Context context, View view) {
+            PopupMenu popup = new PopupMenu(context, view);
+            popup.getMenuInflater().inflate(R.menu.contact_list_popup_menu, popup.getMenu());
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                public boolean onMenuItemClick(MenuItem item) {
+                    if(item.getItemId() == 1) {
+//                        controller.removeUserFromContactList(textView.getText());
+                    } else if (item.getItemId() == 2) {
+//                        controller.BlockUserFromContactList(textView.getText());
+                    }
+                    return false;
+                }
+            });
+            popup.show();
+        }
+
     }
 }

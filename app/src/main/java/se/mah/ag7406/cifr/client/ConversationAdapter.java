@@ -1,13 +1,16 @@
 package se.mah.ag7406.cifr.client;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import se.mah.ag7406.cifr.R;
 
@@ -33,7 +36,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
 
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.textView.setText(conversationItems[position].getTimeAndDate());
-        holder.imageView.setImageResource(conversationItems[position].getImage());
+        holder.imageView.setImageBitmap(conversationItems[position].getImage());
     }
 
     public int getItemCount() {
@@ -51,6 +54,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
             textView = (TextView) view.findViewById(R.id.conversationTextView);
             imageView.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
+                    Log.d("Log", "Click");
                     //Gör bilden fullskärm. Ska kanske, kanske inte vara här.
                 }
             });
