@@ -1,11 +1,11 @@
 package se.mah.ag7406.cifr.client;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import message.Message;
@@ -20,14 +20,14 @@ public class Controller implements Serializable {
     private transient RegistrationScreen register;
     private transient FileHandler filehandler;
     private transient String[] userList;
-    private transient String myName;
+    private String myName;
 
     public Controller(){
-        filehandler = new FileHandler();
+        
     }
 
     public void startClient(){
-        this.client = new Client("10.0.2.2",1337, this);
+        this.client = new Client("192.168.1.83",1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -39,7 +39,9 @@ public class Controller implements Serializable {
     }
 
     public HashMap<String, ArrayList<Message>> readFiles(){
-        Message[] messages =(Message[])filehandler.read();// måste kolla om null;
+        filehandler = new FileHandler(); //inte snygg lösning
+        Object[] obj = filehandler.read();
+        Message[] messages = Arrays.copyOf(obj, obj.length, Message[].class);
         HashMap<String, ArrayList<Message>> map = new HashMap();
         ArrayList<Message> messageArrayList;
         ArrayList<String> senders = new ArrayList();
@@ -48,7 +50,6 @@ public class Controller implements Serializable {
             if(map.containsKey(sender)){
                 messageArrayList = map.get(sender);
                 messageArrayList.add(messages[i]);
-                map.remove(sender);
                 map.put(sender, messageArrayList);
             } else {
                 senders.add(sender);
@@ -62,29 +63,31 @@ public class Controller implements Serializable {
             Message message = myMessages.get(i);
             ArrayList<Message> reciever = map.get(message.getRecipient());
             reciever.add(message);
-            map.remove(message.getRecipient());
             map.put(message.getRecipient(), reciever);
         }
         map.remove(myName);
-        setUserList((String[])senders.toArray());
-        for(int i=0; i<senders.size(); i++){
-            messageArrayList = map.get(senders.get(i));
-            Collections.sort(messageArrayList, new Comparator<Message>() {
-                @Override
-                public int compare(Message message, Message t1) {
-                    return message.getDate().compareTo(t1.getDate());
-                }
-            });
-            map.remove(senders.get(i));
-            map.put(senders.get(i), messageArrayList);
-        }
+        setUserList(senders.toArray(new String[0]));
+        // för sortering, inge bra lösning
+        //for(int i=0; i<senders.size(); i++){
+        //    messageArrayList = map.get(senders.get(i));
+        //    Collections.sort(messageArrayList, new Comparator<Message>() {
+        //        @Override
+        //        public int compare(Message message, Message t1) {
+        //            return message.getDate().compareTo(t1.getDate());
+        //        }
+        //    });
+        //    map.remove(senders.get(i));
+        //    map.put(senders.get(i), messageArrayList);
+        //}
         return map;
     }
     public void writeFile(Message message){
+        filehandler = new FileHandler();
         filehandler.saveToMachine(message);
     }
 
     public void recieveMessage(Message message){
+        filehandler = new FileHandler();
         filehandler.saveToMachine(message);
     }
     public void setUserList(String[] list){
@@ -113,13 +116,13 @@ public class Controller implements Serializable {
         for (int i=0; i<userlist.length; i++){
             if(map.containsKey(userlist[i])&&userlist[i]!=myName){
                 ArrayList<Message> arr = map.get(userlist[i]);
-                gridList.add(new GridItem(userlist[i],(Bitmap)arr.get(0).getImage()));
+                byte[] bild = (byte[])arr.get(0).getImage();// Borde byta message bild till byte-array
+                gridList.add(new GridItem(userlist[i], BitmapFactory.decodeByteArray(bild, 0, bild.length)));
             }
         }
-        //return (GridItem[])gridList.toArray();
-        GridItem[] items = new GridItem[5];
-        return items;
+        return Arrays.copyOf(gridList.toArray(), gridList.toArray().length, GridItem[].class);
     }
+
 
     /**
      * Gathers the data of a conversation, to be displayed in the Conversation
@@ -130,14 +133,12 @@ public class Controller implements Serializable {
      */
     public ConversationItem[] getConversation(String username) {
         HashMap<String, ArrayList<Message>> map = readFiles();
-        ArrayList<Message> list = map.get(username);
-        ArrayList<ConversationItem> arrayList = new ArrayList();
-        for(int i=0;i<list.size();i++){
-            arrayList.add(new ConversationItem(list.get(i).getDate().toString(), (Bitmap)list.get(i).getImage()));
+        ArrayList<Message> messageList = map.get(username);
+        ArrayList<ConversationItem> conversationList = new ArrayList();
+        for(int i=0;i<messageList.size();i++){
+            conversationList.add(new ConversationItem(messageList.get(i).getDate().toString(), (Bitmap)messageList.get(i).getImage()));
         }
-        //return (ConversationItem[])arrayList.toArray();
-        ConversationItem[] conversation = new ConversationItem[5];
-        return conversation;
+        return Arrays.copyOf(conversationList.toArray(), conversationList.toArray().length, ConversationItem[].class);
     }
     
     public void checkLogin(final String Username, final String Password, LoginScreen login){
@@ -149,10 +150,10 @@ public class Controller implements Serializable {
         }.start();
 
     }
+
     public void responseLogin(boolean response){
         login.response(response);
     }
-
 
     public void checkUsername(final String name,final String password, RegistrationScreen register) {
         this.register = register;

@@ -40,15 +40,13 @@ public class LoginScreen extends AppCompatActivity {
         String pass = password.getText().toString();
         Log.d("före if sats", "username: "+ name + "passwoed: " + pass);
         controller.checkLogin(name, pass, this);
+        controller.setMyName(name); //För test
+
     }
 
     public void response(boolean response){
         System.out.println("i response i login");
         if(response){
-            //för test
-            EditText username = (EditText) findViewById(R.id.usernamelogin); // för test
-            String name = username.getText().toString(); // för test
-            controller.setMyName(name); //För test
             Intent intent = new Intent(this, ConversationList.class);
             intent.putExtra("Controller", controller);
             Log.d("efter if sats"

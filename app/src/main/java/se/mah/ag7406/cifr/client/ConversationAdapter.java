@@ -33,7 +33,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
 
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.textView.setText(conversationItems[position].getTimeAndDate());
-        holder.imageView.setImageResource(conversationItems[position].getImage());
+        holder.imageView.setImageBitmap(conversationItems[position].getImage());
     }
 
     public int getItemCount() {
