@@ -34,12 +34,12 @@
         android:hint="@string/login_password"
         android:textColor="@android:color/white"
         android:layout_marginBottom="190dp"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintBottom_toTopOf="@+id/loginbutton"
         android:layout_marginLeft="85dp"
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/loginbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="111dp"

@@ -8,11 +8,6 @@
         android:onClick="contacts"
         android:title="Contacts" />
     <item
-        android:icon="@mipmap/ic_person_add_black_24dp"
-        app:showAsAction="ifRoom"
-        android:onClick="addContact"
-        android:title="Add Contact" />
-    <item
         android:icon="@mipmap/ic_search_black_24dp"
         app:showAsAction="ifRoom"
         android:onClick="search"

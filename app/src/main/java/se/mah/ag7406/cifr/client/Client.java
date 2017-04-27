@@ -48,16 +48,18 @@ public class Client {
         System.out.println("i Handleevent");
         int type = message.getType();
         switch (type){
-            case 0 : controller.responseLogin(message.getStatus());
+            case Message.LOGIN :
+                controller.responseLogin(message.getStatus());
+                controller.setUserList(message.getContactList());
                     System.out.println("i case 0");
                     break;//Login
-            case 1 : controller.responseRegister(message.getStatus());
+            case Message.REGISTER : controller.responseRegister(message.getStatus());
                     System.out.println("i case 1");
                     break; //Register
-            case 2 : controller.recieveMessage(message);
+            case Message.MESSAGE : controller.recieveMessage(message);
                     System.out.println("i case 2");
                     break;//Message
-            case 3 : System.out.println("i case 3");
+            case Message.STATUS : System.out.println("i case 3");
                     break;//Status
             //case 4 : controller.setUserList(message.getUserList);
             //        break;

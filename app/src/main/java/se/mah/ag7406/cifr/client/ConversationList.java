@@ -16,6 +16,7 @@ public class ConversationList extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private GridItem[] gridItems; //null just nu /Viktor
     private Controller controller;
+    private ConversationListAdapter adapter;
 
 
     @Override
@@ -23,13 +24,16 @@ public class ConversationList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation_list);
         controller = (Controller)getIntent().getSerializableExtra("Controller");
-        gridItems = controller.getGridItems("username"); //Om inte username redan finns i controllern?
-        //setGridData(); //Via controller, detta är för test.
+//        gridItems = controller.getGridItems("username"); //Om inte username redan finns i controllern?
+        setGridData(); //Via controller, detta är för test.
         recyclerView = (RecyclerView) findViewById(R.id.conversationList);
         layoutManager = new GridLayoutManager(this, 2); //Hoppas att 2 betyder två kolumner. /Viktor
         recyclerView.setLayoutManager(layoutManager);
-        recyclerAdapter = new ConversationListAdapter(this, gridItems);
-        recyclerView.setAdapter(recyclerAdapter);
+        adapter = new ConversationListAdapter(this, gridItems);
+//        recyclerAdapter = new ConversationListAdapter(this, gridItems);
+        adapter.setController(controller);
+//        recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.setAdapter(adapter);
 
     }
 
@@ -46,9 +50,6 @@ public class ConversationList extends AppCompatActivity {
         Intent intent = new Intent(this, ContactList.class);
         intent.putExtra("Controller", controller);
         startActivity(intent);
-    }
-    public void addContact(MenuItem item){
-
     }
     public void search(MenuItem item){
 
