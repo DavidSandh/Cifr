@@ -23,11 +23,11 @@ public class Controller implements Serializable {
     private String myName;
 
     public Controller(){
-        
+
     }
 
     public void startClient(){
-        this.client = new Client("192.168.1.83",1337, this);
+        this.client = new Client("10.2.16.57",1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -156,7 +156,7 @@ public class Controller implements Serializable {
 
     }
 
-    public void responseLogin(boolean response){
+    public void responseLogin(Message response){
         login.response(response);
     }
 

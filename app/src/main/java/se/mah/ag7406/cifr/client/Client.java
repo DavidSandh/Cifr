@@ -40,6 +40,7 @@ public class Client {
         try {
             output.writeObject(message);
         } catch (IOException e) {
+            controller.responseLogin(new Message(1,true));
             e.printStackTrace();
         }
     }
@@ -49,7 +50,7 @@ public class Client {
         int type = message.getType();
         switch (type){
             case Message.LOGIN :
-                controller.responseLogin(message.getStatus());
+                controller.responseLogin(message);
                 controller.setUserList(message.getContactList());
                     System.out.println("i case 0");
                     break;//Login

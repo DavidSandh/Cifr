@@ -21,13 +21,13 @@ import se.mah.ag7406.cifr.R;
  */
 
 public class FileHandler {
-    private File file;
+    private File file, folder;
     private Context context;
     private File[] files;
 
     public FileHandler(){
         this.context = SuperClass.getContext();
-        delete(); // för test
+        delete();
         update();
         fortest();
     }
