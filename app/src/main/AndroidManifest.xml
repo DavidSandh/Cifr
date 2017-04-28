@@ -50,7 +50,11 @@
         </activity>
         <activity android:name=".client.Conversation" />
         <activity android:name=".client.CreateMessage" />
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".client.SearchActivity"
+
+            android:exported="true">
+            android:exported="true"
+        </activity>
     </application>
 
 </manifest>
