@@ -20,21 +20,26 @@ import se.mah.ag7406.cifr.R;
 public class ConversationListAdapter extends RecyclerView.Adapter<ConversationListAdapter.ViewHolder> {
     private LayoutInflater inflater;
     private GridItem[] gridItems;
+    private Controller controller;
 
     public ConversationListAdapter(Context context, GridItem[] array) {
         this.inflater = LayoutInflater.from(context);
         this.gridItems = array;
     }
 
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
+
     public ConversationListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = (View) inflater.inflate(R.layout.conversation_list_item, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view, controller);
         return viewHolder;
     }
 
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.textView.setText(gridItems[position].getUsername());
-        holder.imageView.setImageResource(gridItems[position].getImage());
+        holder.imageView.setImageBitmap(gridItems[position].getImage());
 
     }
 
@@ -46,9 +51,11 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
         private TextView textView;
         private ImageView imageView;
         private Context context;
+        private Controller holderController;
 
-        public ViewHolder (View view) {
+        public ViewHolder (View view, Controller controller) {
             super(view);
+            holderController = controller;
             textView = (TextView) view.findViewById(R.id.conversationItemTextView);
             imageView = (ImageView) view.findViewById(R.id.conversationItemImageView);
             textView.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +65,7 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
                     context = view.getContext();
                     intent = new Intent(context, Conversation.class);
                     intent.putExtra("username", textView.getText());
+                    intent.putExtra("Controller", holderController);
                     context.startActivity(intent);
                 }
             });

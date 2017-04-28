@@ -10,15 +10,19 @@
         android:id="@+id/conversationImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        app:srcCompat="@mipmap/ic_launcher"
         android:layout_centerVertical="true"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/contact_frame"
+        />
 
     <TextView
         android:id="@+id/conversationTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/conversationImageView"
+        android:padding="6dp"
+        android:text="TextView"
+        android:layout_alignBottom="@+id/conversationImageView"
         android:layout_centerHorizontal="true"
-        android:text="TextView" />
+        android:layout_marginBottom="45dp" />
 </RelativeLayout>

@@ -1,14 +1,16 @@
 package se.mah.ag7406.cifr.client;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Viktor on 2017-04-07.
  */
 
 public class ConversationItem {
     private String timeAndDate;
-    private int image;
+    private Bitmap image;
 
-    public ConversationItem(String timeAndDate, int image) {
+    public ConversationItem(String timeAndDate, Bitmap image) {
         this.timeAndDate = timeAndDate;
         this.image = image;
     }
@@ -17,7 +19,7 @@ public class ConversationItem {
         this.timeAndDate = timeAndDate;
     }
 
-    public void setImage(int image) {
+    public void setImage(Bitmap image) {
         this.image = image;
     }
 
@@ -25,7 +27,7 @@ public class ConversationItem {
         return timeAndDate;
     }
 
-    public int getImage() {
+    public Bitmap getImage() {
         return image;
     }
 }

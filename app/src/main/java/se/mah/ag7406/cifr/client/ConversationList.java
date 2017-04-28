@@ -1,6 +1,7 @@
 package se.mah.ag7406.cifr.client;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,6 +16,7 @@ public class ConversationList extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private GridItem[] gridItems; //null just nu /Viktor
     private Controller controller;
+    private ConversationListAdapter adapter;
 
 
     @Override
@@ -22,21 +24,24 @@ public class ConversationList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation_list);
         controller = (Controller)getIntent().getSerializableExtra("Controller");
-        gridItems = controller.getGridItems("username"); //Om inte username redan finns i controllern?
+//        gridItems = controller.getGridItems("username"); //Om inte username redan finns i controllern?
         setGridData(); //Via controller, detta är för test.
         recyclerView = (RecyclerView) findViewById(R.id.conversationList);
         layoutManager = new GridLayoutManager(this, 2); //Hoppas att 2 betyder två kolumner. /Viktor
         recyclerView.setLayoutManager(layoutManager);
-        recyclerAdapter = new ConversationListAdapter(this, gridItems);
-        recyclerView.setAdapter(recyclerAdapter);
+        adapter = new ConversationListAdapter(this, gridItems);
+//        recyclerAdapter = new ConversationListAdapter(this, gridItems);
+        adapter.setController(controller);
+//        recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.setAdapter(adapter);
 
     }
 
     public void setGridData() { //Testmetod. Ska ändra att ta emot en parameter med array-datan när test inte behövs.
         gridItems = new GridItem[3];
-        GridItem gridItem1 = new GridItem("Sven",R.mipmap.ic_launcher);
-        GridItem gridItem2 = new GridItem("Klas",R.mipmap.ic_launcher_round);
-        GridItem gridItem3 = new GridItem("Olaf",R.mipmap.ic_launcher);
+        GridItem gridItem1 = new GridItem("Sven", BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
+        GridItem gridItem2 = new GridItem("Klas",BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_round));
+        GridItem gridItem3 = new GridItem("Olaf",BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
         gridItems[0] = gridItem1;
         gridItems[1] = gridItem2;
         gridItems[2] = gridItem3;
@@ -45,9 +50,6 @@ public class ConversationList extends AppCompatActivity {
         Intent intent = new Intent(this, ContactList.class);
         intent.putExtra("Controller", controller);
         startActivity(intent);
-    }
-    public void addContact(MenuItem item){
-
     }
     public void search(MenuItem item){
 
