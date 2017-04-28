@@ -86,6 +86,11 @@ public class Controller implements Serializable {
         filehandler.saveToMachine(message);
     }
 
+    public void sendMessage(String reciever, String messageText, Bitmap image) {
+        Message newMessage = new Message(Message.MESSAGE, myName, reciever,image);
+        client.sendRequest(newMessage);
+    }
+
     public void recieveMessage(Message message){
         filehandler = new FileHandler();
         filehandler.saveToMachine(message);

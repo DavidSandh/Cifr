@@ -27,7 +27,7 @@ public class Conversation extends AppCompatActivity {
         conversationUsername = intent.getStringExtra("username");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
-        controller = (Controller)getIntent().getSerializableExtra("Controller");
+        controller = (Controller)intent.getSerializableExtra("Controller");
         //conversationItems = controller.getConversationData(conversationUsername); //Metod i controller för att få data till conversationen. /Viktor
         setConversationData();
         TextView usernameTextView = (TextView) findViewById(R.id.conversationUser);
@@ -57,7 +57,8 @@ public class Conversation extends AppCompatActivity {
 
     public void sendMessageActivityButton(View view) {
         Intent intent = new Intent(this, CreateMessage.class);
-        intent.putExtra("username", conversationUsername);
+        intent.putExtra("conversationUsername", conversationUsername);
+        intent.putExtra("Controller", controller);
         startActivity(intent);
     }
 
