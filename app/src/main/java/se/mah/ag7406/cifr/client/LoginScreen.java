@@ -1,14 +1,16 @@
 package se.mah.ag7406.cifr.client;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import message.Message;
 import se.mah.ag7406.cifr.R;
 
 public class LoginScreen extends AppCompatActivity {
@@ -44,15 +46,21 @@ public class LoginScreen extends AppCompatActivity {
 
     }
 
-    public void response(boolean response){
+    public void response(Message response){
         System.out.println("i response i login");
-        if(response){
+        if(response.getType()==1){
+            this.runOnUiThread(new Runnable() {
+                public void run() {
+                    Toast.makeText(LoginScreen.this , "Kunde inte koppla upp till servern!",
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+        } else if(response.getStatus()){
             Intent intent = new Intent(this, ConversationList.class);
             intent.putExtra("Controller", controller);
             Log.d("efter if sats"
                     , "vart true = kontakt med controller från login");
             startActivity(intent);
-
         } else {
             this.runOnUiThread(new Runnable() {
                 public void run() {
