@@ -23,15 +23,15 @@ public class ConversationList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation_list);
-        controller = (Controller)getIntent().getSerializableExtra("Controller");
-        gridItems = SuperClass.getController().getGridItems("username"); //Om inte username redan finns i controllern?
+        controller = SuperClass.getController();
+        gridItems = controller.getGridItems("username"); //Om inte username redan finns i controllern?
         //setGridData(); //Via controller, detta är för test.
         recyclerView = (RecyclerView) findViewById(R.id.conversationList);
         layoutManager = new GridLayoutManager(this, 2); //Hoppas att 2 betyder två kolumner. /Viktor
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ConversationListAdapter(this, gridItems);
 //        recyclerAdapter = new ConversationListAdapter(this, gridItems);
-        adapter.setController(SuperClass.getController());
+        adapter.setController(controller);
         //adapter.setController(controller);
 //        recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setAdapter(adapter);
@@ -47,19 +47,25 @@ public class ConversationList extends AppCompatActivity {
         gridItems[1] = gridItem2;
         gridItems[2] = gridItem3;
     }
+    protected void home(MenuItem item){
+        Intent intent = new Intent(this, ConversationList.class);
+        startActivity(intent);
+    }
     protected void contacts(MenuItem item){
         Intent intent = new Intent(this, ContactList.class);
-        intent.putExtra("Controller", controller);
         startActivity(intent);
     }
     public void search(MenuItem item){
-
+        Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
     }
     public void blocked(MenuItem item){
 
     }
     public void logout(MenuItem item){
-
+        controller.logout();
+        Intent intent = new Intent(this, LoginScreen.class);
+        startActivity(intent);
     }
 
 }

@@ -38,9 +38,8 @@ public class Conversation extends AppCompatActivity {
         conversationUsername = intent.getStringExtra("username");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
-        controller = (Controller)intent.getSerializableExtra("Controller");
         controller = SuperClass.getController();
-        conversationItems = SuperClass.getController().getConversation(conversationUsername); //Metod i controller för att få data till conversationen. /Viktor
+        conversationItems = controller.getConversation(conversationUsername); //Metod i controller för att få data till conversationen. /Viktor
         //setConversationData();
         TextView usernameTextView = (TextView) findViewById(R.id.conversationUser);
         usernameTextView.setText(conversationUsername);
@@ -79,26 +78,28 @@ public class Conversation extends AppCompatActivity {
     public void sendMessageActivityButton(View view) {
         Intent intent = new Intent(this, CreateMessage.class);
         intent.putExtra("conversationUsername", conversationUsername);
-        //intent.putExtra("Controller", controller);
         startActivity(intent);
     }
 
-
+    protected void home(MenuItem item){
+        Intent intent = new Intent(this, ConversationList.class);
+        startActivity(intent);
+    }
     protected void contacts(MenuItem item){
         Intent intent = new Intent(this, ContactList.class);
-        intent.putExtra("Controller", controller);
         startActivity(intent);
     }
     public void search(MenuItem item){
         Intent intent = new Intent(this, SearchActivity.class);
-        intent.putExtra("Controller", controller);
         startActivity(intent);
     }
     public void blocked(MenuItem item){
 
     }
     public void logout(MenuItem item){
-
+        controller.logout();
+        Intent intent = new Intent(this, LoginScreen.class);
+        startActivity(intent);
     }
 
 }

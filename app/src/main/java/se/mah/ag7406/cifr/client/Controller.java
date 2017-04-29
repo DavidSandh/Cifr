@@ -1,6 +1,5 @@
 package se.mah.ag7406.cifr.client;
 
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
@@ -19,16 +18,16 @@ public class Controller implements Serializable {
     private Client client;
     private transient LoginScreen login;
     private transient RegistrationScreen register;
-    private transient FileHandler filehandler;
+    private FileHandler filehandler;
     private transient String[] userList;
     private String myName;
 
     public Controller(){
-
+        filehandler = new FileHandler();
     }
 
     public void startClient(){
-        this.client = new Client("192.168.43.71",1337, this);
+        this.client = new Client("192.168.1.83",1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -40,7 +39,6 @@ public class Controller implements Serializable {
     }
 
     public HashMap<String, ArrayList<Message>> readFiles(){
-        filehandler = new FileHandler(); //inte snygg lösning
         Object[] obj = filehandler.read();
         Message[] messages = Arrays.copyOf(obj, obj.length, Message[].class);
         HashMap<String, ArrayList<Message>> map = new HashMap();
@@ -84,24 +82,21 @@ public class Controller implements Serializable {
     }
 
     public void writeFile(Message message){
-        filehandler = new FileHandler();
         filehandler.saveToMachine(message);
     }
 
     public void sendMessage(String reciever, String messageText, final Object image) {
-        final Message newMessage = new Message(Message.MESSAGE, myName, "Testare",image);
+        final Message newMessage = new Message(Message.MESSAGE, myName, reciever, (Object)image);
         new Thread() {
             public void run() {
-                Message newMessage = new Message(Message.MESSAGE, "Testare", "Testare",(Object)image);
+                //Message newMessage = new Message(Message.MESSAGE, "Testare", "Testare",(Object)image);
                 client.sendRequest(newMessage);
             }
         }.start();
-
     }
 
     public void recieveMessage(Message message){
         Log.d("recieve", "Fick ett meddelande!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        filehandler = new FileHandler();
         filehandler.saveToMachine(message);
     }
     public void setUserList(String[] list){
@@ -150,7 +145,8 @@ public class Controller implements Serializable {
         ArrayList<Message> messageList = map.get(username);
         ArrayList<ConversationItem> conversationList = new ArrayList();
         for(int i=0;i<messageList.size();i++){
-            conversationList.add(new ConversationItem(messageList.get(i).getDate().toString(), (Bitmap)messageList.get(i).getImage()));
+            byte[] bytes = (byte[])messageList.get(i).getImage();
+            conversationList.add(new ConversationItem(messageList.get(i).getDate().toString(), BitmapFactory.decodeByteArray(bytes, 0, bytes.length)));
         }
         return Arrays.copyOf(conversationList.toArray(), conversationList.toArray().length, ConversationItem[].class);
     }
@@ -166,7 +162,11 @@ public class Controller implements Serializable {
     }
 
     public void responseLogin(Message response){
-        login.response(response);
+        if(login!=null) {
+            login.response(response);
+        } else {
+            register.response(response);
+        }
     }
 
     public void checkUsername(final String name,final String password, RegistrationScreen register) {
@@ -178,7 +178,7 @@ public class Controller implements Serializable {
         }.start();
     }
 
-    public void responseRegister(boolean response){
+    public void responseRegister(Message response){
         register.response(response);
     }
 
@@ -212,5 +212,10 @@ public class Controller implements Serializable {
             return true;
         }
         return false;
+    }
+
+    public void logout(){
+        myName = null;
+        //koppla ner klient??
     }
 }

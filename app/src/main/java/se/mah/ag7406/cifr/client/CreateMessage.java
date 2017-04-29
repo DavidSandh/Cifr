@@ -27,16 +27,12 @@ public class CreateMessage extends AppCompatActivity {
         setContentView(R.layout.activity_create_message);
         receiver = intent.getStringExtra("conversationUsername");
         controller = SuperClass.getController();
-        controller = (Controller) intent.getSerializableExtra("Controller");
     }
 
     public void sendMessage(View view) {
-        //TextView messageTextView = (TextView) findViewById(R.id.createMessageText);
         EditText messaget = (EditText) findViewById(R.id.createMessageText);
         String messageText = messaget.getText().toString();
-        //String messageText = (String) messageTextView.getText();
-        SuperClass.getController().sendMessage(receiver, messageText, (Object)convert(selectedImage));
-        //controller.sendMessage(receiver, messageText, selectedImage);
+        controller.sendMessage(receiver, messageText, (Object)convert(selectedImage));
     }
     public byte[] convert(Bitmap bit){//för test
         ByteArrayOutputStream stream = new ByteArrayOutputStream();

@@ -26,46 +26,54 @@ public class Client {
     }
     public void clientRun() {
         try {
-            System.out.println("föresocket");
             Socket socket = new Socket(IP, port);
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
             output.flush();
-            System.out.println("eftersocket");
         }catch(IOException e){}
         new ServerListener().start();
     }
 
     public void sendRequest(Message message){
-        Log.d("sendreq", "true");
-        try {
-            output.writeObject(message);
-            Log.d("sendreq", "skickat");
-        } catch (IOException e) {
-            //controller.responseLogin(new Message(1,true));
-            e.printStackTrace();
+        if(output==null){
+            controller.responseLogin(new Message(3,true));
+            clientRun();
+        } else {
+            try {
+                output.writeObject(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void handleEvent(Message message){
-        Log.d("handleevent", "true");
         int type = message.getType();
         switch (type){
             case Message.LOGIN :
                 controller.responseLogin(message);
                 controller.setUserList(message.getContactList());
-                    System.out.println("i case 0");
-                    break;//Login
-            case Message.REGISTER : controller.responseRegister(message.getStatus());
-                    System.out.println("i case 1");
-                    break; //Register
-            case Message.MESSAGE : controller.recieveMessage(message);
-                    System.out.println("i case 2");
-                    break;//Message
-            case Message.STATUS : System.out.println("i case 3");
-                    break;//Status
-            //case 4 : controller.setUserList(message.getUserList);
-            //        break;
+                break;//Login
+            case Message.REGISTER :
+                controller.responseRegister(message);
+                System.out.println("i case 1");
+                break; //Register
+            case Message.MESSAGE :
+                controller.recieveMessage(message);
+                System.out.println("i case 2");
+                break;//Message
+            case Message.STATUS :
+                break;//Status
+            case Message.SEARCH :
+
+                break;
+            case Message.CONTACTLIST :
+                controller.setUserList(message.getContactList());
+                break;//Status
+            case Message.CONTACTLIST_ADD :
+                break;//Status
+            case Message.CONTACTLIST_REMOVE :
+                break;//Status
         }
     }
 
