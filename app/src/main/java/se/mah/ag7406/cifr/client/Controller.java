@@ -2,6 +2,7 @@ package se.mah.ag7406.cifr.client;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import message.Message;
  */
 
 public class Controller implements Serializable {
-    private transient Client client;
+    private Client client;
     private transient LoginScreen login;
     private transient RegistrationScreen register;
     private transient FileHandler filehandler;
@@ -27,7 +28,7 @@ public class Controller implements Serializable {
     }
 
     public void startClient(){
-        this.client = new Client("10.2.16.57",1337, this);
+        this.client = new Client("192.168.43.71",1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -81,17 +82,25 @@ public class Controller implements Serializable {
         //}
         return map;
     }
+
     public void writeFile(Message message){
         filehandler = new FileHandler();
         filehandler.saveToMachine(message);
     }
 
-    public void sendMessage(String reciever, String messageText, Bitmap image) {
-        Message newMessage = new Message(Message.MESSAGE, myName, reciever,image);
-        client.sendRequest(newMessage);
+    public void sendMessage(String reciever, String messageText, final Object image) {
+        final Message newMessage = new Message(Message.MESSAGE, myName, "Testare",image);
+        new Thread() {
+            public void run() {
+                Message newMessage = new Message(Message.MESSAGE, "Testare", "Testare",(Object)image);
+                client.sendRequest(newMessage);
+            }
+        }.start();
+
     }
 
     public void recieveMessage(Message message){
+        Log.d("recieve", "Fick ett meddelande!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         filehandler = new FileHandler();
         filehandler.saveToMachine(message);
     }

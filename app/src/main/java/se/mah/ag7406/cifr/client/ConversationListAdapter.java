@@ -55,7 +55,8 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
 
         public ViewHolder (View view, Controller controller) {
             super(view);
-            holderController = controller;
+            //holderController = controller;
+            holderController = SuperClass.getController();
             textView = (TextView) view.findViewById(R.id.conversationItemTextView);
             imageView = (ImageView) view.findViewById(R.id.conversationItemImageView);
             textView.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +66,7 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
                     context = view.getContext();
                     intent = new Intent(context, Conversation.class);
                     intent.putExtra("username", textView.getText());
-                    intent.putExtra("Controller", holderController);
+                    //intent.putExtra("Controller", holderController);
                     context.startActivity(intent);
                 }
             });

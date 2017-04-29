@@ -3,13 +3,14 @@ package se.mah.ag7406.cifr.client;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import se.mah.ag7406.cifr.R;
@@ -25,13 +26,23 @@ public class CreateMessage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_message);
         receiver = intent.getStringExtra("conversationUsername");
+        controller = SuperClass.getController();
         controller = (Controller) intent.getSerializableExtra("Controller");
     }
 
     public void sendMessage(View view) {
-        TextView messageTextView = (TextView) findViewById(R.id.createMessageText);
-        String messageText = (String) messageTextView.getText();
-        controller.sendMessage(receiver, messageText, selectedImage);
+        //TextView messageTextView = (TextView) findViewById(R.id.createMessageText);
+        EditText messaget = (EditText) findViewById(R.id.createMessageText);
+        String messageText = messaget.getText().toString();
+        //String messageText = (String) messageTextView.getText();
+        SuperClass.getController().sendMessage(receiver, messageText, (Object)convert(selectedImage));
+        //controller.sendMessage(receiver, messageText, selectedImage);
+    }
+    public byte[] convert(Bitmap bit){//för test
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bit.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
     }
 
     public void chooseImage(View view) {

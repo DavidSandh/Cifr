@@ -24,14 +24,15 @@ public class ConversationList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation_list);
         controller = (Controller)getIntent().getSerializableExtra("Controller");
-//        gridItems = controller.getGridItems("username"); //Om inte username redan finns i controllern?
-        setGridData(); //Via controller, detta är för test.
+        gridItems = SuperClass.getController().getGridItems("username"); //Om inte username redan finns i controllern?
+        //setGridData(); //Via controller, detta är för test.
         recyclerView = (RecyclerView) findViewById(R.id.conversationList);
         layoutManager = new GridLayoutManager(this, 2); //Hoppas att 2 betyder två kolumner. /Viktor
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ConversationListAdapter(this, gridItems);
 //        recyclerAdapter = new ConversationListAdapter(this, gridItems);
-        adapter.setController(controller);
+        adapter.setController(SuperClass.getController());
+        //adapter.setController(controller);
 //        recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setAdapter(adapter);
 

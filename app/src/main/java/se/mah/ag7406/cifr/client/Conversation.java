@@ -27,8 +27,9 @@ public class Conversation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
         controller = (Controller)intent.getSerializableExtra("Controller");
-        //conversationItems = controller.getConversationData(conversationUsername); //Metod i controller för att få data till conversationen. /Viktor
-        setConversationData();
+        controller = SuperClass.getController();
+        conversationItems = SuperClass.getController().getConversation(conversationUsername); //Metod i controller för att få data till conversationen. /Viktor
+        //setConversationData();
         TextView usernameTextView = (TextView) findViewById(R.id.conversationUser);
         usernameTextView.setText(conversationUsername);
         recyclerView = (RecyclerView) findViewById(R.id.conversationView);
@@ -57,7 +58,7 @@ public class Conversation extends AppCompatActivity {
     public void sendMessageActivityButton(View view) {
         Intent intent = new Intent(this, CreateMessage.class);
         intent.putExtra("conversationUsername", conversationUsername);
-        intent.putExtra("Controller", controller);
+        //intent.putExtra("Controller", controller);
         startActivity(intent);
     }
 

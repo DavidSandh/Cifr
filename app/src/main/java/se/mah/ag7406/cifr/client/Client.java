@@ -37,16 +37,18 @@ public class Client {
     }
 
     public void sendRequest(Message message){
+        Log.d("sendreq", "true");
         try {
             output.writeObject(message);
+            Log.d("sendreq", "skickat");
         } catch (IOException e) {
-            controller.responseLogin(new Message(1,true));
+            //controller.responseLogin(new Message(1,true));
             e.printStackTrace();
         }
     }
 
     public void handleEvent(Message message){
-        System.out.println("i Handleevent");
+        Log.d("handleevent", "true");
         int type = message.getType();
         switch (type){
             case Message.LOGIN :
@@ -78,6 +80,7 @@ public class Client {
                     message = (Object)input.readObject();
                     Message mess = (Message)message;
                     System.out.println("fått ett meddelande");
+                    Log.d("handleevent", "true");
                     handleEvent(mess);
                 } catch (IOException ioe) {
                     ioe.printStackTrace();
