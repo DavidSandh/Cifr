@@ -15,6 +15,8 @@ import android.widget.Toast;
 import se.mah.ag7406.cifr.R;
 
 /**
+ * Custom adapter for a RecyclerView. Used to fill a conversation with the data. An array
+ * of ConversationItems
  * Created by Viktor on 2017-04-07.
  */
 
@@ -56,6 +58,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
                 public void onClick(View view) {
                     Log.d("Log", "Click");
                     //Gör bilden fullskärm. Ska kanske, kanske inte vara här.
+
                 }
             });
         }
