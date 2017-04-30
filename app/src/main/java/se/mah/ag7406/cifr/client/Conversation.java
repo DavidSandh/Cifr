@@ -29,7 +29,7 @@ public class Conversation extends AppCompatActivity {
 
     /**
      * Call when activity is first created and will initialise the list with the data
-     * collected from the controller, pertaining the particilar conversation partner chosen,
+     * collected from the controller, pertaining the particular conversation partner chosen,
      * and uses the custom ConversationAdapter for displaying this data in the list.
      * @param savedInstanceState
      */
@@ -70,8 +70,8 @@ public class Conversation extends AppCompatActivity {
     }
 
     /**
-     * Called by the button in the bottom. Opens the activity where a message can be created
-     * and sent.
+     * Opens the activity where a message can be created and sent.
+     * Called by the Button in the bottom of the screen.
      * @param view Required parameter for onClick implementation. Recognizes a view
      *             that was clicked.
      */
@@ -85,17 +85,21 @@ public class Conversation extends AppCompatActivity {
         Intent intent = new Intent(this, ConversationList.class);
         startActivity(intent);
     }
+
     protected void contacts(MenuItem item){
         Intent intent = new Intent(this, ContactList.class);
         startActivity(intent);
     }
+
     public void search(MenuItem item){
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
     }
+
     public void blocked(MenuItem item){
 
     }
+
     public void logout(MenuItem item){
         controller.logout();
         Intent intent = new Intent(this, LoginScreen.class);

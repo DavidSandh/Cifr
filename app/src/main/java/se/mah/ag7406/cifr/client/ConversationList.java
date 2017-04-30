@@ -10,15 +10,24 @@ import android.view.MenuItem;
 
 import se.mah.ag7406.cifr.R;
 
+/**
+ * Activity for displaying a list of ongoing conversations. These are
+ * represented by two columns with the latest sent image of each conversation
+ * and the username of the conversation partner.
+ * @author Viktor Ekström
+ */
 public class ConversationList extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter recyclerAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private GridItem[] gridItems; //null just nu /Viktor
     private Controller controller;
-    private ConversationListAdapter adapter;
 
-
+    /**
+     * Called when the activity is first created. Initiates the required view and adapter
+     * and collects data from the controller for these.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,17 +36,15 @@ public class ConversationList extends AppCompatActivity {
         gridItems = controller.getGridItems("username"); //Om inte username redan finns i controllern?
         //setGridData(); //Via controller, detta är för test.
         recyclerView = (RecyclerView) findViewById(R.id.conversationList);
-        layoutManager = new GridLayoutManager(this, 2); //Hoppas att 2 betyder två kolumner. /Viktor
+        layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new ConversationListAdapter(this, gridItems);
-//        recyclerAdapter = new ConversationListAdapter(this, gridItems);
-        adapter.setController(controller);
-        //adapter.setController(controller);
-//        recyclerView.setAdapter(recyclerAdapter);
-        recyclerView.setAdapter(adapter);
-
+        recyclerAdapter = new ConversationListAdapter(this, gridItems);
+        recyclerView.setAdapter(recyclerAdapter);
     }
 
+    /**
+     * Test method, to be removed.
+     */
     public void setGridData() { //Testmetod. Ska ändra att ta emot en parameter med array-datan när test inte behövs.
         gridItems = new GridItem[3];
         GridItem gridItem1 = new GridItem("Sven", BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
@@ -47,21 +54,26 @@ public class ConversationList extends AppCompatActivity {
         gridItems[1] = gridItem2;
         gridItems[2] = gridItem3;
     }
+
     protected void home(MenuItem item){
         Intent intent = new Intent(this, ConversationList.class);
         startActivity(intent);
     }
+
     protected void contacts(MenuItem item){
         Intent intent = new Intent(this, ContactList.class);
         startActivity(intent);
     }
+
     public void search(MenuItem item){
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
     }
+
     public void blocked(MenuItem item){
 
     }
+
     public void logout(MenuItem item){
         controller.logout();
         Intent intent = new Intent(this, LoginScreen.class);
