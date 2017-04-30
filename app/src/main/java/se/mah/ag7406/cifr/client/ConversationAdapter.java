@@ -1,6 +1,8 @@
 package se.mah.ag7406.cifr.client;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 
@@ -49,16 +51,20 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         private ImageView imageView;
         private TextView textView;
         private Context context;
+        private Controller controller;
 
         public ViewHolder(View view) {
             super(view);
+            controller = SuperClass.getController();
             imageView = (ImageView) view.findViewById(R.id.conversationImageView);
             textView = (TextView) view.findViewById(R.id.conversationTextView);
             imageView.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     Log.d("Log", "Click");
-                    //Gör bilden fullskärm. Ska kanske, kanske inte vara här.
-
+                    Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                    String message = controller.decodeBitmap(image);
+                    Log.d("message", "message: " + message);
+                    //Det loggade message är alltså bildens gömda meddelande/ Viktor
                 }
             });
         }

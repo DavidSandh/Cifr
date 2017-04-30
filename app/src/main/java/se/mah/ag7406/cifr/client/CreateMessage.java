@@ -32,14 +32,15 @@ public class CreateMessage extends AppCompatActivity {
     public void sendMessage(View view) {
         EditText messaget = (EditText) findViewById(R.id.createMessageText);
         String messageText = messaget.getText().toString();
-        controller.sendMessage(receiver, messageText, (Object)convert(selectedImage));
+//        controller.sendMessage(receiver, messageText, (Object)convert(selectedImage));
+        controller.sendMessage(receiver, messageText, selectedImage);
     }
-    public byte[] convert(Bitmap bit){//för test
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bit.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        return byteArray;
-    }
+//    public byte[] convert(Bitmap bit){//för test
+//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//        bit.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//        byte[] byteArray = stream.toByteArray();
+//        return byteArray;
+//    }
 
     public void chooseImage(View view) {
         Intent intent = new Intent();

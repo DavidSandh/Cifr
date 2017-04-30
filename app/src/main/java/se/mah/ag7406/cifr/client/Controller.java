@@ -22,9 +22,10 @@ public class Controller implements Serializable {
     private FileHandler filehandler;
     private transient String[] userList;
     private String myName;
+    private BitmapEncoder bitmapEncoder = new BitmapEncoder();
 
     public Controller(){
-        filehandler = new FileHandler();
+        filehandler = new FileHandler(this); //Filehandler tar controller som argument pga test.
     }
 
     public void startClient(){
@@ -87,14 +88,46 @@ public class Controller implements Serializable {
         filehandler.saveToMachine(message);
     }
 
-    public void sendMessage(String reciever, String messageText, final Object image) {
-        final Message newMessage = new Message(Message.MESSAGE, myName, reciever, (Object)image);
+    /**
+     * Creates a new message object to be sent. This method is called from CrateMessage activity.
+     * Here the written message is hidden within the image, and the image is sent towards the client.
+     * @param receiver The recipient of the message.
+     * @param messageText Text that the image should hide.
+     * @param image Bitmap that is to be sent.
+     */
+    public void sendMessage(String receiver, String messageText, Bitmap image) {
+        image = encodeBitmap(image, messageText);
+        Object imageObject = image;
+        final Message newMessage = new Message(Message.MESSAGE, myName, receiver, imageObject);
         new Thread() {
             public void run() {
                 //Message newMessage = new Message(Message.MESSAGE, "Testare", "Testare",(Object)image);
                 client.sendRequest(newMessage);
             }
         }.start();
+    }
+
+    /**
+     * Encodes a String into a bitmap using BitmapEncoder.
+     * @param image The image used as a host for the encoding.
+     * @param message The string that is to be hidden within the bitmap.
+     * @return A bitmap with a message encoded within.
+     */
+    public Bitmap encodeBitmap(Bitmap image, String message) {
+        byte[] messageInBytes = message.getBytes();
+        Bitmap encodedBitmap = bitmapEncoder.encode(image, messageInBytes);
+        return encodedBitmap;
+    }
+
+    /**
+     * Decodes a message hidden within a bitmap using BitmapEncoder.
+     * @param image The image to be decoded.
+     * @return A string with the previously hidden text.
+     */
+    public String decodeBitmap(Bitmap image) {
+        byte[] bytes = bitmapEncoder.decode(image);
+        String messageText = new String(bytes);
+        return messageText;
     }
 
     public void recieveMessage(Message message){
@@ -141,7 +174,7 @@ public class Controller implements Serializable {
      * @param image Byte array representation of a bitmap.
      * @return The scaled Bitmap image.
      */
-    public Bitmap gridImageManipulation(byte[] image) {
+    private Bitmap gridImageManipulation(byte[] image) {
         Bitmap newBitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
         newBitmap = Bitmap.createScaledBitmap(newBitmap, 500, 500, true);
         return newBitmap;
