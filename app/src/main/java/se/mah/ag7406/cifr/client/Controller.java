@@ -1,5 +1,6 @@
 package se.mah.ag7406.cifr.client;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
@@ -27,7 +28,8 @@ public class Controller implements Serializable {
     }
 
     public void startClient(){
-        this.client = new Client("192.168.1.83",1337, this);
+//        this.client = new Client("192.168.1.83",1337, this);
+        this.client = new Client("10.0.2.2", 1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -126,12 +128,24 @@ public class Controller implements Serializable {
             if(map.containsKey(userlist[i])&&userlist[i]!=myName){
                 ArrayList<Message> arr = map.get(userlist[i]);
                 byte[] bild = (byte[])arr.get(0).getImage();// Borde byta message bild till byte-array
-                gridList.add(new GridItem(userlist[i], BitmapFactory.decodeByteArray(bild, 0, bild.length)));
+//                gridList.add(new GridItem(userlist[i], BitmapFactory.decodeByteArray(bild, 0, bild.length)));
+                gridList.add(new GridItem(userlist[i], gridImageManipulation(bild)));
             }
         }
         return Arrays.copyOf(gridList.toArray(), gridList.toArray().length, GridItem[].class);
     }
 
+    /**
+     * Used to change the size of the image in the conversation list so all are equal size.
+     * Would preferrably blur image as well.
+     * @param image Byte array representation of a bitmap.
+     * @return The scaled Bitmap image.
+     */
+    public Bitmap gridImageManipulation(byte[] image) {
+        Bitmap newBitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+        newBitmap = Bitmap.createScaledBitmap(newBitmap, 500, 500, true);
+        return newBitmap;
+    }
 
     /**
      * Gathers the data of a conversation, to be displayed in the Conversation
