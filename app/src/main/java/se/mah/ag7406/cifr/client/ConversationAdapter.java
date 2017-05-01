@@ -3,7 +3,8 @@ package se.mah.ag7406.cifr.client;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 
 import android.util.Log;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import se.mah.ag7406.cifr.R;
 
@@ -27,6 +27,7 @@ import se.mah.ag7406.cifr.R;
 public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapter.ViewHolder> {
     private LayoutInflater inflater;
     private ConversationItem[] conversationItems;
+    private Context context;
 
     /**
      * Instantiates the object with the data to be displayed and the context of the
@@ -35,6 +36,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
      * @param array The data to be displayed.
      */
     public ConversationAdapter(Context context, ConversationItem[] array ) {
+        this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.conversationItems = array;
     }
@@ -47,7 +49,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
      */
     public ConversationAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = (View) inflater.inflate(R.layout.conversation_item, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view, context);
         return viewHolder;
     }
 
@@ -70,6 +72,8 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         return conversationItems.length;
     }
 
+
+
     /**
      * Describes a an item view and metadata about its place within the RecyclerView.
      * Provides clickable ImageViews for reading hidden messages.
@@ -77,12 +81,13 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
         private TextView textView;
-        private Context context;
         private Controller controller;
+        private Context context;
 
-        public ViewHolder(View view) {
+        public ViewHolder(View view, Context context) {
             super(view);
             controller = SuperClass.getController();
+            this.context = context;
             imageView = (ImageView) view.findViewById(R.id.conversationImageView);
             textView = (TextView) view.findViewById(R.id.conversationTextView);
             imageView.setOnClickListener(new View.OnClickListener() {
@@ -92,8 +97,20 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
                     String message = controller.decodeBitmap(image);
                     Log.d("message", "message: " + message);
                     //Det loggade message är alltså bildens gömda meddelande/ Viktor
+                    showMessage(message);
                 }
             });
         }
+
+        /**
+         * Displays text within a fragment.
+         * @param message The text to be displayed.
+         */
+        public void showMessage(String message) {
+            FragmentManager fragmentManager = ((FragmentActivity)context).getSupportFragmentManager();
+            DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(message);
+            dialog.show(fragmentManager, "dialogfragment_message");
+        }
+
     }
 }
