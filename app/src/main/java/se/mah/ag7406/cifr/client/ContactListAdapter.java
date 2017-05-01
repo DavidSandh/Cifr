@@ -108,8 +108,6 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                 public boolean onMenuItemClick(MenuItem item) {
                     if(item.getItemId() == 1) {
 //                        controller.removeUserFromContactList(textView.getText());
-                    } else if (item.getItemId() == 2) {
-//                        controller.BlockUserFromContactList(textView.getText());
                     }
                     return false;
                 }

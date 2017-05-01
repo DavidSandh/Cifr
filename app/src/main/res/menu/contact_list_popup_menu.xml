@@ -10,17 +10,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:text="@string/btnBlockUser"
-        android:title="@string/btnBlockUser"/>
-
-    <item
-        android:id="@+id/contactBlockButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/contactRemoveButton"
-        android:layout_alignBottom="@+id/contactRemoveButton"
-        android:layout_toLeftOf="@+id/contactRemoveButton"
-        android:layout_toStartOf="@+id/contactRemoveButton"
         android:text="@string/btnRemoveUser"
         android:title="@string/btnRemoveUser"/>
 </menu>

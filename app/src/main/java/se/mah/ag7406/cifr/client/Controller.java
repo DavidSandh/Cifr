@@ -2,6 +2,7 @@ package se.mah.ag7406.cifr.client;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.renderscript.RenderScript;
 import android.util.Log;
 
 import java.io.Serializable;
@@ -176,6 +177,7 @@ public class Controller implements Serializable {
      */
     private Bitmap gridImageManipulation(byte[] image) {
         Bitmap newBitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+        newBitmap = Bitmap.createScaledBitmap(newBitmap, 20, 20, true); //Gräsligt! /Viktor
         newBitmap = Bitmap.createScaledBitmap(newBitmap, 500, 500, true);
         return newBitmap;
     }
