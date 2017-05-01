@@ -43,7 +43,8 @@ public class CreateMessage extends AppCompatActivity {
 
     /**
      * Collects the data for the message object creation taking place in the
-     * controller.
+     * controller. Called when the user clicks the send button. The user is after
+     * this sent back to the conversation.
      * @param view Required parameter for onClick implementation. The view
      *             which is clicked.
      */
@@ -52,6 +53,10 @@ public class CreateMessage extends AppCompatActivity {
         String messageText = messaget.getText().toString();
 //        controller.sendMessage(receiver, messageText, (Object)convert(selectedImage));
         controller.sendMessage(receiver, messageText, selectedImage);
+
+        Intent intent = new Intent(this, Conversation.class);
+        intent.putExtra("username", receiver);
+        startActivity(intent);
     }
 //    public byte[] convert(Bitmap bit){//för test
 //        ByteArrayOutputStream stream = new ByteArrayOutputStream();

@@ -2,7 +2,6 @@ package se.mah.ag7406.cifr.client;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.renderscript.RenderScript;
 import android.util.Log;
 
 import java.io.Serializable;
@@ -148,13 +147,9 @@ public class Controller implements Serializable {
      * This data consists of a GridItem array. GridItem is an object containing
      * the last sent image, and the username of the conversation partner. Each item
      * of the array represents an ongoing conversation.
-     * @param username Username of the logged in user, used as a reference for the
-     *                 data gathering.
      * @return The array of gathered GridItems for display.
      */
-    public GridItem[] getGridItems(String username){
-        //Ta username, som är användaren, fyll arrayen med data.
-        //Den referensen behövs kanske inte ens, beror på hur datan ska sparas.
+    public GridItem[] getGridItems(){
         HashMap<String, ArrayList<Message>> map = readFiles();
         String[] userlist = recieveUserList();
         ArrayList<GridItem> gridList = new ArrayList<>();

@@ -65,10 +65,6 @@ public class ContactList extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void blocked(MenuItem item){
-
-    }
-
     public void logout(MenuItem item){
         controller.logout();
         Intent intent = new Intent(this, LoginScreen.class);

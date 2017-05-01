@@ -20,7 +20,7 @@ public class ConversationList extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter recyclerAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private GridItem[] gridItems; //null just nu /Viktor
+    private GridItem[] gridItems;
     private Controller controller;
 
     /**
@@ -33,8 +33,8 @@ public class ConversationList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation_list);
         controller = SuperClass.getController();
-        gridItems = controller.getGridItems("username"); //Om inte username redan finns i controllern?
-        //setGridData(); //Via controller, detta är för test.
+        gridItems = controller.getGridItems();
+        //setGridData(); //Via controller annars, detta är för test.
         recyclerView = (RecyclerView) findViewById(R.id.conversationList);
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
@@ -68,10 +68,6 @@ public class ConversationList extends AppCompatActivity {
     public void search(MenuItem item){
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
-    }
-
-    public void blocked(MenuItem item){
-
     }
 
     public void logout(MenuItem item){
