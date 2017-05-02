@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="1dp">
 
     <ImageView
         android:id="@+id/conversationItemImageView"
@@ -19,5 +20,11 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="TextView" />
+        android:layout_alignTop="@+id/conversationItemImageView"
+        android:layout_alignBottom="@+id/conversationItemImageView"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="30sp"
+        android:textColor="#FFFFFF"
+        />
 </RelativeLayout>

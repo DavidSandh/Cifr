@@ -13,8 +13,6 @@ import se.mah.ag7406.cifr.R;
  */
 public class HomeScreen extends AppCompatActivity {
 
-    private Controller controller;
-
     /**
      *
      * @param savedInstanceState
@@ -26,8 +24,6 @@ public class HomeScreen extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.cifr_home_screen);
-
-        this.controller = new Controller();
     }
 
     /**
@@ -37,7 +33,6 @@ public class HomeScreen extends AppCompatActivity {
 
     public void login(View view){
         Intent intent = new Intent(this, LoginScreen.class);
-        intent.putExtra("Controller", this.controller);
         startActivity(intent);
     }
 
@@ -47,7 +42,6 @@ public class HomeScreen extends AppCompatActivity {
      */
     protected void register(View view){
         Intent intent = new Intent(this, RegistrationScreen.class);
-        intent.putExtra("Controller", controller);
         startActivity(intent);
     }
 }

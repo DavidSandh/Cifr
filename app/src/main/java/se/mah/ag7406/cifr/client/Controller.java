@@ -2,6 +2,7 @@ package se.mah.ag7406.cifr.client;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,19 +16,21 @@ import message.Message;
  */
 
 public class Controller implements Serializable {
-    private transient Client client;
+    private Client client;
     private transient LoginScreen login;
     private transient RegistrationScreen register;
-    private transient FileHandler filehandler;
+    private FileHandler filehandler;
     private transient String[] userList;
     private String myName;
+    private BitmapEncoder bitmapEncoder = new BitmapEncoder();
 
     public Controller(){
-
+        filehandler = new FileHandler(this); //Filehandler tar controller som argument pga test.
     }
 
     public void startClient(){
-        this.client = new Client("10.2.24.208",1337, this);
+//        this.client = new Client("192.168.1.83",1337, this);
+        this.client = new Client("10.0.2.2", 1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -39,7 +42,6 @@ public class Controller implements Serializable {
     }
 
     public HashMap<String, ArrayList<Message>> readFiles(){
-        filehandler = new FileHandler(); //inte snygg lösning
         Object[] obj = filehandler.read();
         Message[] messages = Arrays.copyOf(obj, obj.length, Message[].class);
         HashMap<String, ArrayList<Message>> map = new HashMap();
@@ -81,18 +83,55 @@ public class Controller implements Serializable {
         //}
         return map;
     }
+
     public void writeFile(Message message){
-        filehandler = new FileHandler();
         filehandler.saveToMachine(message);
     }
 
-    public void sendMessage(String reciever, String messageText, Bitmap image) {
-        Message newMessage = new Message(Message.MESSAGE, myName, reciever,image);
-        client.sendRequest(newMessage);
+    /**
+     * Creates a new message object to be sent. This method is called from CrateMessage activity.
+     * Here the written message is hidden within the image, and the image is sent towards the client.
+     * @param receiver The recipient of the message.
+     * @param messageText Text that the image should hide.
+     * @param image Bitmap that is to be sent.
+     */
+    public void sendMessage(String receiver, String messageText, Bitmap image) {
+        image = encodeBitmap(image, messageText);
+        Object imageObject = image;
+        final Message newMessage = new Message(Message.MESSAGE, myName, receiver, imageObject);
+        new Thread() {
+            public void run() {
+                //Message newMessage = new Message(Message.MESSAGE, "Testare", "Testare",(Object)image);
+                client.sendRequest(newMessage);
+            }
+        }.start();
+    }
+
+    /**
+     * Encodes a String into a bitmap using BitmapEncoder.
+     * @param image The image used as a host for the encoding.
+     * @param message The string that is to be hidden within the bitmap.
+     * @return A bitmap with a message encoded within.
+     */
+    public Bitmap encodeBitmap(Bitmap image, String message) {
+        byte[] messageInBytes = message.getBytes();
+        Bitmap encodedBitmap = bitmapEncoder.encode(image, messageInBytes);
+        return encodedBitmap;
+    }
+
+    /**
+     * Decodes a message hidden within a bitmap using BitmapEncoder.
+     * @param image The image to be decoded.
+     * @return A string with the previously hidden text.
+     */
+    public String decodeBitmap(Bitmap image) {
+        byte[] bytes = bitmapEncoder.decode(image);
+        String messageText = new String(bytes);
+        return messageText;
     }
 
     public void recieveMessage(Message message){
-        filehandler = new FileHandler();
+        Log.d("recieve", "Fick ett meddelande!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         filehandler.saveToMachine(message);
     }
     public void setUserList(String[] list){
@@ -108,13 +147,9 @@ public class Controller implements Serializable {
      * This data consists of a GridItem array. GridItem is an object containing
      * the last sent image, and the username of the conversation partner. Each item
      * of the array represents an ongoing conversation.
-     * @param username Username of the logged in user, used as a reference for the
-     *                 data gathering.
      * @return The array of gathered GridItems for display.
      */
-    public GridItem[] getGridItems(String username){
-        //Ta username, som är användaren, fyll arrayen med data.
-        //Den referensen behövs kanske inte ens, beror på hur datan ska sparas.
+    public GridItem[] getGridItems(){
         HashMap<String, ArrayList<Message>> map = readFiles();
         String[] userlist = recieveUserList();
         ArrayList<GridItem> gridList = new ArrayList<>();
@@ -122,12 +157,25 @@ public class Controller implements Serializable {
             if(map.containsKey(userlist[i])&&userlist[i]!=myName){
                 ArrayList<Message> arr = map.get(userlist[i]);
                 byte[] bild = (byte[])arr.get(0).getImage();// Borde byta message bild till byte-array
-                gridList.add(new GridItem(userlist[i], BitmapFactory.decodeByteArray(bild, 0, bild.length)));
+//                gridList.add(new GridItem(userlist[i], BitmapFactory.decodeByteArray(bild, 0, bild.length)));
+                gridList.add(new GridItem(userlist[i], gridImageManipulation(bild)));
             }
         }
         return Arrays.copyOf(gridList.toArray(), gridList.toArray().length, GridItem[].class);
     }
 
+    /**
+     * Used to change the size of the image in the conversation list so all are equal size.
+     * Would preferrably blur image as well.
+     * @param image Byte array representation of a bitmap.
+     * @return The scaled Bitmap image.
+     */
+    private Bitmap gridImageManipulation(byte[] image) {
+        Bitmap newBitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+        newBitmap = Bitmap.createScaledBitmap(newBitmap, 20, 20, true); //Gräsligt! /Viktor
+        newBitmap = Bitmap.createScaledBitmap(newBitmap, 500, 500, true);
+        return newBitmap;
+    }
 
     /**
      * Gathers the data of a conversation, to be displayed in the Conversation
@@ -141,7 +189,8 @@ public class Controller implements Serializable {
         ArrayList<Message> messageList = map.get(username);
         ArrayList<ConversationItem> conversationList = new ArrayList();
         for(int i=0;i<messageList.size();i++){
-            conversationList.add(new ConversationItem(messageList.get(i).getDate().toString(), (Bitmap)messageList.get(i).getImage()));
+            byte[] bytes = (byte[])messageList.get(i).getImage();
+            conversationList.add(new ConversationItem(messageList.get(i).getDate().toString(), BitmapFactory.decodeByteArray(bytes, 0, bytes.length)));
         }
         return Arrays.copyOf(conversationList.toArray(), conversationList.toArray().length, ConversationItem[].class);
     }
@@ -157,7 +206,11 @@ public class Controller implements Serializable {
     }
 
     public void responseLogin(Message response){
-        login.response(response);
+        if(login!=null) {
+            login.response(response);
+        } else {
+            register.response(response);
+        }
     }
 
     public void checkUsername(final String name,final String password, RegistrationScreen register) {
@@ -169,7 +222,7 @@ public class Controller implements Serializable {
         }.start();
     }
 
-    public void responseRegister(boolean response){
+    public void responseRegister(Message response){
         register.response(response);
     }
 
@@ -203,5 +256,10 @@ public class Controller implements Serializable {
             return true;
         }
         return false;
+    }
+
+    public void logout(){
+        myName = null;
+        //koppla ner klient??
     }
 }

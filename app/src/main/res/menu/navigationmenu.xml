@@ -3,6 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:onClick="home"
+        android:title="Start"
+        app:showAsAction="always"/>
+        //android:icon="@mipmap/ic_home_black_24dp"
+        />
+    <item
         android:icon="@mipmap/ic_supervisor_account_black_24dp"
         app:showAsAction="ifRoom"
         android:onClick="contacts"
@@ -12,11 +18,6 @@
         app:showAsAction="ifRoom"
         android:onClick="search"
         android:title="Search users" />
-    <item
-        android:icon="@mipmap/ic_block_black_24dp"
-        app:showAsAction="ifRoom"
-        android:onClick="blocked"
-        android:title="Blocked Users" />
     <item
         android:icon="@mipmap/ic_exit_to_app_black_24dp"
         app:showAsAction="ifRoom"

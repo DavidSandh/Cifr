@@ -27,7 +27,7 @@ public class LoginScreen extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_cifr_login_screen);
-        controller = (Controller)getIntent().getSerializableExtra("Controller");
+        controller = SuperClass.getController();
         controller.startClient();
     }
 
@@ -46,29 +46,24 @@ public class LoginScreen extends AppCompatActivity {
 
     }
 
-    public void response(Message response){
-        System.out.println("i response i login");
-        if(response.getType()==1){
+    public void response(Message response) {
+        if (response.getType() == 3) {
             this.runOnUiThread(new Runnable() {
                 public void run() {
-                    Toast.makeText(LoginScreen.this , "Kunde inte koppla upp till servern!",
+                    Toast.makeText(LoginScreen.this, "Kunde inte koppla upp till servern!",
                             Toast.LENGTH_LONG).show();
                 }
             });
-        } else if(response.getStatus()){
+        } else if (response.getStatus()) {
             Intent intent = new Intent(this, ConversationList.class);
-            intent.putExtra("Controller", controller);
-            Log.d("efter if sats"
-                    , "vart true = kontakt med controller från login");
             startActivity(intent);
         } else {
             this.runOnUiThread(new Runnable() {
-                public void run() {
-                    Toast.makeText(LoginScreen.this , "Felaktigt lösenord eller användarnamn!",
-                            Toast.LENGTH_LONG).show();
-                }
-            });
-
+                    public void run() {
+                        Toast.makeText(LoginScreen.this, "Felaktigt lösenord eller användarnamn!",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
         }
     }
-}

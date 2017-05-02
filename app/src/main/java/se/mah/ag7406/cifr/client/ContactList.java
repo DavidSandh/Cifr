@@ -1,20 +1,20 @@
 package se.mah.ag7406.cifr.client;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.ContextMenu;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 
 import se.mah.ag7406.cifr.R;
-import se.mah.ag7406.cifr.client.ContactListAdapter;
 
+/**
+ * Activity for displaying the list of contacts available for the user.
+ * This is displayed in a scrollable list with usernames representing
+ * each contact.
+ * @author Viktor Ekström
+ */
 public class ContactList extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -22,10 +22,15 @@ public class ContactList extends AppCompatActivity {
     private String[] usernames;
     private Controller controller;
 
+    /**
+     * Called when the activity is first created. Initialises the RecyclerView
+     * and its adapter with the contact list data collected from the controller.
+     * @param savedInstanceState
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cifr_contact_list);
-        controller = (Controller)getIntent().getSerializableExtra("Controller");
+        controller = SuperClass.getController();
 //        usernames = controller.recieveUserList(); //controllern fyller listan med data.
         setContacts();
         recyclerView = (RecyclerView) findViewById(R.id.contactListView);
@@ -35,6 +40,9 @@ public class ContactList extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * Test method, to be removed.
+     */
     public void setContacts() {
         usernames = new String[3];
         usernames[0] = new String("Sven");
@@ -42,18 +50,24 @@ public class ContactList extends AppCompatActivity {
         usernames[2] = new String("Olaf");
     }
 
-    protected void contacts(MenuItem item){
-        Intent intent = new Intent(this, ContactList.class);
-        intent.putExtra("Controller", controller);
+    protected void home(MenuItem item){
+        Intent intent = new Intent(this, ConversationList.class);
         startActivity(intent);
     }
+
+    protected void contacts(MenuItem item){
+        Intent intent = new Intent(this, ContactList.class);
+        startActivity(intent);
+    }
+
     public void search(MenuItem item){
-
+        Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
     }
-    public void blocked(MenuItem item){
 
-    }
     public void logout(MenuItem item){
-
+        controller.logout();
+        Intent intent = new Intent(this, LoginScreen.class);
+        startActivity(intent);
     }
 }

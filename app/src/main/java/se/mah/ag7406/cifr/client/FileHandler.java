@@ -3,6 +3,7 @@ package se.mah.ag7406.cifr.client;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -24,15 +25,24 @@ public class FileHandler {
     private File file, folder;
     private Context context;
     private File[] files;
+    private Controller controller;
 
-    public FileHandler(){
+    public FileHandler(Controller controller){
+        this.controller = controller; //Detta är för testande/Viktor
         this.context = SuperClass.getContext();
         delete();
         update();
         fortest();
     }
     public void fortest(){//för test
-        saveToMachine(new Message(0,"klas", "Testare", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder1))));
+        Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder1);
+        boolean imagenulltest = image == null;
+        boolean controllernulltest = controller == null;
+        Log.d("test", "kollar om image är null: " + imagenulltest);
+        Log.d("test", "kollar om controller är null: " + controllernulltest);
+        Bitmap newimage = controller.encodeBitmap(image, "Detta är ett test!!");
+        saveToMachine(new Message(0,"klas", "Testare", convert(newimage)));
+//        saveToMachine(new Message(0,"klas", "Testare", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder1))));
         saveToMachine(new Message(0,"Testare", "klas", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder2))));
         saveToMachine(new Message(0,"klas", "Testare", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder3))));
         saveToMachine(new Message(0,"Testare", "klas", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder4))));
