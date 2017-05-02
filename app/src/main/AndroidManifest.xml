@@ -39,7 +39,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".client.HomeScreen" />
         </activity>
-        <activity android:name=".client.ConversationList" />
+        <activity android:name=".client.ConversationList"
+            android:launchMode="standard"/>
         <activity
             android:name=".client.RegistrationScreen"
             android:parentActivityName=".client.HomeScreen">

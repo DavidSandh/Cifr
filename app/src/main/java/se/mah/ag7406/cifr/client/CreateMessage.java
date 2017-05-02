@@ -37,7 +37,8 @@ public class CreateMessage extends AppCompatActivity {
         Intent intent = getIntent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_message);
-        receiver = intent.getStringExtra("conversationUsername");
+        receiver = intent.getStringExtra("username");
+        System.out.println("CreateMessage: Receiver är " + receiver);
         controller = SuperClass.getController();
     }
 
@@ -54,7 +55,7 @@ public class CreateMessage extends AppCompatActivity {
         controller.sendMessage(receiver, messageText, (Object)convert(selectedImage));
 //        controller.sendMessage(receiver, messageText, selectedImage);
 
-        Intent intent = new Intent(this, Conversation.class);
+        Intent intent = new Intent(getApplicationContext(), Conversation.class);
         intent.putExtra("username", receiver);
         startActivity(intent);
     }
