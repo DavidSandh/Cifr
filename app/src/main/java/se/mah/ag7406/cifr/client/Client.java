@@ -65,7 +65,7 @@ public class Client {
             case Message.STATUS :
                 break;//Status
             case Message.SEARCH :
-
+                controller.recieveSearch(message);
                 break;
             case Message.CONTACTLIST :
                 Log.d("Recieved Contactlist", "blabla");

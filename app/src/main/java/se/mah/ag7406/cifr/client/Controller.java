@@ -23,14 +23,15 @@ public class Controller implements Serializable {
     private transient String[] userList;
     private String myName;
     private BitmapEncoder bitmapEncoder = new BitmapEncoder();
+    private SearchActivity search;
 
     public Controller(){
         filehandler = new FileHandler(this); //Filehandler tar controller som argument pga test.
     }
 
     public void startClient(){
-//        this.client = new Client("192.168.1.83",1337, this);
-           this.client = new Client("10.0.2.2", 1337, this);
+        this.client = new Client("192.168.1.83",1337, this);
+
 
       //  this.client = new Client(" 10.2.24.208", 1337, this);
 
@@ -307,5 +308,15 @@ public class Controller implements Serializable {
     public void logout(){
         myName = null;
         //koppla ner klient??
+    }
+
+    public void recieveSearch(Message message) {
+        //search.response(message.getUsername());
+        search.response("Testare");
+    }
+
+    public void sendSearch(String user, SearchActivity search) {
+        this.search = search;
+        sendMessage(Message.SEARCH,user);
     }
 }
