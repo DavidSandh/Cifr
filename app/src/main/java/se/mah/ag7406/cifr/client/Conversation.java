@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -41,10 +42,13 @@ public class Conversation extends AppCompatActivity {
         controller = SuperClass.getController();
         conversationItems = controller.getConversation(conversationUsername); //Metod i controller för att få data till conversationen. /Viktor
         if(conversationItems == null) {
+            Log.d("test", "conversationItems är null");
             Intent createMsgintent = new Intent(this, CreateMessage.class);
             createMsgintent.putExtra("username", conversationUsername);
             startActivity(createMsgintent);
+            finish();
         } else {
+            Log.d("test", "conversationItems är inte null, adapter startas");
             startAdapter();
         }
     }

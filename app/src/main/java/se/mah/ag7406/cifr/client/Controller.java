@@ -19,7 +19,7 @@ public class Controller implements Serializable {
     private Client client;
     private transient LoginScreen login;
     private transient RegistrationScreen register;
-    private FileHandler filehandler;
+    private final FileHandler filehandler;
     private transient String[] userList;
     private String myName;
     private BitmapEncoder bitmapEncoder = new BitmapEncoder();
@@ -30,7 +30,10 @@ public class Controller implements Serializable {
 
     public void startClient(){
 //        this.client = new Client("192.168.1.83",1337, this);
-        this.client = new Client("10.0.2.2", 1337, this);
+           this.client = new Client("10.0.2.2", 1337, this);
+
+      //  this.client = new Client(" 10.2.24.208", 1337, this);
+
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -42,6 +45,8 @@ public class Controller implements Serializable {
     }
 
     public HashMap<String, ArrayList<Message>> readFiles(){
+        Log.d("I read i controller", "jkjkjkj");
+        System.out.println("I read i controller");
         Object[] obj = filehandler.read();
         Message[] messages = Arrays.copyOf(obj, obj.length, Message[].class);
         HashMap<String, ArrayList<Message>> map = new HashMap();
@@ -50,10 +55,12 @@ public class Controller implements Serializable {
         for(int i =0; i<messages.length; i++){
             String sender = messages[i].getSender();
             if(map.containsKey(sender)){
+                System.out.println("Controller: map.containsKey(sender) == true");
                 messageArrayList = map.get(sender);
                 messageArrayList.add(messages[i]);
                 map.put(sender, messageArrayList);
             } else {
+                System.out.println("Controller: mapContainsKey(sender) == false");
                 senders.add(sender);
                 messageArrayList = new ArrayList<>();
                 messageArrayList.add(messages[i]);
@@ -61,13 +68,29 @@ public class Controller implements Serializable {
             }
         }
         ArrayList<Message> myMessages = map.get(myName);
+        if(myMessages==null){
+            System.out.println("Controller: myMessages är null, return map");
+            return map;
+        }
         for(int i=0;i< myMessages.size();i++){
             Message message = myMessages.get(i);
             ArrayList<Message> reciever = map.get(message.getRecipient());
-            reciever.add(message);
-            map.put(message.getRecipient(), reciever);
+            if(reciever==null){
+                System.out.println("Controller: receiver == null");
+                ArrayList<Message> newreciever = new ArrayList<>();
+                newreciever.add(message);
+                System.out.println("i true " + message);
+                map.put(message.getRecipient(), reciever);
+            } else {
+                System.out.println("Controller: else sats, receiver != null");
+                reciever.add(message);
+                System.out.println("i false" + message.getRecipient());
+                map.put(message.getRecipient(), reciever);
+            }
         }
         map.remove(myName);
+        System.out.println("Controller: Storlek på map efter remove:" + map.size());
+        System.out.println("Controller: map.remove(myName)");
         //setUserList(senders.toArray(new String[0]));
         // för sortering, inge bra lösning
         //for(int i=0; i<senders.size(); i++){
@@ -81,6 +104,7 @@ public class Controller implements Serializable {
         //    map.remove(senders.get(i));
         //    map.put(senders.get(i), messageArrayList);
         //}
+        System.out.println("return map");
         return map;
     }
 
@@ -95,14 +119,27 @@ public class Controller implements Serializable {
      * @param messageText Text that the image should hide.
      * @param image Bitmap that is to be sent.
      */
-    public void sendMessage(final String receiver, String messageText, final Object image) {
+    public void sendMessage(String receiver, String messageText, final Object image) {
 //        image = encodeBitmap(image, messageText);
 //        Object imageObject = image;
 //        final Message newMessage = new Message(Message.MESSAGE, myName, receiver, imageObject);
+        final Message newMessage = new Message(Message.MESSAGE, myName, receiver,(Object)image);
         new Thread() {
             public void run() {
-                Message newMessage = new Message(Message.MESSAGE, myName, receiver,(Object)image);
                 client.sendRequest(newMessage);
+                filehandler.saveToMachine(newMessage);
+            }
+        }.start();
+    }
+
+
+    public void sendMessage(final int type, final String user) {
+        final Message newMessage = new Message(type, user);
+        new Thread() {
+            public void run() {
+//                client.sendRequest(newMessage);
+                client.sendRequest(new Message(type, user));
+
             }
         }.start();
     }
@@ -151,15 +188,20 @@ public class Controller implements Serializable {
      * @return The array of gathered GridItems for display.
      */
     public GridItem[] getGridItems(){
+        Log.d("Method kallad: ", "getGridItems()");
         HashMap<String, ArrayList<Message>> map = readFiles();
+        Log.d(map.toString(),"Detta är map toString");
         String[] userlist = recieveUserList();
         ArrayList<GridItem> gridList = new ArrayList<>();
         for (int i=0; i<userlist.length; i++){
-            if(map.containsKey(userlist[i])&&userlist[i]!=myName){
+            System.out.println("Controller. forloop om userlist.lenght" + userlist[i].toString());
+            if(map.containsKey(userlist[i])){
+                System.out.println("Jag är i forloopen i griditems");
                 ArrayList<Message> arr = map.get(userlist[i]);
+                System.out.println("I griditems: " + arr);
                 byte[] bild = (byte[])arr.get(0).getImage();// Borde byta message bild till byte-array
-//                gridList.add(new GridItem(userlist[i], BitmapFactory.decodeByteArray(bild, 0, bild.length)));
-                gridList.add(new GridItem(userlist[i], gridImageManipulation(bild)));
+                gridList.add(new GridItem(userlist[i], BitmapFactory.decodeByteArray(bild, 0, bild.length)));
+//                gridList.add(new GridItem(userlist[i], gridImageManipulation(bild)));
             }
         }
         return Arrays.copyOf(gridList.toArray(), gridList.toArray().length, GridItem[].class);

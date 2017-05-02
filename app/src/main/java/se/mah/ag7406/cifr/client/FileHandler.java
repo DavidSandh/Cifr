@@ -67,6 +67,7 @@ public class FileHandler {
     }
 
     public void saveToMachine(Object object){
+        Log.d("jag skriver meddelandet","    ");
         update();
         String filename;
         if(files.length != 0){
@@ -88,6 +89,8 @@ public class FileHandler {
     }
 
     public Object readObject(String filename) {
+        Log.d("jag läser meddelandet:","   ");
+
         FileInputStream fis;
         Object obj;
         try {
@@ -106,6 +109,7 @@ public class FileHandler {
     }
 
     public Object[] read(){
+        System.out.println("Jag läser meddelandet i FIlehandler");
         update();
         ArrayList<Object> list = new ArrayList();
         Object obj;
