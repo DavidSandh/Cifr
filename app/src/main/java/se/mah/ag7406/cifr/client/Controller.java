@@ -80,7 +80,7 @@ public class Controller implements Serializable {
                 ArrayList<Message> newreciever = new ArrayList<>();
                 newreciever.add(message);
                 System.out.println("i true " + message);
-                map.put(message.getRecipient(), reciever);
+                map.put(message.getRecipient(), newreciever);
             } else {
                 System.out.println("Controller: else sats, receiver != null");
                 reciever.add(message);
