@@ -40,7 +40,16 @@ public class Conversation extends AppCompatActivity {
         setContentView(R.layout.activity_conversation);
         controller = SuperClass.getController();
         conversationItems = controller.getConversation(conversationUsername); //Metod i controller för att få data till conversationen. /Viktor
-        //setConversationData();
+        if(conversationItems == null) {
+            Intent createMsgintent = new Intent(this, CreateMessage.class);
+            createMsgintent.putExtra("username", conversationUsername);
+            startActivity(createMsgintent);
+        } else {
+            startAdapter();
+        }
+    }
+
+    public void startAdapter() {
         TextView usernameTextView = (TextView) findViewById(R.id.conversationUser);
         usernameTextView.setText(conversationUsername);
         recyclerView = (RecyclerView) findViewById(R.id.conversationView);
@@ -48,7 +57,6 @@ public class Conversation extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ConversationAdapter(this, conversationItems);
         recyclerView.setAdapter(adapter);
-
     }
 
     /**

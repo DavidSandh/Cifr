@@ -68,6 +68,7 @@ public class Client {
 
                 break;
             case Message.CONTACTLIST :
+                Log.d("Recieved Contactlist", "blabla");
                 controller.setUserList(message.getContactList());
                 break;//Status
             case Message.CONTACTLIST_ADD :
