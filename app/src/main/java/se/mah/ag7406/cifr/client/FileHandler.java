@@ -30,9 +30,9 @@ public class FileHandler {
     public FileHandler(Controller controller){
         this.controller = controller; //Detta är för testande/Viktor
         this.context = SuperClass.getContext();
-        delete();
+        //delete();
         update();
-        fortest();
+        //fortest();
     }
     public void fortest(){//för test
         Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder1);

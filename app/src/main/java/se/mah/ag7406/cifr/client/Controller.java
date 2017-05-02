@@ -71,7 +71,7 @@ public class Controller implements Serializable {
             map.put(message.getRecipient(), reciever);
         }
         map.remove(myName);
-        setUserList(senders.toArray(new String[0]));
+        //setUserList(senders.toArray(new String[0]));
         // för sortering, inge bra lösning
         //for(int i=0; i<senders.size(); i++){
         //    messageArrayList = map.get(senders.get(i));
@@ -98,13 +98,13 @@ public class Controller implements Serializable {
      * @param messageText Text that the image should hide.
      * @param image Bitmap that is to be sent.
      */
-    public void sendMessage(String receiver, String messageText, Bitmap image) {
-        image = encodeBitmap(image, messageText);
-        Object imageObject = image;
-        final Message newMessage = new Message(Message.MESSAGE, myName, receiver, imageObject);
+    public void sendMessage(final String receiver, String messageText, final Object image) {
+//        image = encodeBitmap(image, messageText);
+//        Object imageObject = image;
+//        final Message newMessage = new Message(Message.MESSAGE, myName, receiver, imageObject);
         new Thread() {
             public void run() {
-                //Message newMessage = new Message(Message.MESSAGE, "Testare", "Testare",(Object)image);
+                Message newMessage = new Message(Message.MESSAGE, myName, receiver,(Object)image);
                 client.sendRequest(newMessage);
             }
         }.start();
@@ -150,6 +150,7 @@ public class Controller implements Serializable {
         filehandler.saveToMachine(message);
     }
     public void setUserList(String[] list){
+        Log.d("Recieved Contactlist", "blabla");
         this.userList = list;
     }
 
@@ -202,6 +203,9 @@ public class Controller implements Serializable {
     public ConversationItem[] getConversation(String username) {
         HashMap<String, ArrayList<Message>> map = readFiles();
         ArrayList<Message> messageList = map.get(username);
+        if(messageList == null) {
+            return null;
+        }
         ArrayList<ConversationItem> conversationList = new ArrayList();
         for(int i=0;i<messageList.size();i++){
             byte[] bytes = (byte[])messageList.get(i).getImage();
