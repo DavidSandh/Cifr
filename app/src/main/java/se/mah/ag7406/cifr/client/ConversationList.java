@@ -52,7 +52,8 @@ public class ConversationList extends AppCompatActivity {
         startActivity(intent);
     }
     public void search(MenuItem item){
-
+        Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
     }
     public void blocked(MenuItem item){
 

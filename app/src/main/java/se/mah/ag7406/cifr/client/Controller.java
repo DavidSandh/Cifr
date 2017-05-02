@@ -27,7 +27,7 @@ public class Controller implements Serializable {
     }
 
     public void startClient(){
-        this.client = new Client("10.2.16.57",1337, this);
+        this.client = new Client("10.2.24.208",1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
