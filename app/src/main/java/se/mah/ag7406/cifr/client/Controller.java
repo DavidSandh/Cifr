@@ -30,7 +30,10 @@ public class Controller implements Serializable {
 
     public void startClient(){
 //        this.client = new Client("192.168.1.83",1337, this);
-        this.client = new Client("10.0.2.2", 1337, this);
+           this.client = new Client("10.0.2.2", 1337, this);
+
+      //  this.client = new Client(" 10.2.24.208", 1337, this);
+
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -103,6 +106,18 @@ public class Controller implements Serializable {
             public void run() {
                 //Message newMessage = new Message(Message.MESSAGE, "Testare", "Testare",(Object)image);
                 client.sendRequest(newMessage);
+            }
+        }.start();
+    }
+
+
+    public void sendMessage(final int type, final String user) {
+        final Message newMessage = new Message(type, user);
+        new Thread() {
+            public void run() {
+//                client.sendRequest(newMessage);
+                client.sendRequest(new Message(type, user));
+
             }
         }.start();
     }
