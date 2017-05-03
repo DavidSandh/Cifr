@@ -30,7 +30,7 @@ public class Controller implements Serializable {
     }
 
     public void startClient(){
-        this.client = new Client("192.168.1.83",1337, this);
+        this.client = new Client("192.168.43.71",1337, this);
 
 
       //  this.client = new Client(" 10.2.24.208", 1337, this);
@@ -132,15 +132,10 @@ public class Controller implements Serializable {
             }
         }.start();
     }
-
-
     public void sendMessage(final int type, final String user) {
-        final Message newMessage = new Message(type, user);
         new Thread() {
             public void run() {
-//                client.sendRequest(newMessage);
                 client.sendRequest(new Message(type, user));
-
             }
         }.start();
     }
@@ -311,8 +306,9 @@ public class Controller implements Serializable {
     }
 
     public void recieveSearch(Message message) {
-        //search.response(message.getUsername());
-        search.response("Testare");
+        System.out.println("Svar från servern" + message.getUsername());
+        search.response(message.getUsername());
+        //search.response("Testare");
     }
 
     public void sendSearch(String user, SearchActivity search) {

@@ -62,8 +62,10 @@ public class SearchActivity extends AppCompatActivity  {
     public void response (String user) {
        final EditText userName = (EditText) findViewById(R.id.editText2);
        final String name = userName.getText().toString();
-        System.out.println("RESPONSE" + user);
-        if(user.equals(name) ) {
+        String newname = name.toLowerCase();
+        user.toLowerCase();
+        System.out.println("RESPONSE" + user + " = " + newname);
+        if(user.equals(newname) ) {
             this.runOnUiThread(new Runnable() {
                 public void run() {
                     EditText userNameFound = (EditText) findViewById(R.id.editText);
