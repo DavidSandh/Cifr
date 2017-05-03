@@ -77,13 +77,14 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
 //            holderController = SuperClass.getController();
             textView = (TextView) view.findViewById(R.id.conversationItemTextView);
             imageView = (ImageView) view.findViewById(R.id.conversationItemImageView);
+            System.out.println("FELX: I Conversationlistadap : textview : " + textView.getText().toString());
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     final Intent intent;
                     context = view.getContext();
                     intent = new Intent(context, Conversation.class);
-                    intent.putExtra("username", textView.getText());
+                    intent.putExtra("username", textView.getText().toString());
                     context.startActivity(intent);
                 }
             });

@@ -89,7 +89,7 @@ public class FileHandler {
     }
 
     public Object readObject(String filename) {
-        Log.d("jag läser meddelandet:","   ");
+        Log.d("I FILEHANDLER!jag läser","HEEEEJ");
 
         FileInputStream fis;
         Object obj;

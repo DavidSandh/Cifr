@@ -53,65 +53,72 @@ public class Controller implements Serializable {
 
     public HashMap<String, ArrayList<Message>> readFiles(){
         Log.d("I read i controller", "jkjkjkj");
-        System.out.println("I read i controller");
         Object[] obj = filehandler.read();
         Message[] messages = Arrays.copyOf(obj, obj.length, Message[].class);
         HashMap<String, ArrayList<Message>> map = new HashMap();
         ArrayList<Message> messageArrayList;
-        ArrayList<String> senders = new ArrayList();
-        for(int i =0; i<messages.length; i++){
-            String sender = messages[i].getSender();
-            if(map.containsKey(sender)){
-                System.out.println("Controller: map.containsKey(sender) == true");
-                messageArrayList = map.get(sender);
-                messageArrayList.add(messages[i]);
-                map.put(sender, messageArrayList);
-            } else {
-                System.out.println("Controller: mapContainsKey(sender) == false");
-                senders.add(sender);
-                messageArrayList = new ArrayList<>();
-                messageArrayList.add(messages[i]);
-                map.put(sender, messageArrayList);
+
+        for(int i =0; i<userList.length; i++){
+            messageArrayList = new ArrayList<>();
+            for(int j=0; j<messages.length; j++){
+                if(userList[i].equalsIgnoreCase(messages[j].getSender())||userList[i].equalsIgnoreCase(messages[j].getRecipient())){
+                    messageArrayList.add(messages[j]);
+                }
             }
-        }
-        ArrayList<Message> myMessages = map.get(myName);
-        if(myMessages==null){
-            System.out.println("Controller: myMessages är null, return map");
-            return map;
-        }
-        for(int i=0;i< myMessages.size();i++){
-            Message message = myMessages.get(i);
-            ArrayList<Message> reciever = map.get(message.getRecipient());
-            if(reciever==null){
-                System.out.println("Controller: receiver == null");
-                ArrayList<Message> newreciever = new ArrayList<>();
-                newreciever.add(message);
-                System.out.println("i true " + message);
-                map.put(message.getRecipient(), newreciever);
-            } else {
-                System.out.println("Controller: else sats, receiver != null");
-                reciever.add(message);
-                System.out.println("i false" + message.getRecipient());
-                map.put(message.getRecipient(), reciever);
+            if(!messageArrayList.isEmpty()) {
+                map.put(userList[i], messageArrayList);
             }
-        }
-        map.remove(myName);
-        System.out.println("Controller: Storlek på map efter remove:" + map.size());
-        System.out.println("Controller: map.remove(myName)");
-        //setUserList(senders.toArray(new String[0]));
-        // för sortering, inge bra lösning
-        //for(int i=0; i<senders.size(); i++){
-        //    messageArrayList = map.get(senders.get(i));
-        //    Collections.sort(messageArrayList, new Comparator<Message>() {
-        //        @Override
-        //        public int compare(Message message, Message t1) {
-        //            return message.getDate().compareTo(t1.getDate());
-        //        }
-        //    });
-        //    map.remove(senders.get(i));
-        //    map.put(senders.get(i), messageArrayList);
-        //}
-        System.out.println("return map");
+//            if(map.containsKey(sender)){
+//                System.out.println("Controller: map.containsKey(sender) == true");
+//                messageArrayList = map.get(sender);
+//                messageArrayList.add(messages[i]);
+//                map.put(sender, messageArrayList);
+//            } else {
+//                System.out.println("Controller: mapContainsKey(sender) == false");
+//                senders.add(sender);
+//                messageArrayList = new ArrayList<>();
+//                messageArrayList.add(messages[i]);
+//                map.put(sender, messageArrayList);
+            }
+//
+//        ArrayList<Message> myMessages = map.get(myName);
+//        if(myMessages==null){
+//            System.out.println("Controller: myMessages är null, return map");
+//            return map;
+//        }
+//        for(int i=0;i< myMessages.size();i++){
+//            Message message = myMessages.get(i);
+//            ArrayList<Message> reciever = map.get(message.getRecipient());
+//            if(reciever==null){
+//                System.out.println("Controller: receiver == null");
+//                ArrayList<Message> newreciever = new ArrayList<>();
+//                newreciever.add(message);
+//                System.out.println("i true " + message);
+//                map.put(message.getRecipient(), newreciever);
+//            } else {
+//                System.out.println("Controller: else sats, receiver != null");
+//                reciever.add(message);
+//                System.out.println("i false" + message.getRecipient());
+//                map.put(message.getRecipient(), reciever);
+//            }
+//        }
+//        map.remove(myName);
+//        System.out.println("Controller: Storlek på map efter remove:" + map.size());
+//        System.out.println("Controller: map.remove(myName)");
+//        //setUserList(senders.toArray(new String[0]));
+//        // för sortering, inge bra lösning
+//        //for(int i=0; i<senders.size(); i++){
+//        //    messageArrayList = map.get(senders.get(i));
+//        //    Collections.sort(messageArrayList, new Comparator<Message>() {
+//        //        @Override
+//        //        public int compare(Message message, Message t1) {
+//        //            return message.getDate().compareTo(t1.getDate());
+//        //        }
+//        //    });
+//        //    map.remove(senders.get(i));
+//        //    map.put(senders.get(i), messageArrayList);
+//        //}
+//        System.out.println("return map");
         return map;
     }
 
@@ -134,10 +141,10 @@ public class Controller implements Serializable {
 //        final Message newMessage = new Message(Message.MESSAGE, myName, receiver, imageObject);
 //        final Message newMessage = new Message(Message.MESSAGE, myName, receiver,(Object)image);
         final Message newMessage = new Message(Message.MESSAGE, myName, receiver, msgImage);
+        filehandler.saveToMachine(newMessage);
         new Thread() {
             public void run() {
                 client.sendRequest(newMessage);
-                filehandler.saveToMachine(newMessage);
             }
         }.start();
     }
@@ -208,17 +215,13 @@ public class Controller implements Serializable {
      * @return The array of gathered GridItems for display.
      */
     public GridItem[] getGridItems(){
-        Log.d("Method kallad: ", "getGridItems()");
         HashMap<String, ArrayList<Message>> map = readFiles();
-        Log.d(map.toString(),"Detta är map toString");
         String[] userlist = recieveUserList();
         ArrayList<GridItem> gridList = new ArrayList<>();
         for (int i=0; i<userlist.length; i++){
-            System.out.println("Controller. forloop om userlist.lenght" + userlist[i].toString());
             if(map.containsKey(userlist[i])){
                 System.out.println("Jag är i forloopen i griditems");
                 ArrayList<Message> arr = map.get(userlist[i]);
-                System.out.println("I griditems: " + arr);
                 byte[] bild = (byte[])arr.get(0).getImage();// Borde byta message bild till byte-array
 //                gridList.add(new GridItem(userlist[i], BitmapFactory.decodeByteArray(bild, 0, bild.length)));
                 gridList.add(new GridItem(userlist[i], gridImageManipulation(bild)));
@@ -248,13 +251,16 @@ public class Controller implements Serializable {
      * @return The array of gathered ConversationItems for display.
      */
     public ConversationItem[] getConversation(String username) {
+        System.out.println("I ConversationItem controller: Username: "+ username);
         HashMap<String, ArrayList<Message>> map = readFiles();
         ArrayList<Message> messageList = map.get(username);
         if(messageList == null) {
+            System.out.println("FELX: Messagelist: ICOnversation i controller: " + messageList);
             return null;
         }
         ArrayList<ConversationItem> conversationList = new ArrayList();
         for(int i=0;i<messageList.size();i++){
+            System.out.println("I for Loop I ConversationItem" +messageList.get(i).getSender());
             byte[] bytes = (byte[])messageList.get(i).getImage();
             conversationList.add(new ConversationItem(messageList.get(i).getDate().toString(), BitmapFactory.decodeByteArray(bytes, 0, bytes.length)));
         }

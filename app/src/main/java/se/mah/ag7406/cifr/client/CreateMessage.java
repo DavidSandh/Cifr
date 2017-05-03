@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import se.mah.ag7406.cifr.R;
@@ -38,6 +37,7 @@ public class CreateMessage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_message);
         receiver = intent.getStringExtra("username");
+        System.out.println("FELX: I CreateMessage: reciever: 2" + receiver);
         System.out.println("CreateMessage: Receiver är " + receiver);
         controller = SuperClass.getController();
     }
@@ -57,6 +57,7 @@ public class CreateMessage extends AppCompatActivity {
         controller.sendMessage(receiver, messageText, selectedImage);
 
         Intent intent = new Intent(this, Conversation.class);
+        System.out.println("FELX: I CreateMessage: reciever: 1 " + receiver);
         intent.putExtra("username", receiver);
         startActivity(intent);
         finish();
