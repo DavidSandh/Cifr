@@ -1,10 +1,12 @@
 package se.mah.ag7406.cifr.client;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.widget.Button;
@@ -89,6 +91,33 @@ public class SearchActivity extends AppCompatActivity  {
                     }
                 });
         }
+    }
+
+
+
+    protected void home(MenuItem item){
+        Intent intent = new Intent(this, ConversationList.class);
+        startActivity(intent);
+        finish();
+    }
+
+    protected void contacts(MenuItem item){
+        Intent intent = new Intent(this, ContactList.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void search(MenuItem item){
+        Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void logout(MenuItem item){
+        controller.logout();
+        Intent intent = new Intent(this, LoginScreen.class);
+        startActivity(intent);
+        finish();
     }
 }
 
