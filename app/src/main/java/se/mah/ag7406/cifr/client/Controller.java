@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +31,7 @@ public class Controller implements Serializable {
     }
 
     public void startClient(){
-        this.client = new Client("192.168.43.71",1337, this);
+        this.client = new Client("10.0.2.2",1337, this);
 
 
       //  this.client = new Client(" 10.2.24.208", 1337, this);
@@ -158,6 +159,9 @@ public class Controller implements Serializable {
      * @return A string with the previously hidden text.
      */
     public String decodeBitmap(Bitmap image) {
+//        ByteArrayOutputStream test = new ByteArrayOutputStream();
+//        image.compress(Bitmap.CompressFormat.PNG, 0, test);
+//        byte[] array = test.toByteArray();
         byte[] bytes = bitmapEncoder.decode(image);
         String messageText = new String(bytes);
         return messageText;
