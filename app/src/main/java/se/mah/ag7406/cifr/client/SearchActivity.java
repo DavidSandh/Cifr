@@ -63,8 +63,11 @@ public class SearchActivity extends AppCompatActivity  {
        final EditText userName = (EditText) findViewById(R.id.editText2);
        final String name = userName.getText().toString();
         String newname = name.toLowerCase();
-        user.toLowerCase();
         System.out.println("RESPONSE" + user + " = " + newname);
+
+        if(user!= null){
+            user.toLowerCase();
+
         if(user.equals(newname) ) {
             this.runOnUiThread(new Runnable() {
                 public void run() {
@@ -76,6 +79,7 @@ public class SearchActivity extends AppCompatActivity  {
             });
             userNameToAdd = name;
             addUserToContacts(userNameToAdd);
+        }
         }  else {
                 this.runOnUiThread(new Runnable() {
                     public void run() {
