@@ -32,10 +32,10 @@ public class Controller implements Serializable {
 
     public void startClient(){
 //        this.client = new Client("192.168.1.83",1337, this);
-           this.client = new Client("192.168.43.71", 1337, this);
+//           this.client = new Client("192.168.43.71", 1337, this);
 
 
-      //  this.client = new Client(" 10.2.24.208", 1337, this);
+      this.client = new Client("10.2.24.208", 1337, this);
 
         new Thread() {
             public void run() {
@@ -217,6 +217,9 @@ public class Controller implements Serializable {
     public GridItem[] getGridItems(){
         HashMap<String, ArrayList<Message>> map = readFiles();
         String[] userlist = recieveUserList();
+        if(userlist ==null){
+            return null;
+        }
         ArrayList<GridItem> gridList = new ArrayList<>();
         for (int i=0; i<userlist.length; i++){
             if(map.containsKey(userlist[i])){

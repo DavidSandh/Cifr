@@ -59,7 +59,11 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
      * @return The total number of items in this adapter.
      */
     public int getItemCount() {
-        return gridItems.length;
+        if(gridItems != null){
+            return gridItems.length;
+
+        }
+        return 0;
     }
 
     /**

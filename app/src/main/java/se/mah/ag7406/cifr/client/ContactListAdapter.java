@@ -63,7 +63,11 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
      * @return The total number of items in this adapter.
      */
     public int getItemCount() {
-        return usernames.length;
+        if(usernames!=null){
+            return usernames.length;
+
+        }
+        return 0;
     }
 
     /**

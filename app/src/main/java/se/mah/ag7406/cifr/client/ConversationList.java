@@ -33,6 +33,7 @@ public class ConversationList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation_list);
         controller = SuperClass.getController();
+
         gridItems = controller.getGridItems();
         //setGridData(); //Via controller annars, detta är för test.
         recyclerView = (RecyclerView) findViewById(R.id.conversationList);
