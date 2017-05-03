@@ -46,6 +46,10 @@ public class Controller implements Serializable {
         this.myName = name;
     }
 
+    public String getMyName(){
+        return myName;
+    }
+
     public HashMap<String, ArrayList<Message>> readFiles(){
         Log.d("I read i controller", "jkjkjkj");
         System.out.println("I read i controller");
@@ -133,10 +137,14 @@ public class Controller implements Serializable {
             }
         }.start();
     }
-    public void sendMessage(final int type, final String user) {
+    public void sendMessage(final int type, final String name, final String user) {
         new Thread() {
             public void run() {
-                client.sendRequest(new Message(type, user));
+                if(name==null){
+                    client.sendRequest(new Message(type, user));
+                } else {
+                    client.sendRequest(new Message(type, name, user));
+                }
             }
         }.start();
     }
@@ -317,6 +325,7 @@ public class Controller implements Serializable {
 
     public void sendSearch(String user, SearchActivity search) {
         this.search = search;
-        sendMessage(Message.SEARCH,user);
+        sendMessage(Message.SEARCH, null, user);
     }
+
 }

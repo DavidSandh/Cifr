@@ -47,7 +47,7 @@ public class SearchActivity extends AppCompatActivity  {
     }
     public void addUserToContacts(final String user){
         System.out.println("addUserToContacts");
-        controller.sendMessage(Message.CONTACTLIST_ADD, user);
+        controller.sendMessage(Message.CONTACTLIST_ADD, controller.getMyName(), user);
         this.runOnUiThread(new Runnable() {
             public void run() {
                 Snackbar snackbar =Snackbar.make( findViewById(android.R.id.content), "Användare tillagd", Snackbar.LENGTH_LONG );
