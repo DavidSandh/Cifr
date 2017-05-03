@@ -217,9 +217,6 @@ public class Controller implements Serializable {
     public GridItem[] getGridItems(){
         HashMap<String, ArrayList<Message>> map = readFiles();
         String[] userlist = recieveUserList();
-        if(userlist ==null){
-            return null;
-        }
         ArrayList<GridItem> gridList = new ArrayList<>();
         for (int i=0; i<userlist.length; i++){
             if(map.containsKey(userlist[i])){
