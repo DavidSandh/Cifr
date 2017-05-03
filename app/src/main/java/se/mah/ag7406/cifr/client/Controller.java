@@ -149,8 +149,7 @@ public class Controller implements Serializable {
         return byteArray;
     }
 
-    public void sendMessage(final int type, final String user) {
-        final Message newMessage = new Message(type, user);
+    public void sendMessage(final int type, final String name, final String user) {
         new Thread() {
             public void run() {
                 if(name==null){
