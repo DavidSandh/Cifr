@@ -24,6 +24,7 @@ public class Controller implements Serializable {
     private transient String[] userList;
     private String myName;
     private BitmapEncoder bitmapEncoder = new BitmapEncoder();
+    private SearchActivity search;
 
     public Controller(){
         filehandler = new FileHandler(this); //Filehandler tar controller som argument pga test.
@@ -32,6 +33,7 @@ public class Controller implements Serializable {
     public void startClient(){
 //        this.client = new Client("192.168.1.83",1337, this);
            this.client = new Client("10.0.2.2", 1337, this);
+
 
       //  this.client = new Client(" 10.2.24.208", 1337, this);
 
@@ -43,6 +45,10 @@ public class Controller implements Serializable {
     }
     public void setMyName(String name){
         this.myName = name;
+    }
+
+    public String getMyName(){
+        return myName;
     }
 
     public HashMap<String, ArrayList<Message>> readFiles(){
@@ -143,14 +149,15 @@ public class Controller implements Serializable {
         return byteArray;
     }
 
-
     public void sendMessage(final int type, final String user) {
         final Message newMessage = new Message(type, user);
         new Thread() {
             public void run() {
-//                client.sendRequest(newMessage);
-                client.sendRequest(new Message(type, user));
-
+                if(name==null){
+                    client.sendRequest(new Message(type, user));
+                } else {
+                    client.sendRequest(new Message(type, name, user));
+                }
             }
         }.start();
     }
@@ -173,6 +180,9 @@ public class Controller implements Serializable {
      * @return A string with the previously hidden text.
      */
     public String decodeBitmap(Bitmap image) {
+//        ByteArrayOutputStream test = new ByteArrayOutputStream();
+//        image.compress(Bitmap.CompressFormat.PNG, 0, test);
+//        byte[] array = test.toByteArray();
         byte[] bytes = bitmapEncoder.decode(image);
         String messageText = new String(bytes);
         return messageText;
@@ -319,4 +329,16 @@ public class Controller implements Serializable {
         myName = null;
         //koppla ner klient??
     }
+
+    public void recieveSearch(Message message) {
+        System.out.println("Svar från servern" + message.getUsername());
+        search.response(message.getUsername());
+        //search.response("Testare");
+    }
+
+    public void sendSearch(String user, SearchActivity search) {
+        this.search = search;
+        sendMessage(Message.SEARCH, null, user);
+    }
+
 }

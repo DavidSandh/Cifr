@@ -41,7 +41,6 @@ public class ConversationList extends AppCompatActivity {
         recyclerAdapter = new ConversationListAdapter(this, gridItems);
         recyclerView.setAdapter(recyclerAdapter);
     }
-
     /**
      * Test method, to be removed.
      */
