@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -119,17 +120,27 @@ public class Controller implements Serializable {
      * @param messageText Text that the image should hide.
      * @param image Bitmap that is to be sent.
      */
-    public void sendMessage(String receiver, String messageText, final Object image) {
-//        image = encodeBitmap(image, messageText);
+    public void sendMessage(String receiver, String messageText, Bitmap image) {
+        Bitmap newImage = encodeBitmap(image, messageText);
+        byte[] msgImage = convert(newImage);
+//        Object msgImage = image;
 //        Object imageObject = image;
 //        final Message newMessage = new Message(Message.MESSAGE, myName, receiver, imageObject);
-        final Message newMessage = new Message(Message.MESSAGE, myName, receiver,(Object)image);
+//        final Message newMessage = new Message(Message.MESSAGE, myName, receiver,(Object)image);
+        final Message newMessage = new Message(Message.MESSAGE, myName, receiver, msgImage);
         new Thread() {
             public void run() {
                 client.sendRequest(newMessage);
                 filehandler.saveToMachine(newMessage);
             }
         }.start();
+    }
+
+    public byte[] convert(Bitmap bit){//för test
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bit.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
     }
 
 
@@ -200,8 +211,8 @@ public class Controller implements Serializable {
                 ArrayList<Message> arr = map.get(userlist[i]);
                 System.out.println("I griditems: " + arr);
                 byte[] bild = (byte[])arr.get(0).getImage();// Borde byta message bild till byte-array
-                gridList.add(new GridItem(userlist[i], BitmapFactory.decodeByteArray(bild, 0, bild.length)));
-//                gridList.add(new GridItem(userlist[i], gridImageManipulation(bild)));
+//                gridList.add(new GridItem(userlist[i], BitmapFactory.decodeByteArray(bild, 0, bild.length)));
+                gridList.add(new GridItem(userlist[i], gridImageManipulation(bild)));
             }
         }
         return Arrays.copyOf(gridList.toArray(), gridList.toArray().length, GridItem[].class);

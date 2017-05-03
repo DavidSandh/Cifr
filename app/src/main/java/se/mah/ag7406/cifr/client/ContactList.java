@@ -53,21 +53,25 @@ public class ContactList extends AppCompatActivity {
     protected void home(MenuItem item){
         Intent intent = new Intent(this, ConversationList.class);
         startActivity(intent);
+        finish();
     }
 
     protected void contacts(MenuItem item){
         Intent intent = new Intent(this, ContactList.class);
         startActivity(intent);
+        finish();
     }
 
     public void search(MenuItem item){
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void logout(MenuItem item){
         controller.logout();
         Intent intent = new Intent(this, LoginScreen.class);
         startActivity(intent);
+        finish();
     }
 }

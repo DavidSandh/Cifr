@@ -30,9 +30,9 @@ public class FileHandler {
     public FileHandler(Controller controller){
         this.controller = controller; //Detta är för testande/Viktor
         this.context = SuperClass.getContext();
-        //delete();
+//        delete();
         update();
-        //fortest();
+//        fortest();
     }
     public void fortest(){//för test
         Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder1);
@@ -42,10 +42,10 @@ public class FileHandler {
         Log.d("test", "kollar om controller är null: " + controllernulltest);
         Bitmap newimage = controller.encodeBitmap(image, "Detta är ett test!!");
         saveToMachine(new Message(0,"klas", "Testare", convert(newimage)));
-//        saveToMachine(new Message(0,"klas", "Testare", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder1))));
-        saveToMachine(new Message(0,"Testare", "klas", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder2))));
-        saveToMachine(new Message(0,"klas", "Testare", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder3))));
-        saveToMachine(new Message(0,"Testare", "klas", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder4))));
+        //saveToMachine(new Message(0,"klas", "Testare", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder1))));
+        //saveToMachine(new Message(0,"Testare", "klas", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder2))));
+        //saveToMachine(new Message(0,"klas", "Testare", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder3))));
+        //saveToMachine(new Message(0,"Testare", "klas", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder4))));
     }
     public byte[] convert(Bitmap bit){//för test
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
