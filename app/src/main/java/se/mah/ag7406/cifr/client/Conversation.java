@@ -50,18 +50,14 @@ public class Conversation extends AppCompatActivity {
             finish();
         } else {
             Log.d("test", "conversationItems är inte null, adapter startas");
-            startAdapter();
+            TextView usernameTextView = (TextView) findViewById(R.id.conversationUser);
+            usernameTextView.setText(conversationUsername);
+            recyclerView = (RecyclerView) findViewById(R.id.conversationView);
+            layoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(layoutManager);
+            adapter = new ConversationAdapter(this, conversationItems);
+            recyclerView.setAdapter(adapter);
         }
-    }
-
-    public void startAdapter() {
-        TextView usernameTextView = (TextView) findViewById(R.id.conversationUser);
-        usernameTextView.setText(conversationUsername);
-        recyclerView = (RecyclerView) findViewById(R.id.conversationView);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new ConversationAdapter(this, conversationItems);
-        recyclerView.setAdapter(adapter);
     }
 
     /**
@@ -95,24 +91,43 @@ public class Conversation extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Used by the navigation menu to open the "home" screen. The "home" screen
+     * is where the conversations are listed.
+     * @param item Item pressed in the menu.
+     */
     protected void home(MenuItem item){
         Intent intent = new Intent(this, ConversationList.class);
         startActivity(intent);
         finish();
     }
 
+    /**
+     * Used by the navigation menu to open the contacts screen. The contacts
+     * screen is where the conversation list is located.
+     * @param item Item pressed in the menu.
+     */
     protected void contacts(MenuItem item){
         Intent intent = new Intent(this, ContactList.class);
         startActivity(intent);
         finish();
     }
 
+    /**
+     * Used by the navigation menu to open the search screen. The search screen
+     * is where a user can search for other users and add these to the contactlist.
+     * @param item Item pressed in the menu.
+     */
     public void search(MenuItem item){
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
         finish();
     }
 
+    /**
+     * Used by the navigation menu to log out a user.
+     * @param item Item pressed in the menu.
+     */
     public void logout(MenuItem item){
         controller.logout();
         Intent intent = new Intent(this, LoginScreen.class);

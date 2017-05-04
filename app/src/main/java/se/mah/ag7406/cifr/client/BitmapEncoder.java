@@ -6,10 +6,12 @@ package se.mah.ag7406.cifr.client;
  import java.util.Arrays;
 
 /**
- * Created by mat on 16/11/15.
+ * Class providing functionality for hiding information in bitmaps.
+ * Link to GitHub repository: <a href="https://github.com/stealthcopter/steganography">github.com/stealthcopter/steganography</a>
+ * Created by Matthew Rollings on 16/11/15.
  */
 public class BitmapEncoder {
-//Metoderna var static tidigare, ändra tillbaka möjligtvis /Viktor
+
     public static final int HEADER_SIZE = Long.SIZE / Byte.SIZE + 4;
 
     public static byte[] createHeader(long size) {
