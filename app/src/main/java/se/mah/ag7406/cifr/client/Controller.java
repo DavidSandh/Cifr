@@ -57,6 +57,9 @@ public class Controller implements Serializable {
         Message[] messages = Arrays.copyOf(obj, obj.length, Message[].class);
         HashMap<String, ArrayList<Message>> map = new HashMap();
         ArrayList<Message> messageArrayList;
+        if(userList == null){
+            return  null;
+        }
 
         for(int i =0; i<userList.length; i++){
             messageArrayList = new ArrayList<>();
@@ -218,6 +221,9 @@ public class Controller implements Serializable {
         HashMap<String, ArrayList<Message>> map = readFiles();
         String[] userlist = recieveUserList();
         ArrayList<GridItem> gridList = new ArrayList<>();
+        if(userlist== null){
+            return null;
+        }
         for (int i=0; i<userlist.length; i++){
             if(map.containsKey(userlist[i])){
                 System.out.println("Jag är i forloopen i griditems");
