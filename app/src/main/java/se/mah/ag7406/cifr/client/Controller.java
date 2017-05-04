@@ -218,12 +218,13 @@ public class Controller implements Serializable {
         HashMap<String, ArrayList<Message>> map = readFiles();
         String[] userlist = recieveUserList();
         ArrayList<GridItem> gridList = new ArrayList<>();
+        if(userList==null){
+            return null;
+        }
         for (int i=0; i<userlist.length; i++){
             if(map.containsKey(userlist[i])){
-                System.out.println("Jag är i forloopen i griditems");
                 ArrayList<Message> arr = map.get(userlist[i]);
                 byte[] bild = (byte[])arr.get(0).getImage();// Borde byta message bild till byte-array
-//                gridList.add(new GridItem(userlist[i], BitmapFactory.decodeByteArray(bild, 0, bild.length)));
                 gridList.add(new GridItem(userlist[i], gridImageManipulation(bild)));
             }
         }
@@ -251,11 +252,9 @@ public class Controller implements Serializable {
      * @return The array of gathered ConversationItems for display.
      */
     public ConversationItem[] getConversation(String username) {
-        System.out.println("I ConversationItem controller: Username: "+ username);
         HashMap<String, ArrayList<Message>> map = readFiles();
         ArrayList<Message> messageList = map.get(username);
         if(messageList == null) {
-            System.out.println("FELX: Messagelist: ICOnversation i controller: " + messageList);
             return null;
         }
         ArrayList<ConversationItem> conversationList = new ArrayList();
@@ -348,7 +347,6 @@ public class Controller implements Serializable {
                 client.sendRequest(new Message(Message.SEARCH, user));
             }
         }.start();
-        //sendMessage(Message.SEARCH, null, user);
     }
 
 }
