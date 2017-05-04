@@ -13,11 +13,15 @@ import android.widget.Toast;
 import message.Message;
 import se.mah.ag7406.cifr.R;
 
+/**
+ * The Login-Screen for the Cifr-app
+ * Created by Jens Andreassen on 2017-04-06
+ */
 public class LoginScreen extends AppCompatActivity {
     private Controller controller;
 
     /**
-     *
+     * Runs on Creation of the Activity calls superclass for instance of controller
      * @param savedInstanceState
      */
     @Override
@@ -32,8 +36,8 @@ public class LoginScreen extends AppCompatActivity {
     }
 
     /**
-     *
-     *
+     * Method to be run on Login button pressed
+     * Sends request on login and sets name of active user
      */
     public void login(View view){
         EditText username = (EditText) findViewById(R.id.usernamelogin);
@@ -45,7 +49,10 @@ public class LoginScreen extends AppCompatActivity {
         controller.setMyName(name); //För test
 
     }
-
+    /**
+     * Handles response from server and notifies user of failed attempt
+     * or starts ConversationList activity on succes
+     */
     public void response(Message response) {
         if (response.getType() == 3) {
             this.runOnUiThread(new Runnable() {

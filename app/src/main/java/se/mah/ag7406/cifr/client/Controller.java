@@ -3,17 +3,16 @@ package se.mah.ag7406.cifr.client;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
-
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-
 import message.Message;
 
 /**
- * Created by Jens on 2017-04-06.
+ * Acts as controller for the logik in the application
+ * Created by Jens Andreassen and Viktor Ekström on 2017-04-06.
  */
 
 public class Controller implements Serializable {
@@ -30,27 +29,39 @@ public class Controller implements Serializable {
         filehandler = new FileHandler(this); //Filehandler tar controller som argument pga test.
     }
 
+    /**
+     * Creates a new client and starts it.
+     */
     public void startClient(){
-//        this.client = new Client("192.168.1.83",1337, this);
-//           this.client = new Client("192.168.43.71", 1337, this);
-
-
       this.client = new Client("10.0.2.2", 1337, this);
-
         new Thread() {
             public void run() {
                 client.clientRun();
             }
         }.start();
     }
+
+    /**
+     * Sets the active users name
+     * @param name Username
+     */
     public void setMyName(String name){
         this.myName = name;
     }
 
+    /**
+     * Returns the active users name
+     * @return Username
+     */
     public String getMyName(){
         return myName;
     }
 
+    /**
+     * Calls filehandler to read all files and sorts them according to conversations
+     * with different users
+     * @return Hashmap containg username as key and an ArrayList containing the messages
+     */
     public HashMap<String, ArrayList<Message>> readFiles(){
         Log.d("I read i controller", "jkjkjkj");
         Object[] obj = filehandler.read();
@@ -70,60 +81,14 @@ public class Controller implements Serializable {
             if(!messageArrayList.isEmpty()) {
                 map.put(userList[i], messageArrayList);
             }
-//            if(map.containsKey(sender)){
-//                System.out.println("Controller: map.containsKey(sender) == true");
-//                messageArrayList = map.get(sender);
-//                messageArrayList.add(messages[i]);
-//                map.put(sender, messageArrayList);
-//            } else {
-//                System.out.println("Controller: mapContainsKey(sender) == false");
-//                senders.add(sender);
-//                messageArrayList = new ArrayList<>();
-//                messageArrayList.add(messages[i]);
-//                map.put(sender, messageArrayList);
-            }
-//
-//        ArrayList<Message> myMessages = map.get(myName);
-//        if(myMessages==null){
-//            System.out.println("Controller: myMessages är null, return map");
-//            return map;
-//        }
-//        for(int i=0;i< myMessages.size();i++){
-//            Message message = myMessages.get(i);
-//            ArrayList<Message> reciever = map.get(message.getRecipient());
-//            if(reciever==null){
-//                System.out.println("Controller: receiver == null");
-//                ArrayList<Message> newreciever = new ArrayList<>();
-//                newreciever.add(message);
-//                System.out.println("i true " + message);
-//                map.put(message.getRecipient(), newreciever);
-//            } else {
-//                System.out.println("Controller: else sats, receiver != null");
-//                reciever.add(message);
-//                System.out.println("i false" + message.getRecipient());
-//                map.put(message.getRecipient(), reciever);
-//            }
-//        }
-//        map.remove(myName);
-//        System.out.println("Controller: Storlek på map efter remove:" + map.size());
-//        System.out.println("Controller: map.remove(myName)");
-//        //setUserList(senders.toArray(new String[0]));
-//        // för sortering, inge bra lösning
-//        //for(int i=0; i<senders.size(); i++){
-//        //    messageArrayList = map.get(senders.get(i));
-//        //    Collections.sort(messageArrayList, new Comparator<Message>() {
-//        //        @Override
-//        //        public int compare(Message message, Message t1) {
-//        //            return message.getDate().compareTo(t1.getDate());
-//        //        }
-//        //    });
-//        //    map.remove(senders.get(i));
-//        //    map.put(senders.get(i), messageArrayList);
-//        //}
-//        System.out.println("return map");
+        }
         return map;
     }
 
+    /**
+     * Writes file to local storage by using filehandler
+     * @param message Message to be saved
+     */
     public void writeFile(Message message){
         filehandler.saveToMachine(message);
     }
@@ -138,10 +103,6 @@ public class Controller implements Serializable {
     public void sendMessage(String receiver, String messageText, Bitmap image) {
         Bitmap newImage = encodeBitmap(image, messageText);
         byte[] msgImage = convert(newImage);
-//        Object msgImage = image;
-//        Object imageObject = image;
-//        final Message newMessage = new Message(Message.MESSAGE, myName, receiver, imageObject);
-//        final Message newMessage = new Message(Message.MESSAGE, myName, receiver,(Object)image);
         final Message newMessage = new Message(Message.MESSAGE, myName, receiver, msgImage);
         filehandler.saveToMachine(newMessage);
         new Thread() {
@@ -151,6 +112,11 @@ public class Controller implements Serializable {
         }.start();
     }
 
+    /**
+     * Converts Bitmap to byte-array to help the serialization when saving and sending
+     * @param bit Bitmap to be converted
+     * @return The resulting byte-array
+     */
     public byte[] convert(Bitmap bit){//för test
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bit.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -158,6 +124,12 @@ public class Controller implements Serializable {
         return byteArray;
     }
 
+    /**
+     * Creates a thread and sends a message or request
+     * @param type Message type
+     * @param name Sender
+     * @param user Reciever
+     */
     public void sendMessage(final int type, final String name, final String user) {
         new Thread() {
             public void run() {
@@ -188,23 +160,31 @@ public class Controller implements Serializable {
      * @return A string with the previously hidden text.
      */
     public String decodeBitmap(Bitmap image) {
-//        ByteArrayOutputStream test = new ByteArrayOutputStream();
-//        image.compress(Bitmap.CompressFormat.PNG, 0, test);
-//        byte[] array = test.toByteArray();
         byte[] bytes = bitmapEncoder.decode(image);
         String messageText = new String(bytes);
         return messageText;
     }
 
+    /**
+     * Called upon incoming messages, saves to local storage
+     * @param message message to save
+     */
     public void recieveMessage(Message message){
-        Log.d("recieve", "Fick ett meddelande!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         filehandler.saveToMachine(message);
     }
+
+    /**
+     * Sets the contactlist recieved from the server.
+     * @param list Contactlist
+     */
     public void setUserList(String[] list){
-        Log.d("Recieved Contactlist", "blabla");
         this.userList = list;
     }
 
+    /**
+     * Returns the contactlist
+     * @return contactlist
+     */
     public String[] recieveUserList(){
         return userList;
     }
@@ -227,8 +207,7 @@ public class Controller implements Serializable {
             if(map.containsKey(userlist[i])){
                 System.out.println("Jag är i forloopen i griditems");
                 ArrayList<Message> arr = map.get(userlist[i]);
-                byte[] bild = (byte[])arr.get(0).getImage();// Borde byta message bild till byte-array
-//                gridList.add(new GridItem(userlist[i], BitmapFactory.decodeByteArray(bild, 0, bild.length)));
+                byte[] bild = (byte[])arr.get(0).getImage();
                 gridList.add(new GridItem(userlist[i], gridImageManipulation(bild)));
             }
         }
@@ -271,7 +250,13 @@ public class Controller implements Serializable {
         }
         return Arrays.copyOf(conversationList.toArray(), conversationList.toArray().length, ConversationItem[].class);
     }
-    
+
+    /**
+     * Sends request regarding login-attempt and saves instance of LoginScreen for notification purposes
+     * @param Username Username
+     * @param Password Password
+     * @param login Instance of LoginScreen
+     */
     public void checkLogin(final String Username, final String Password, LoginScreen login){
         this.login = login;
         new Thread() {
@@ -279,9 +264,12 @@ public class Controller implements Serializable {
                 client.sendRequest(new Message(Message.LOGIN, Username, Password));
             }
         }.start();
-
     }
 
+    /**
+     * Handles the response regarding loginattempt from the server
+     * @param response Message containing response from server
+     */
     public void responseLogin(Message response){
         if(login!=null) {
             login.response(response);
@@ -290,6 +278,13 @@ public class Controller implements Serializable {
         }
     }
 
+    /**
+     * Checks if the Username is taken via client
+     * Stores instance of RegistrationScreen for notification purposes
+     * @param name Wanted username
+     * @param password Wanted password
+     * @param register Instance of registrationScreen
+     */
     public void checkUsername(final String name,final String password, RegistrationScreen register) {
         this.register = register;
         new Thread() {
@@ -299,12 +294,21 @@ public class Controller implements Serializable {
         }.start();
     }
 
+    /**
+     * Handles the response regarding Registration from server
+     * @param response Message containing the response
+     */
     public void responseRegister(Message response){
         register.response(response);
     }
 
+    /**
+     * Checks the format of the password and that both passwords entered are identical
+     * @param pass1
+     * @param pass2
+     * @return true if correct otherwise false
+     */
     public boolean checkpassword(String pass1, String pass2) {
-        //kollar om lösenorden stämmer överens samt är på rätt format
         boolean number = false, uppercase = false;
         if (pass1.equals(pass2) && pass1.length()>6 && pass1.length()<15){
             for(int i=0;i<pass1.length(); i++) {
@@ -322,8 +326,12 @@ public class Controller implements Serializable {
         }
     }
 
+    /**
+     * Checks that the format of the username is correct
+     * @param name Username
+     * @return true if correct format
+     */
     public boolean checkUsernameFormat(String name) {
-        // KOllar formatet på username
         if (name.length()>=6 && name.length()<=15){
             for(int i=0;i<name.length(); i++){
                 if(name.charAt(i)==','){
@@ -335,19 +343,30 @@ public class Controller implements Serializable {
         return false;
     }
 
+    /**
+     * Call upon logout, not finished
+     */
     public void logout(){
         myName = null;
         userList=null;
-
         //koppla ner klient??
     }
 
+    /**
+     * Handles response regarding search
+     * @param message Message containing response
+     */
     public void recieveSearch(Message message) {
         System.out.println("Svar från servern" + message.getUsername());
         search.response(message.getUsername());
-        //search.response("Testare");
     }
 
+    /**
+     * Sends the username for searching for users on the server
+     * Stores an instance of SearchActivity for notification purposes
+     * @param user Username for the search
+     * @param search  Instance of SearchActivity
+     */
     public void sendSearch(final String user, SearchActivity search) {
         this.search = search;
         new Thread() {
@@ -355,7 +374,6 @@ public class Controller implements Serializable {
                 client.sendRequest(new Message(Message.SEARCH, user));
             }
         }.start();
-        //sendMessage(Message.SEARCH, null, user);
     }
 
 }

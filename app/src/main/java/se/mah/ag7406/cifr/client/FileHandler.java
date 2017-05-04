@@ -3,7 +3,6 @@ package se.mah.ag7406.cifr.client;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -18,9 +17,9 @@ import message.Message;
 import se.mah.ag7406.cifr.R;
 
 /**
- * Created by Jens on 2017-04-19.
+ * The class handles the reading and writing of messages to local storage.
+ * Created by Jens Andreassen on 2017-04-19.
  */
-
 public class FileHandler {
     private File file, folder;
     private Context context;
@@ -30,23 +29,26 @@ public class FileHandler {
     public FileHandler(Controller controller){
         this.controller = controller; //Detta är för testande/Viktor
         this.context = SuperClass.getContext();
-//        delete();
         update();
-//        fortest();
     }
-    public void fortest(){//för test
+
+    /**
+     * Only used for testing, creates a mockup of a message.
+     */
+    public void fortest() {//för test
         Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder1);
         boolean imagenulltest = image == null;
         boolean controllernulltest = controller == null;
-        Log.d("test", "kollar om image är null: " + imagenulltest);
-        Log.d("test", "kollar om controller är null: " + controllernulltest);
         Bitmap newimage = controller.encodeBitmap(image, "Detta är ett test!!");
-        saveToMachine(new Message(0,"klas", "Testare", convert(newimage)));
+        saveToMachine(new Message(0, "klas", "Testare", convert(newimage)));
         //saveToMachine(new Message(0,"klas", "Testare", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder1))));
-        //saveToMachine(new Message(0,"Testare", "klas", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder2))));
-        //saveToMachine(new Message(0,"klas", "Testare", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder3))));
-        //saveToMachine(new Message(0,"Testare", "klas", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder4))));
     }
+
+    /**
+     * Converts bitmap to byte-array. Only used by fortest for testing reasons.
+     * @param bit bitmap to be convertet
+     * @return The Bytearray
+     */
     public byte[] convert(Bitmap bit){//för test
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bit.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -54,11 +56,17 @@ public class FileHandler {
         return byteArray;
     }
 
+    /**
+     * Updates variables to have the latest state of the files stored.
+     */
     public void update(){
         file = context.getFilesDir();
         files = file.listFiles();
     }
 
+    /**
+     * Deletes all messages stored. Only used for testing at the moment.
+     */
     public void delete(){
         update();
         for (int i=0; i<files.length;i++){
@@ -66,8 +74,11 @@ public class FileHandler {
         }
     }
 
+    /**
+     * Saves object to local storage and names the file according to the existing files.
+     * @param object to be saved
+     */
     public void saveToMachine(Object object){
-        Log.d("jag skriver meddelandet","    ");
         update();
         String filename;
         if(files.length != 0){
@@ -88,9 +99,12 @@ public class FileHandler {
         }
     }
 
+    /**
+     * Reads a file from the local storage.
+     * @param filename file to be read.
+     * @return the file.
+     */
     public Object readObject(String filename) {
-        Log.d("I FILEHANDLER!jag läser","HEEEEJ");
-
         FileInputStream fis;
         Object obj;
         try {
@@ -108,8 +122,11 @@ public class FileHandler {
         return obj;
     }
 
+    /**
+     * Reads all the files at the local storage with help from readObject()
+     * @return an Object-array with all the messages.
+     */
     public Object[] read(){
-        System.out.println("Jag läser meddelandet i FIlehandler");
         update();
         ArrayList<Object> list = new ArrayList();
         Object obj;

@@ -10,11 +10,12 @@ import se.mah.ag7406.cifr.R;
 
 /**
  * The Home-Screen for the Cifr-app
+ * Created by Jens Andreassen on 2017-04-06
  */
 public class HomeScreen extends AppCompatActivity {
 
     /**
-     *
+     *Runs on Creation of the Activity
      * @param savedInstanceState
      */
     @Override
@@ -27,18 +28,16 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     /**
-     *
-     *
+     *  Method to be run on button login pressed, starts LoginScreen Activity
+     * @param view
      */
-
     public void login(View view){
         Intent intent = new Intent(this, LoginScreen.class);
         startActivity(intent);
     }
 
     /**
-     *
-     *
+     * Method to be run on button registration pressed, starts RegistrationScreen Activity
      */
     protected void register(View view){
         Intent intent = new Intent(this, RegistrationScreen.class);

@@ -1,7 +1,5 @@
 package se.mah.ag7406.cifr.client;
 
-import android.util.Log;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -9,7 +7,10 @@ import java.net.Socket;
 
 import message.Message;
 
-
+/**
+ * Acts as Client to the server. Handles sorting of incoming messages and sending requests/messages.
+ * Created by Jens Andreassen on 2017-04-06
+ */
 
 public class Client {
     private String IP;
@@ -24,6 +25,10 @@ public class Client {
         this.controller = controller;
 
     }
+
+    /**
+     * Starts the connection.
+     */
     public void clientRun() {
         try {
             Socket socket = new Socket(IP, port);
@@ -34,6 +39,10 @@ public class Client {
         new ServerListener().start();
     }
 
+    /**
+     * Checks if connected and sends notification to controller if not, else sends request/message
+     * @param message to be sent
+     */
     public void sendRequest(Message message){
         if(output==null){
             controller.responseLogin(new Message(3,true));
@@ -47,49 +56,48 @@ public class Client {
         }
     }
 
+    /**
+     * Sorts the incoming message and sends it to the right method in controller.
+     * @param message incoming message
+     */
     public void handleEvent(Message message){
         int type = message.getType();
         switch (type){
             case Message.LOGIN :
                 controller.responseLogin(message);
                 controller.setUserList(message.getContactList());
-                break;//Login
+                break;
             case Message.REGISTER :
                 controller.responseRegister(message);
-                System.out.println("i case 1");
-                break; //Register
+                break;
             case Message.MESSAGE :
                 controller.recieveMessage(message);
-                System.out.println("i case 2");
-                break;//Message
+                break;
             case Message.STATUS :
-                break;//Status
+                break;
             case Message.SEARCH :
                 controller.recieveSearch(message);
                 break;
             case Message.CONTACTLIST :
-                Log.d("Recieved Contactlist", "blabla");
                 controller.setUserList(message.getContactList());
-                break;//Status
+                break;
             case Message.CONTACTLIST_ADD :
-                break;//Status
+                break;
             case Message.CONTACTLIST_REMOVE :
-                break;//Status
+                break;
         }
     }
 
+    /**
+     * Listens to messages from the server
+     */
     private class ServerListener extends Thread {
-
         public void run() {
             Object message;
-            Log.d("Serverlistener  ", "i run metod");
             while (true) {
                 try {
-                    System.out.println("väntar på ett meddelande");
                     message = (Object)input.readObject();
                     Message mess = (Message)message;
-                    System.out.println("fått ett meddelande");
-                    Log.d("handleevent", "true");
                     handleEvent(mess);
                 } catch (IOException ioe) {
                     ioe.printStackTrace();
