@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CifrNy.iml" filepath="$PROJECT_DIR$/CifrNy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Cifr.iml" filepath="$PROJECT_DIR$/Cifr.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
