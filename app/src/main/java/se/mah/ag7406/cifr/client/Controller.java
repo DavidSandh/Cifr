@@ -35,7 +35,7 @@ public class Controller implements Serializable {
 //           this.client = new Client("192.168.43.71", 1337, this);
 
 
-      this.client = new Client("10.2.24.208", 1337, this);
+      this.client = new Client("10.0.2.2", 1337, this);
 
         new Thread() {
             public void run() {
@@ -57,7 +57,9 @@ public class Controller implements Serializable {
         Message[] messages = Arrays.copyOf(obj, obj.length, Message[].class);
         HashMap<String, ArrayList<Message>> map = new HashMap();
         ArrayList<Message> messageArrayList;
-
+        if(userList==null){
+            return null;
+        }
         for(int i =0; i<userList.length; i++){
             messageArrayList = new ArrayList<>();
             for(int j=0; j<messages.length; j++){
@@ -218,6 +220,9 @@ public class Controller implements Serializable {
         HashMap<String, ArrayList<Message>> map = readFiles();
         String[] userlist = recieveUserList();
         ArrayList<GridItem> gridList = new ArrayList<>();
+        if(userlist==null  ){
+            return null;
+        }
         for (int i=0; i<userlist.length; i++){
             if(map.containsKey(userlist[i])){
                 System.out.println("Jag är i forloopen i griditems");
@@ -332,6 +337,8 @@ public class Controller implements Serializable {
 
     public void logout(){
         myName = null;
+        userList=null;
+
         //koppla ner klient??
     }
 

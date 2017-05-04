@@ -29,7 +29,7 @@
         <activity
             android:name=".client.ContactList"
             android:label="Contacts"
-            android:parentActivityName=".client.HomeScreen" />
+            android:parentActivityName=".client.ConversationList" />
         <activity
             android:name=".client.LoginScreen"
             android:parentActivityName=".client.HomeScreen">
@@ -50,10 +50,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".client.HomeScreen" />
         </activity>
-        <activity android:name=".client.Conversation" />
-        <activity android:name=".client.CreateMessage" />
+        <activity android:name=".client.Conversation"
+            android:parentActivityName=".client.ConversationList"/>
+        <activity android:name=".client.CreateMessage"
+            android:parentActivityName=".client.Conversation"/>
         <activity android:name=".client.SearchActivity"
-
+            android:parentActivityName=".client.ConversationList"
             android:exported="true">
             android:exported="true"
         </activity>

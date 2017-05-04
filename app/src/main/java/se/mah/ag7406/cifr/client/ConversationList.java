@@ -54,7 +54,9 @@ public class ConversationList extends AppCompatActivity {
         gridItems[1] = gridItem2;
         gridItems[2] = gridItem3;
     }
+    public void onBackPressed(){
 
+    }
     protected void home(MenuItem item){
         Intent intent = new Intent(this, ConversationList.class);
         startActivity(intent);
