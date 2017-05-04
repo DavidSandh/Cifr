@@ -1,4 +1,4 @@
-package se.mah.ag7406.cifr.client;
+package se.mah.ag7406.cifr.client.SearchActivityPackage;
 
 
 import android.content.Intent;
@@ -14,6 +14,11 @@ import android.widget.EditText;
 
 import message.Message;
 import se.mah.ag7406.cifr.R;
+import se.mah.ag7406.cifr.client.ContactListPackage.ContactList;
+import se.mah.ag7406.cifr.client.ControllerPackage.Controller;
+import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
+import se.mah.ag7406.cifr.client.ConversationListPackage.ConversationList;
+import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
 
 
 public class SearchActivity extends AppCompatActivity  {

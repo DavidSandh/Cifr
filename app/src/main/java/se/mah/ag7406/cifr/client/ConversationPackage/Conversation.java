@@ -1,4 +1,4 @@
-package se.mah.ag7406.cifr.client;
+package se.mah.ag7406.cifr.client.ConversationPackage;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -12,6 +12,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import se.mah.ag7406.cifr.R;
+import se.mah.ag7406.cifr.client.ContactListPackage.ContactList;
+import se.mah.ag7406.cifr.client.ControllerPackage.Controller;
+import se.mah.ag7406.cifr.client.ConversationListPackage.ConversationList;
+import se.mah.ag7406.cifr.client.CreateMessagePackage.CreateMessage;
+import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
+import se.mah.ag7406.cifr.client.SearchActivityPackage.SearchActivity;
+import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
 
 /**
  * Activity for displaying an ongoing conversation. This will be in the shape of a list

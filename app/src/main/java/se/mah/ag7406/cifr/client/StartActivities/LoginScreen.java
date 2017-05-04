@@ -1,4 +1,4 @@
-package se.mah.ag7406.cifr.client;
+package se.mah.ag7406.cifr.client.StartActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,9 @@ import android.widget.Toast;
 
 import message.Message;
 import se.mah.ag7406.cifr.R;
+import se.mah.ag7406.cifr.client.ControllerPackage.Controller;
+import se.mah.ag7406.cifr.client.ConversationListPackage.ConversationList;
+import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
 
 /**
  * The Login-Screen for the Cifr-app

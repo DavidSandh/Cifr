@@ -1,10 +1,9 @@
-package se.mah.ag7406.cifr.client;
+package se.mah.ag7406.cifr.client.ContactListPackage;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 import android.view.MenuItem;
 
 import se.mah.ag7406.cifr.R;
+import se.mah.ag7406.cifr.client.ConversationPackage.Conversation;
 
 
 /**

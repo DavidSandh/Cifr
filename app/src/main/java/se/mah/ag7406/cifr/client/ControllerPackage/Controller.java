@@ -1,4 +1,4 @@
-package se.mah.ag7406.cifr.client;
+package se.mah.ag7406.cifr.client.ControllerPackage;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import message.Message;
+import se.mah.ag7406.cifr.client.ConversationPackage.ConversationItem;
+import se.mah.ag7406.cifr.client.ConversationListPackage.GridItem;
+import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
+import se.mah.ag7406.cifr.client.StartActivities.RegistrationScreen;
+import se.mah.ag7406.cifr.client.SearchActivityPackage.SearchActivity;
 
 /**
  * Acts as controller for the logik in the application
@@ -33,7 +38,7 @@ public class Controller implements Serializable {
      * Creates a new client and starts it.
      */
     public void startClient(){
-      this.client = new Client("10.0.2.2", 1337, this);
+      this.client = new Client("192.168.43.71", 1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();

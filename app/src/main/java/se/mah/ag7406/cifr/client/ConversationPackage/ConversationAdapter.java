@@ -1,4 +1,4 @@
-package se.mah.ag7406.cifr.client;
+package se.mah.ag7406.cifr.client.ConversationPackage;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import se.mah.ag7406.cifr.R;
+import se.mah.ag7406.cifr.client.ControllerPackage.Controller;
+import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
 
 /**
  * Adapter for the Conversation activity. It will fill the activity's RecyclerView

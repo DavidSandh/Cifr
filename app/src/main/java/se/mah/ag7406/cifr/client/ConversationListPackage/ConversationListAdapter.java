@@ -1,4 +1,4 @@
-package se.mah.ag7406.cifr.client;
+package se.mah.ag7406.cifr.client.ConversationListPackage;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import se.mah.ag7406.cifr.R;
+import se.mah.ag7406.cifr.client.ConversationPackage.Conversation;
 
 /**
  * Adapter for the ConversationList activity. It will fill the activity's RecyclerView with

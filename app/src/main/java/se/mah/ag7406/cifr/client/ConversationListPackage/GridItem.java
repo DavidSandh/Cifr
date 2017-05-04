@@ -1,4 +1,4 @@
-package se.mah.ag7406.cifr.client;
+package se.mah.ag7406.cifr.client.ConversationListPackage;
 
 import android.graphics.Bitmap;
 

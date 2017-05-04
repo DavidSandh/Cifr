@@ -1,4 +1,4 @@
-package se.mah.ag7406.cifr.client;
+package se.mah.ag7406.cifr.client.CreateMessagePackage;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import java.io.IOException;
 
 import se.mah.ag7406.cifr.R;
+import se.mah.ag7406.cifr.client.ControllerPackage.Controller;
+import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
+import se.mah.ag7406.cifr.client.ConversationPackage.Conversation;
 
 /**
  * Activity for creating a new message. The user is able to choose an image and

@@ -1,4 +1,4 @@
-package se.mah.ag7406.cifr.client;
+package se.mah.ag7406.cifr.client.StartActivities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

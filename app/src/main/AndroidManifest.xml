@@ -12,14 +12,14 @@
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
 
     <application
-        android:name=".client.SuperClass"
+        android:name=".client.ControllerPackage.SuperClass"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".client.HomeScreen">
+        <activity android:name=".client.StartActivities.HomeScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,35 +27,35 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".client.ContactList"
+            android:name=".client.ContactListPackage.ContactList"
             android:label="Contacts"
-            android:parentActivityName=".client.ConversationList" />
+            android:parentActivityName=".client.ConversationListPackage.ConversationList" />
         <activity
-            android:name=".client.LoginScreen"
-            android:parentActivityName=".client.HomeScreen">
+            android:name=".client.StartActivities.LoginScreen"
+            android:parentActivityName=".client.StartActivities.HomeScreen">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".client.HomeScreen" />
+                android:value=".client.StartActivities.HomeScreen" />
         </activity>
-        <activity android:name=".client.ConversationList"
+        <activity android:name=".client.ConversationListPackage.ConversationList"
             android:launchMode="standard"/>
         <activity
-            android:name=".client.RegistrationScreen"
-            android:parentActivityName=".client.HomeScreen">
+            android:name=".client.StartActivities.RegistrationScreen"
+            android:parentActivityName=".client.StartActivities.HomeScreen">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".client.HomeScreen" />
+                android:value=".client.StartActivities.HomeScreen" />
         </activity>
-        <activity android:name=".client.Conversation"
-            android:parentActivityName=".client.ConversationList"/>
-        <activity android:name=".client.CreateMessage"
-            android:parentActivityName=".client.Conversation"/>
-        <activity android:name=".client.SearchActivity"
-            android:parentActivityName=".client.ConversationList"
+        <activity android:name=".client.ConversationPackage.Conversation"
+            android:parentActivityName=".client.ConversationListPackage.ConversationList"/>
+        <activity android:name=".client.CreateMessagePackage.CreateMessage"
+            android:parentActivityName=".client.ConversationPackage.Conversation"/>
+        <activity android:name=".client.SearchActivityPackage.SearchActivity"
+            android:parentActivityName=".client.ConversationListPackage.ConversationList"
             android:exported="true"/>
 
     </application>

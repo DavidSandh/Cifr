@@ -1,4 +1,4 @@
-package se.mah.ag7406.cifr.client;
+package se.mah.ag7406.cifr.client.ControllerPackage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
