@@ -50,18 +50,14 @@ public class Conversation extends AppCompatActivity {
             finish();
         } else {
             Log.d("test", "conversationItems är inte null, adapter startas");
-            startAdapter();
+            TextView usernameTextView = (TextView) findViewById(R.id.conversationUser);
+            usernameTextView.setText(conversationUsername);
+            recyclerView = (RecyclerView) findViewById(R.id.conversationView);
+            layoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(layoutManager);
+            adapter = new ConversationAdapter(this, conversationItems);
+            recyclerView.setAdapter(adapter);
         }
-    }
-
-    public void startAdapter() {
-        TextView usernameTextView = (TextView) findViewById(R.id.conversationUser);
-        usernameTextView.setText(conversationUsername);
-        recyclerView = (RecyclerView) findViewById(R.id.conversationView);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new ConversationAdapter(this, conversationItems);
-        recyclerView.setAdapter(adapter);
     }
 
     /**
