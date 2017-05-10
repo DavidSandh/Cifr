@@ -60,7 +60,7 @@ public class LoginScreen extends AppCompatActivity {
         if (response.getType() == 3) {
             this.runOnUiThread(new Runnable() {
                 public void run() {
-                    Toast.makeText(LoginScreen.this, "Kunde inte koppla upp till servern!",
+                    Toast.makeText(LoginScreen.this, "Could not contact the server",
                             Toast.LENGTH_LONG).show();
                 }
             });
@@ -70,7 +70,7 @@ public class LoginScreen extends AppCompatActivity {
         } else {
             this.runOnUiThread(new Runnable() {
                     public void run() {
-                        Toast.makeText(LoginScreen.this, "Felaktigt lösenord eller användarnamn!",
+                        Toast.makeText(LoginScreen.this, "Incorrect username or password",
                                 Toast.LENGTH_LONG).show();
                     }
                 });

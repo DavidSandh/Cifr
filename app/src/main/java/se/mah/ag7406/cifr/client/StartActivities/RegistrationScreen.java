@@ -54,11 +54,11 @@ public class RegistrationScreen extends AppCompatActivity {
             if(controller.checkpassword(password1, password2)){
                 controller.checkUsername(name , password1, this);
             } else {
-                Toast.makeText(this, "Lösenordet är inte detsamma eller i fel format",
+                Toast.makeText(this, "The passwords do not match or are in the wrong format",
                         Toast.LENGTH_LONG).show();
             }
         } else {
-            Toast.makeText(this, "Användarnamnet är på fel format",
+            Toast.makeText(this, "The username is in the wrong format",
                         Toast.LENGTH_LONG).show();
         }
     }
@@ -72,7 +72,7 @@ public class RegistrationScreen extends AppCompatActivity {
         if (response.getType() == 3) {
             this.runOnUiThread(new Runnable() {
                 public void run() {
-                    Toast.makeText(RegistrationScreen.this, "Kunde inte koppla upp till servern!",
+                    Toast.makeText(RegistrationScreen.this, "Could not contact the server",
                             Toast.LENGTH_LONG).show();
                 }
             });
@@ -83,7 +83,7 @@ public class RegistrationScreen extends AppCompatActivity {
         } else {
             this.runOnUiThread(new Runnable() {
                 public void run() {
-                    Toast.makeText(RegistrationScreen.this , "Användarnamnet upptaget",
+                    Toast.makeText(RegistrationScreen.this , "Username taken",
                             Toast.LENGTH_LONG).show();
                 }
             });

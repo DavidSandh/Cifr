@@ -57,7 +57,7 @@ public class SearchActivity extends AppCompatActivity  {
         controller.sendMessage(Message.CONTACTLIST_ADD, controller.getMyName(), user);
         this.runOnUiThread(new Runnable() {
             public void run() {
-                Snackbar snackbar =Snackbar.make( findViewById(android.R.id.content), "Användare tillagd", Snackbar.LENGTH_LONG );
+                Snackbar snackbar =Snackbar.make( findViewById(android.R.id.content), "User added", Snackbar.LENGTH_LONG );
                 snackbar.show();
             }
         });
@@ -90,7 +90,7 @@ public class SearchActivity extends AppCompatActivity  {
         }  else {
                 this.runOnUiThread(new Runnable() {
                     public void run() {
-                        Snackbar snackbar =Snackbar.make( findViewById(android.R.id.content), "Användare finns inte, skriv in nytt användarnamn.", Snackbar.LENGTH_LONG );
+                        Snackbar snackbar =Snackbar.make( findViewById(android.R.id.content), "User does not exist. Try another username", Snackbar.LENGTH_LONG );
                         userName.setText("");
                         snackbar.show();
                     }
