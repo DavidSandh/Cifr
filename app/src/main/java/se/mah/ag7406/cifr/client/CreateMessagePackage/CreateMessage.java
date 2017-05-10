@@ -63,10 +63,11 @@ public class CreateMessage extends AppCompatActivity {
 
         Intent intent = new Intent(this, Conversation.class);
         System.out.println("FELX: I CreateMessage: reciever: 1 " + receiver);
-        intent.putExtra("username", receiver);
+
         startActivity(intent);
         finish();
     }
+
 //    public byte[] convert(Bitmap bit){//för test
 //        ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //        bit.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -106,4 +107,4 @@ public class CreateMessage extends AppCompatActivity {
             }
         }
     }
-}
+ }

@@ -139,5 +139,9 @@ public class SearchActivity extends AppCompatActivity  {
         startActivity(intent);
         finish();
     }
+    public void onBackPressed(){
+        Intent intent = new Intent(this, ConversationList.class);
+        startActivity(intent);
+    }
 }
 

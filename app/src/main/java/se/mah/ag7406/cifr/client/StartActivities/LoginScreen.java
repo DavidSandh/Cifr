@@ -76,4 +76,8 @@ public class LoginScreen extends AppCompatActivity {
                 });
             }
         }
+    public void onBackPressed(){
+        Intent intent = new Intent(this, HomeScreen.class);
+        startActivity(intent);
     }
+}
