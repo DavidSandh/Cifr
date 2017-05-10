@@ -13,8 +13,22 @@
     <string name="login_username">Username</string>
     <string name="login_password">Password</string>
     <string name="login_button">Log in</string>
+
+    <string name="homescreen_title">Cifr</string>
+    <string name="homescreen_register">Register</string>
+    <string name="homescreen_login">Log in</string>
+
     <string name="registration_username">Username</string>
     <string name="registration_password">Password</string>
+    <string name="registration_password2">Your password</string>
+    <string name="registration_username2">Your username</string>
+    <string name="registration_passwordrepeat">Repeat password</string>
+    <string name="registration_register">Register</string>
+    <string name="registration_warning">You alone are responsible for remembering this password. If you lose it, it is lost.</string>
+
+    <string name="search_hintusername">Enter username to search for...</string>
+    <string name="search_adduser">Add user</string>
+
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
