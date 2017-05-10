@@ -23,8 +23,10 @@
         android:layout_alignTop="@+id/conversationItemImageView"
         android:layout_alignBottom="@+id/conversationItemImageView"
         android:gravity="center"
+        android:fontFamily="sans-serif-condensed"
+        android:textStyle="bold|italic"
         android:text="TextView"
-        android:textSize="30sp"
+        android:textSize="40sp"
         android:textColor="#FFFFFF"
         />
 </RelativeLayout>

@@ -38,27 +38,17 @@ public class ConversationList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation_list);
         controller = SuperClass.getController();
-
         gridItems = controller.getGridItems();
-        //setGridData(); //Via controller annars, detta är för test.
         recyclerView = (RecyclerView) findViewById(R.id.conversationList);
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerAdapter = new ConversationListAdapter(this, gridItems);
         recyclerView.setAdapter(recyclerAdapter);
     }
+
     /**
-     * Test method, to be removed.
+     * ?? Vad är detta?
      */
-    public void setGridData() { //Testmetod. Ska ändra att ta emot en parameter med array-datan när test inte behövs.
-        gridItems = new GridItem[3];
-        GridItem gridItem1 = new GridItem("Sven", BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
-        GridItem gridItem2 = new GridItem("Klas",BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_round));
-        GridItem gridItem3 = new GridItem("Olaf",BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
-        gridItems[0] = gridItem1;
-        gridItems[1] = gridItem2;
-        gridItems[2] = gridItem3;
-    }
     public void onBackPressed(){
 
     }

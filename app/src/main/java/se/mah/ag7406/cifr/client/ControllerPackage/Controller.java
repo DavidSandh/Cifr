@@ -39,7 +39,9 @@ public class Controller implements Serializable {
      */
     public void startClient(){
         this.client = new Client("10.0.2.2", 1337, this);
-//      this.client = new Client("192.168.43.71", 1337, this);
+//        this.client = new Client("192.168.43.71", 1337, this);
+
+//        this.client = new Client("10.2.2.154", 1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -213,7 +215,7 @@ public class Controller implements Serializable {
             if(map.containsKey(userlist[i])){
                 System.out.println("Jag är i forloopen i griditems");
                 ArrayList<Message> arr = map.get(userlist[i]);
-                byte[] bild = (byte[])arr.get(0).getImage();
+                byte[] bild = (byte[])arr.get(arr.size() - 1).getImage();
                 gridList.add(new GridItem(userlist[i], gridImageManipulation(bild)));
             }
         }

@@ -22,6 +22,7 @@ import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
  */
 public class LoginScreen extends AppCompatActivity {
     private Controller controller;
+    private String username;
 
     /**
      * Runs on Creation of the Activity calls superclass for instance of controller
@@ -47,9 +48,10 @@ public class LoginScreen extends AppCompatActivity {
         EditText password = (EditText) findViewById(R.id.passwordlogin);
         String name = username.getText().toString();
         String pass = password.getText().toString();
+        this.username = name;
         Log.d("före if sats", "username: "+ name + "passwoed: " + pass);
         controller.checkLogin(name, pass, this);
-        controller.setMyName(name); //För test
+        //controller.setMyName(name); //För test
 
     }
     /**
@@ -65,6 +67,7 @@ public class LoginScreen extends AppCompatActivity {
                 }
             });
         } else if (response.getStatus()) {
+            controller.setMyName(username); //För test
             Intent intent = new Intent(this, ConversationList.class);
             startActivity(intent);
         } else {

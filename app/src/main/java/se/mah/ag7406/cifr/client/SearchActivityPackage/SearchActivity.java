@@ -61,14 +61,22 @@ public class SearchActivity extends AppCompatActivity  {
                 snackbar.show();
             }
         });
+
+      EditText userNameFound = (EditText) findViewById(R.id.editText);
+
+       userNameFound.setText("");
+        findViewById(R.id.button).setVisibility(View.INVISIBLE);
+        findViewById(R.id.imageView).setVisibility(View.INVISIBLE);
+
+
     }
     public void ifExists (final String userName) {
         controller.sendSearch(userName, this);
         System.out.println("IFEXISTS");
     }
     public void response (String user) {
-       final EditText userName = (EditText) findViewById(R.id.editText2);
-       final String name = userName.getText().toString();
+       final EditText userNameSearch = (EditText) findViewById(R.id.editText2);
+       final String name = userNameSearch.getText().toString();
         String newname = name.toLowerCase();
         System.out.println("RESPONSE" + user + " = " + newname);
 
@@ -85,13 +93,12 @@ public class SearchActivity extends AppCompatActivity  {
                 }
             });
             userNameToAdd = name;
-            addUserToContacts(userNameToAdd);
         }
         }  else {
                 this.runOnUiThread(new Runnable() {
                     public void run() {
                         Snackbar snackbar =Snackbar.make( findViewById(android.R.id.content), "User does not exist. Try another username", Snackbar.LENGTH_LONG );
-                        userName.setText("");
+                        userNameSearch.setText("");
                         snackbar.show();
                     }
                 });

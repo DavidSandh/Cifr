@@ -52,7 +52,6 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.textView.setText(gridItems[position].getUsername());
         holder.imageView.setImageBitmap(gridItems[position].getImage());
-
     }
 
     /**
@@ -62,7 +61,6 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
     public int getItemCount() {
         if(gridItems != null){
             return gridItems.length;
-
         }
         return 0;
     }
@@ -75,15 +73,13 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
         private TextView textView;
         private ImageView imageView;
         private Context context;
-//        private Controller holderController;
 
         public ViewHolder (View view) {
             super(view);
-//            holderController = SuperClass.getController();
             textView = (TextView) view.findViewById(R.id.conversationItemTextView);
             imageView = (ImageView) view.findViewById(R.id.conversationItemImageView);
             System.out.println("FELX: I Conversationlistadap : textview : " + textView.getText().toString());
-            textView.setOnClickListener(new View.OnClickListener() {
+            imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     final Intent intent;

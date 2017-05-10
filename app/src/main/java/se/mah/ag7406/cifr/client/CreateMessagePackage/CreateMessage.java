@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -59,15 +60,20 @@ public class CreateMessage extends AppCompatActivity {
         String messageText = messaget.getText().toString();
         System.out.println("CreateMessage: Texten i messageText: " + messageText);
 //        controller.sendMessage(receiver, messageText, (Object)convert(selectedImage));
-        controller.sendMessage(receiver, messageText, selectedImage);
 
-        Intent intent = new Intent(this, Conversation.class);
-        System.out.println("FELX: I CreateMessage: reciever: 1 " + receiver);
+        if (selectedImage == null){
+            Toast.makeText(CreateMessage.this, "No image added",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            controller.sendMessage(receiver, messageText, selectedImage);
+            Intent intent = new Intent(this, Conversation.class);
+            System.out.println("FELX: I CreateMessage: reciever: 1 " + receiver);
+            intent.putExtra("username", receiver);
+            startActivity(intent);
+            finish();
+        }
 
-        startActivity(intent);
-        finish();
     }
-
 //    public byte[] convert(Bitmap bit){//för test
 //        ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //        bit.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -107,4 +113,4 @@ public class CreateMessage extends AppCompatActivity {
             }
         }
     }
- }
+}
