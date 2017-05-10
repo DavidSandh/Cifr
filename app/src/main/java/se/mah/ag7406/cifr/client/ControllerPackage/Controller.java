@@ -39,9 +39,9 @@ public class Controller implements Serializable {
      */
     public void startClient(){
         this.client = new Client("10.0.2.2", 1337, this);
-//      this.client = new Client("192.168.43.71", 1337, this);
+//        this.client = new Client("192.168.43.71", 1337, this);
 
-        this.client = new Client("10.2.2.154", 1337, this);
+//        this.client = new Client("10.2.2.154", 1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -125,7 +125,7 @@ public class Controller implements Serializable {
      * @param bit Bitmap to be converted
      * @return The resulting byte-array
      */
-    public byte[] convert(Bitmap bit){
+    public byte[] convert(Bitmap bit){//för test
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bit.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
