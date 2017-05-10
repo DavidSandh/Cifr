@@ -33,6 +33,7 @@ public class ContactList extends AppCompatActivity {
      * @param savedInstanceState
      */
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("Ubertest!!!" + "COntactlist startad");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cifr_contact_list);
         controller = SuperClass.getController();
