@@ -18,6 +18,7 @@ public class Client {
     private ObjectOutputStream output;
     private ObjectInputStream input;
     private Controller controller;
+    private Socket socket;
 
     public Client(String IP, int port, Controller controller) {
         this.IP = IP;
@@ -31,12 +32,23 @@ public class Client {
      */
     public void clientRun() {
         try {
-            Socket socket = new Socket(IP, port);
+            socket = new Socket(IP, port);
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
             output.flush();
         }catch(IOException e){}
         new ServerListener().start();
+    }
+
+    /**
+     * Closes socket, output and input streams.
+     */
+    public void clientLogout() {
+        try{
+            socket.close();
+            output.close();
+            input.close();
+        } catch(IOException e) {}
     }
 
     /**

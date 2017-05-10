@@ -355,6 +355,7 @@ public class Controller implements Serializable {
     public void logout(){
         myName = null;
         userList=null;
+        client.clientLogout();
         //koppla ner klient??
     }
 
