@@ -56,7 +56,7 @@
             android:parentActivityName=".client.ConversationPackage.Conversation"/>
         <activity android:name=".client.SearchActivityPackage.SearchActivity"
             android:parentActivityName=".client.ConversationListPackage.ConversationList"
-            android:exported="true"/>
+            />
 
     </application>
 
