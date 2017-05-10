@@ -38,7 +38,7 @@ public class Controller implements Serializable {
      * Creates a new client and starts it.
      */
     public void startClient(){
-        this.client = new Client("192.168.43.71", 1337, this);
+        this.client = new Client("10.0.2.2", 1337, this);
 //      this.client = new Client("192.168.43.71", 1337, this);
         new Thread() {
             public void run() {
@@ -123,7 +123,7 @@ public class Controller implements Serializable {
      * @param bit Bitmap to be converted
      * @return The resulting byte-array
      */
-    public byte[] convert(Bitmap bit){//för test
+    public byte[] convert(Bitmap bit){
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bit.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
@@ -213,7 +213,7 @@ public class Controller implements Serializable {
             if(map.containsKey(userlist[i])){
                 System.out.println("Jag är i forloopen i griditems");
                 ArrayList<Message> arr = map.get(userlist[i]);
-                byte[] bild = (byte[])arr.get(0).getImage();
+                byte[] bild = (byte[])arr.get(arr.size() - 1).getImage();
                 gridList.add(new GridItem(userlist[i], gridImageManipulation(bild)));
             }
         }
