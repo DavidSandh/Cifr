@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/CifrColorBlue">
 
     <item
         android:onClick="home"
         android:title="Start"
         app:showAsAction="ifRoom"
         android:icon="@mipmap/ic_home_black_24dp"
+        android:background="@color/CifrColorBlue"
         />
     <item
         android:icon="@mipmap/ic_supervisor_account_black_24dp"
         app:showAsAction="ifRoom"
         android:onClick="contacts"
-        android:title="Contacts" />
+        android:title="Contacts"
+        android:background="@color/CifrColorBlue"/>
     <item
         android:icon="@mipmap/ic_search_black_24dp"
         app:showAsAction="ifRoom"
         android:onClick="search"
-        android:title="Search users" />
+        android:title="Search users"
+        android:background="@color/CifrColorBlue"/>
     <item
         android:icon="@mipmap/ic_exit_to_app_black_24dp"
         app:showAsAction="ifRoom"
         android:onClick="logout"
-        android:title="Log out" />
+        android:title="Log out"
+        android:background="@color/CifrColorBlue"/>
 </menu>
