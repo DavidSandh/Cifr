@@ -6,7 +6,8 @@
     android:gravity="center"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="15dp">
+    android:layout_margin="15dp"
+    android:background="@color/CifrColorYellow">
 
     <ImageView
         android:id="@+id/conversationImageView"
@@ -15,7 +16,7 @@
         app:srcCompat="@mipmap/ic_launcher"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        />
+        android:background="@color/CifrColorYellow" />
 
     <TextView
         android:id="@+id/conversationTextView"
@@ -26,5 +27,5 @@
         android:textStyle="italic"
         android:layout_alignBottom="@+id/conversationImageView"
         android:layout_centerHorizontal="true"
-        />
+        android:background="@color/CifrColorYellow" />
 </LinearLayout>

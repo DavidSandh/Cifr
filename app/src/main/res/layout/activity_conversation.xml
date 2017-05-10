@@ -9,15 +9,17 @@
 
 <RelativeLayout
     android:layout_width="match_parent"
+    android:background="@color/CifrColorYellow"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/conversationView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        />
+        android:layout_alignParentLeft="true"
+        android:background="@color/CifrColorYellow"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/conversationUser" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -25,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/CifrColorYellow"
         android:onClick="sendMessageActivityButton"
         android:visibility="visible"
         app:srcCompat="@mipmap/ic_message_black_48dp" />
@@ -33,11 +36,25 @@
         android:id="@+id/conversationUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="false"
+        android:layout_centerInParent="false"
+        android:layout_centerVertical="false"
+        android:autoText="false"
+        android:backgroundTint="@color/CifrColorYellow"
+        android:fontFamily="serif"
+        android:includeFontPadding="true"
+        android:singleLine="false"
         android:text="TextView"
-        android:textSize="22sp"
-        android:visibility="visible" />
+        android:textAlignment="center"
+        android:textColor="@color/CifrColorGrey"
+        android:textSize="32sp"
+        android:visibility="visible"
+        tools:textColor="@color/CifrColorBlue"
+        tools:textColorHighlight="@color/CifrColorBlue" />
 
 </RelativeLayout>
 

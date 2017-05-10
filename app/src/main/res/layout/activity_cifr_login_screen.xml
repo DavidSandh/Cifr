@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_dark"
+    android:background="@color/CifrColorYellow"
+    android:backgroundTint="@color/CifrColorYellow"
+    android:visibility="visible"
     tools:context="se.mah.ag7406.cifr.client.StartActivities.LoginScreen">
 
     <EditText
@@ -12,15 +14,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginLeft="85dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="110dp"
         android:ems="10"
         android:fontFamily="sans-serif-condensed"
-        android:inputType="textPersonName"
         android:hint="@string/login_username"
-        android:textColor="@android:color/white"
+        android:inputType="textPersonName"
+        android:textColor="@color/CifrColorGrey"
         app:layout_constraintBottom_toTopOf="@+id/passwordlogin"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -28,29 +32,32 @@
         android:id="@+id/passwordlogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="189dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:ems="10"
         android:fontFamily="sans-serif-condensed"
-        android:inputType="textPassword"
         android:hint="@string/login_password"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="190dp"
+        android:inputType="textPassword"
+        android:textColor="@color/CifrColorGrey"
         app:layout_constraintBottom_toTopOf="@+id/loginbutton"
-        android:layout_marginLeft="85dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <Button
         android:id="@+id/loginbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="111dp"
-        android:layout_marginLeft="148dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:background="@android:color/transparent"
         android:fontFamily="sans-serif-condensed"
         android:onClick="login"
         android:text="@string/login_button"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
+        android:textColor="@color/CifrColorBlue"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 </android.support.constraint.ConstraintLayout>

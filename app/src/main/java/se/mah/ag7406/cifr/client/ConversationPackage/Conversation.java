@@ -48,7 +48,7 @@ public class Conversation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
         controller = SuperClass.getController();
-        conversationItems = controller.getConversation(conversationUsername); //Metod i controller för att få data till conversationen. /Viktor
+        conversationItems = controller.getConversation(conversationUsername);
         if(conversationItems == null) {
             Log.d("test", "conversationItems är null");
             Intent createMsgintent = new Intent(this, CreateMessage.class);
@@ -61,6 +61,7 @@ public class Conversation extends AppCompatActivity {
             usernameTextView.setText(conversationUsername);
             recyclerView = (RecyclerView) findViewById(R.id.conversationView);
             layoutManager = new LinearLayoutManager(this);
+            layoutManager.scrollToPosition(conversationItems.length - 1);
             recyclerView.setLayoutManager(layoutManager);
             adapter = new ConversationAdapter(this, conversationItems);
             recyclerView.setAdapter(adapter);
@@ -142,4 +143,8 @@ public class Conversation extends AppCompatActivity {
         finish();
     }
 
+    public void onBackPressed(){
+        Intent intent = new Intent(this, ConversationList.class);
+        startActivity(intent);
+    }
 }
