@@ -38,7 +38,7 @@ public class Controller implements Serializable {
      * Creates a new client and starts it.
      */
     public void startClient(){
-        this.client = new Client("10.0.2.2", 1337, this);
+        this.client = new Client("192.168.43.71", 1337, this);
 //      this.client = new Client("192.168.43.71", 1337, this);
         new Thread() {
             public void run() {
