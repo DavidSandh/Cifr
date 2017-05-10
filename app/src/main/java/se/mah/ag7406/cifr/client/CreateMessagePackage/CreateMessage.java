@@ -43,6 +43,8 @@ public class CreateMessage extends AppCompatActivity {
         System.out.println("FELX: I CreateMessage: reciever: 2" + receiver);
         System.out.println("CreateMessage: Receiver är " + receiver);
         controller = SuperClass.getController();
+        EditText editText = (EditText) findViewById(R.id.createMessageText);
+        editText.setHint("Write message to " + receiver + " here...");
     }
 
     /**
