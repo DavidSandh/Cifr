@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/CifrColorYellow"
     tools:context="se.mah.ag7406.cifr.client.CreateMessagePackage.CreateMessage">
 
     <ImageView
@@ -18,28 +19,35 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_photo_library_black_48dp"
         android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp" />
+        android:layout_marginLeft="8dp"
+        android:background="@color/CifrColorYellow"/>
 
     <EditText
         android:id="@+id/createMessageText"
-        android:layout_width="250dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="259dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textMultiLine"
         android:gravity="top|left"
         android:hint="@string/createMessageText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createMessageImage" />
+        app:layout_constraintTop_toBottomOf="@+id/createMessageImage"
+        app:layout_constraintHorizontal_bias="0.504"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSend" />
 
     <Button
         android:id="@+id/btnSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="@string/btnSend"
+        android:background="@android:color/transparent"
         android:onClick="sendMessage"
+        android:text="@string/btnSend"
+        android:textColor="@color/CifrColorBlue"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
