@@ -43,7 +43,7 @@ public class Controller implements Serializable {
 //        this.client = new Client("192.168.43.71", 1337, this);
 
 
-        this.client = new Client("10.2.2.154", 1337, this);
+        this.client = new Client("192.168.1.164", 1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -230,9 +230,11 @@ public class Controller implements Serializable {
      * @return The scaled Bitmap image.
      */
     private Bitmap gridImageManipulation(byte[] image) {
+        int screenHeight = SuperClass.getContext().getResources().getDisplayMetrics().heightPixels;
+        int screenWidth = SuperClass.getContext().getResources().getDisplayMetrics().widthPixels;
         Bitmap newBitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
         newBitmap = Bitmap.createScaledBitmap(newBitmap, 20, 20, true); //Gräsligt! /Viktor
-        newBitmap = Bitmap.createScaledBitmap(newBitmap, 500, 500, true);
+        newBitmap = Bitmap.createScaledBitmap(newBitmap, (screenWidth/2)-10, (screenWidth/2)-10, true);
         return newBitmap;
     }
 

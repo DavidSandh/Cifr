@@ -41,4 +41,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="StartString">Start</string>
+    <string name="ContactsString">Contacts</string>
+    <string name="SearchString">Search users</string>
+    <string name="LogoutString">Log out</string>
 </resources>
