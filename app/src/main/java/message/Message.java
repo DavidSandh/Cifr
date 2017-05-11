@@ -5,7 +5,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Message class which contains the message being sent from and to server/client.
+ * Message class used for most of the communication between Server and Client. A variety of Message-types
+ * controls what the server does.
  * @author Lucas Knutsäter, David Sandh
  *
  */
@@ -21,6 +22,7 @@ public class Message implements Serializable {
     private Date date;
     private int type;
     private String[] contactList;
+    private byte[] key;
 
     /**
      *  Constructor add all information and put date when sent.
@@ -35,29 +37,59 @@ public class Message implements Serializable {
         this.image= image;
         this.date = new Date();
     }
-
+    /**
+     * Constructs a message with a type, username and a String "data" that is used for different purposes
+     * depending on the type parameter.
+     * @param type
+     * @param username
+     * @param data
+     */
     public Message(int type, String username, String data) {
         this.username = username;
         this.data = data;
         this.type = type;
     }
-
+    public Message(int type, String username, String data, byte[] key) {
+        this.username = username;
+        this.data = data;
+        this.type = type;
+        this.key = key;
+    }
+    /**
+     * Constructor.
+     * @param type
+     * @param status
+     * @param contactList
+     */
     public Message(int type, boolean status, String[] contactList) {
         this.status = status;
         this.type = type;
         this.contactList=contactList;
     }
-
+    /**
+     * Constructor used to notify client whether a request is valid or not.
+     * @param type
+     * @param status
+     */
     public Message(int type, boolean status) {
         this.status = status;
         this.type = type;
 
     }
-
+    /**
+     * Constructor used for a variety of purposes.
+     * @param type
+     * @param username
+     */
     public Message(int type, String username) {
         this.type = type;
         this.username = username;
     }
+    /**
+     * Constructor used to return a contact list to the CLient.
+     * @param type
+     * @param contactList
+     */
     public Message(int type, String[] contactList) {
         this.type = type;
         this.contactList = contactList;
@@ -127,7 +159,15 @@ public class Message implements Serializable {
     public boolean getStatus() {
         return status;
     }
+    /**
+     * returns contactList
+     * @return
+     */
     public String[] getContactList() {
         return contactList;
+    }
+
+    public byte[] getKey() {
+        return key;
     }
 }
