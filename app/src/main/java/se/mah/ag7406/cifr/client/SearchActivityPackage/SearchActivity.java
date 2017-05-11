@@ -74,7 +74,7 @@ public class SearchActivity extends AppCompatActivity  {
         controller.sendSearch(userName, this);
         System.out.println("IFEXISTS");
     }
-    public void response (String user) {
+    public void response (final String user) {
        final EditText userNameSearch = (EditText) findViewById(R.id.editText2);
        final String name = userNameSearch.getText().toString();
         String newname = name.toLowerCase();
@@ -87,7 +87,7 @@ public class SearchActivity extends AppCompatActivity  {
             this.runOnUiThread(new Runnable() {
                 public void run() {
                     EditText userNameFound = (EditText) findViewById(R.id.editText);
-                    userNameFound.setText(name);
+                    userNameFound.setText(user);
                     findViewById(R.id.button).setVisibility(View.VISIBLE);
 
                 }
