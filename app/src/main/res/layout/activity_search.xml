@@ -51,7 +51,7 @@
             android:textColor="@color/CifrColorGrey"
             android:textSize="30sp"
             android:typeface="normal"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -64,14 +64,15 @@
             android:id="@+id/editText"
             android:layout_width="148dp"
             android:layout_height="47dp"
+            android:layout_marginBottom="16dp"
             android:ems="10"
             android:inputType="textMultiLine"
             android:textAlignment="center"
             android:textColor="@android:color/black"
+            app:layout_constraintBottom_toTopOf="@+id/button"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/button" />
+            tools:text="bhbjhb" />
 
     </android.support.constraint.ConstraintLayout>
 
