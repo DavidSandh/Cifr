@@ -113,4 +113,8 @@ public class CreateMessage extends AppCompatActivity {
             }
         }
     }
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

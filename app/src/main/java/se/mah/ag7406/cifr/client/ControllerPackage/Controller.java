@@ -39,7 +39,7 @@ public class Controller implements Serializable {
      * Creates a new client and starts it.
      */
     public void startClient(){
-        this.client = new Client("192.168.1.83", 1337, this);
+        this.client = new Client("94.234.170.152", 1337, this);
 //        this.client = new Client("192.168.43.71", 1337, this);
 
 //        this.client = new Client("10.2.2.154", 1337, this);
@@ -340,7 +340,7 @@ public class Controller implements Serializable {
      * @return true if correct format
      */
     public boolean checkUsernameFormat(String name) {
-        if (name.length()>=6 && name.length()<=15){
+        if (name.length()>=4 && name.length()<=15){
             for(int i=0;i<name.length(); i++){
                 if(name.charAt(i)==','){
                     return false;
@@ -358,7 +358,6 @@ public class Controller implements Serializable {
         myName = null;
         userList=null;
         client.clientLogout();
-        //koppla ner klient??
     }
 
     /**
