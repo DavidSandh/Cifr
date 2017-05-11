@@ -1,24 +1,20 @@
 package se.mah.ag7406.cifr.client.ControllerPackage;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+
 import message.Message;
-import se.mah.ag7406.cifr.R;
-import se.mah.ag7406.cifr.client.ConversationPackage.ConversationItem;
 import se.mah.ag7406.cifr.client.ConversationListPackage.GridItem;
+import se.mah.ag7406.cifr.client.ConversationPackage.ConversationItem;
+import se.mah.ag7406.cifr.client.SearchActivityPackage.SearchActivity;
 import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
 import se.mah.ag7406.cifr.client.StartActivities.RegistrationScreen;
-import se.mah.ag7406.cifr.client.SearchActivityPackage.SearchActivity;
 
 /**
  * Acts as controller for the logik in the application
@@ -35,7 +31,6 @@ public class Controller implements Serializable {
     private BitmapEncoder bitmapEncoder = new BitmapEncoder();
     private SearchActivity search;
 
-
     public Controller(){
         filehandler = new FileHandler(this); //Filehandler tar controller som argument pga test.
     }
@@ -44,10 +39,11 @@ public class Controller implements Serializable {
      * Creates a new client and starts it.
      */
     public void startClient(){
-        this.client = new Client("192.168.1.164", 1337, this);
+//        this.client = new Client("192.168.1.83", 1337, this);
 //        this.client = new Client("192.168.43.71", 1337, this);
 
-//        this.client = new Client("10.2.2.154", 1337, this);
+
+        this.client = new Client("10.2.2.154", 1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -77,7 +73,6 @@ public class Controller implements Serializable {
      * @return Hashmap containg username as key and an ArrayList containing the messages
      */
     public HashMap<String, ArrayList<Message>> readFiles(){
-        Log.d("I read i controller", "jkjkjkj");
         Object[] obj = filehandler.read();
         Message[] messages = Arrays.copyOf(obj, obj.length, Message[].class);
         HashMap<String, ArrayList<Message>> map = new HashMap();
@@ -235,13 +230,10 @@ public class Controller implements Serializable {
      * @return The scaled Bitmap image.
      */
     private Bitmap gridImageManipulation(byte[] image) {
-        int screenHeight = SuperClass.getContext().getResources().getDisplayMetrics().heightPixels;
-        int screenWidth = SuperClass.getContext().getResources().getDisplayMetrics().widthPixels;
         Bitmap newBitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
         newBitmap = Bitmap.createScaledBitmap(newBitmap, 20, 20, true); //Gräsligt! /Viktor
-        newBitmap = Bitmap.createScaledBitmap(newBitmap, (screenWidth/2)-10, (screenWidth/2)-10, true);
+        newBitmap = Bitmap.createScaledBitmap(newBitmap, 500, 500, true);
         return newBitmap;
-
     }
 
     /**

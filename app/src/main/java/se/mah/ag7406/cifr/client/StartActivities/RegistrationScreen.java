@@ -1,11 +1,16 @@
 package se.mah.ag7406.cifr.client.StartActivities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -44,6 +49,8 @@ public class RegistrationScreen extends AppCompatActivity {
      * @param view
      */
     public void login(View view){
+        Button btn = (Button) findViewById(R.id.loginbutton);
+        btn.setEnabled(false);
         EditText username = (EditText) findViewById(R.id.usernameregister);
         EditText pass1 = (EditText) findViewById(R.id.password1register);
         EditText pass2 = (EditText) findViewById(R.id.password2register);
@@ -61,6 +68,12 @@ public class RegistrationScreen extends AppCompatActivity {
             Toast.makeText(this, "The username is in the wrong format",
                         Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void showInformation(View view ) {
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+        DialogFragment dialog = DialogFragmentInfo.newInstance();
+        dialog.show(fragmentManager, "dialogfragmen_info");
     }
 
     /**
@@ -87,6 +100,10 @@ public class RegistrationScreen extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
             });
+        }
+        if(!response.getStatus()) {
+            Button btn = (Button) findViewById(R.id.loginbutton);
+            btn.setEnabled(true);
         }
     }
 }

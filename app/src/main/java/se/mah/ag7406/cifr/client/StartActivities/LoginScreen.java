@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -44,6 +45,8 @@ public class LoginScreen extends AppCompatActivity {
      * Sends request on login and sets name of active user
      */
     public void login(View view){
+        Button btn = (Button) findViewById(R.id.loginbutton);
+        btn.setEnabled(false);
         EditText username = (EditText) findViewById(R.id.usernamelogin);
         EditText password = (EditText) findViewById(R.id.passwordlogin);
         String name = username.getText().toString();
@@ -78,7 +81,12 @@ public class LoginScreen extends AppCompatActivity {
                     }
                 });
             }
+        if(!response.getStatus()) {
+            Button btn = (Button) findViewById(R.id.loginbutton);
+            btn.setEnabled(true);
         }
+    }
+
     public void onBackPressed(){
         Intent intent = new Intent(this, HomeScreen.class);
         startActivity(intent);

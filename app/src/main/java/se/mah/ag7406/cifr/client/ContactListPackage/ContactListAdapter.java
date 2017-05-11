@@ -115,16 +115,17 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             popup.getMenuInflater().inflate(R.menu.contact_list_popup_menu, popup.getMenu());
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 public boolean onMenuItemClick(MenuItem item) {
-                    if(item.getItemId() == 2131558590) {
+
+                    if(item.getItemId() == R.id.contactRemoveButton) {
                         cont.sendMessage(Message.CONTACTLIST_REMOVE, cont.getMyName(), textView.getText().toString());
                         String[] list = cont.recieveUserList();
                         String[] newlist = new String[list.length-1];
                         int count = 0;
-                        for(int i=0; i<newlist.length;i++){
-                            if (!list[count].equalsIgnoreCase(textView.getText().toString())){
-                                newlist[i] = list[count];
+                        for(int i=0; i<list.length;i++){
+                            if (!list[i].equalsIgnoreCase(textView.getText().toString())){
+                                newlist[count] = list[i];
+                                count++;
                             }
-                            count++;
                         }
                         cont.setUserList(newlist);
                         Intent myIntent = new Intent(context, ContactList.class);

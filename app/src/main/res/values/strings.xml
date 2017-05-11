@@ -25,6 +25,8 @@
     <string name="registration_passwordrepeat">Repeat password</string>
     <string name="registration_register">Register</string>
     <string name="registration_warning">You alone are responsible for remembering this password. If you lose it, it is lost.</string>
+    <string name="registration_info">Username must be between 6 and 15 characters.\n
+    \nPassword must be between 6 and 15 characters and contain one number and one upper-case letter.</string>
 
     <string name="search_hintusername">Enter username to search for...</string>
     <string name="search_adduser">Add user</string>
