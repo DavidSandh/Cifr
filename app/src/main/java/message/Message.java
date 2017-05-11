@@ -2,6 +2,7 @@ package message;
 
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -91,9 +92,9 @@ public class Message implements Serializable {
      * returns Date object
      * @return Date object
      */
-    public Date getDate() {
+    public String getDate() {
         //ska nog göras om till att retunera tid istället och inte objektet.
-        return date;
+        return new SimpleDateFormat("dd/MM - hh:mm").format(date);
     }
 
     /**
