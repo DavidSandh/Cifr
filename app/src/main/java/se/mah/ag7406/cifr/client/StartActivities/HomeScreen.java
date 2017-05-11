@@ -43,4 +43,7 @@ public class HomeScreen extends AppCompatActivity {
         Intent intent = new Intent(this, RegistrationScreen.class);
         startActivity(intent);
     }
+    public void onBackPressed(){
+
+    }
 }

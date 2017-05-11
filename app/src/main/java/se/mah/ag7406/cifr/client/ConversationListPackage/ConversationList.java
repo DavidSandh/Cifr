@@ -47,7 +47,7 @@ public class ConversationList extends AppCompatActivity {
     }
 
     /**
-     * ?? Vad är detta?
+     * Overrides the back-button so that it does nothing.
      */
     public void onBackPressed(){
 

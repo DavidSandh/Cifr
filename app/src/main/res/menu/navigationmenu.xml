@@ -4,28 +4,30 @@
     android:background="@color/CifrColorBlue">
 
     <item
+        android:background="@color/CifrColorYellow"
+        android:icon="@mipmap/ic_home_black_24dp"
         android:onClick="home"
         android:title="Start"
-        app:showAsAction="ifRoom"
-        android:icon="@mipmap/ic_home_black_24dp"
-        android:background="@color/CifrColorBlue"
-        />
+        app:showAsAction="ifRoom" />
     <item
         android:icon="@mipmap/ic_supervisor_account_black_24dp"
         app:showAsAction="ifRoom"
         android:onClick="contacts"
         android:title="Contacts"
-        android:background="@color/CifrColorBlue"/>
+        android:background="@color/CifrColorGrey"
+        android:textColor="@color/CifrColorYellow"/>
     <item
         android:icon="@mipmap/ic_search_black_24dp"
         app:showAsAction="ifRoom"
         android:onClick="search"
         android:title="Search users"
-        android:background="@color/CifrColorBlue"/>
+        android:background="@color/CifrColorGrey"
+        android:textColor="@color/CifrColorYellow"/>
     <item
         android:icon="@mipmap/ic_exit_to_app_black_24dp"
         app:showAsAction="ifRoom"
         android:onClick="logout"
         android:title="Log out"
-        android:background="@color/CifrColorBlue"/>
+        android:background="@color/CifrColorGrey"
+        android:textColor="@color/CifrColorYellow"/>
 </menu>
