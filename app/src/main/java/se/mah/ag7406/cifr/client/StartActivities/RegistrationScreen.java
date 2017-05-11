@@ -1,7 +1,11 @@
 package se.mah.ag7406.cifr.client.StartActivities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -61,6 +65,12 @@ public class RegistrationScreen extends AppCompatActivity {
             Toast.makeText(this, "The username is in the wrong format",
                         Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void showInformation(View view ) {
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+        DialogFragment dialog = DialogFragmentInfo.newInstance();
+        dialog.show(fragmentManager, "dialogfragmen_info");
     }
 
     /**
