@@ -2,18 +2,19 @@ package se.mah.ag7406.cifr.client.ControllerPackage;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
+
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+
 import message.Message;
-import se.mah.ag7406.cifr.client.ConversationPackage.ConversationItem;
 import se.mah.ag7406.cifr.client.ConversationListPackage.GridItem;
+import se.mah.ag7406.cifr.client.ConversationPackage.ConversationItem;
+import se.mah.ag7406.cifr.client.SearchActivityPackage.SearchActivity;
 import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
 import se.mah.ag7406.cifr.client.StartActivities.RegistrationScreen;
-import se.mah.ag7406.cifr.client.SearchActivityPackage.SearchActivity;
 
 /**
  * Acts as controller for the logik in the application
@@ -38,10 +39,10 @@ public class Controller implements Serializable {
      * Creates a new client and starts it.
      */
     public void startClient(){
- //       this.client = new Client("192.168.43.71", 1337, this);
-//      this.client = new Client("192.168.43.71", 1337, this);
+        this.client = new Client("192.168.1.83", 1337, this);
+//        this.client = new Client("192.168.43.71", 1337, this);
 
-        this.client = new Client("10.2.2.154", 1337, this);
+//        this.client = new Client("10.2.2.154", 1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -71,7 +72,6 @@ public class Controller implements Serializable {
      * @return Hashmap containg username as key and an ArrayList containing the messages
      */
     public HashMap<String, ArrayList<Message>> readFiles(){
-        Log.d("I read i controller", "jkjkjkj");
         Object[] obj = filehandler.read();
         Message[] messages = Arrays.copyOf(obj, obj.length, Message[].class);
         HashMap<String, ArrayList<Message>> map = new HashMap();
@@ -215,7 +215,7 @@ public class Controller implements Serializable {
             if(map.containsKey(userlist[i])){
                 System.out.println("Jag är i forloopen i griditems");
                 ArrayList<Message> arr = map.get(userlist[i]);
-                byte[] bild = (byte[])arr.get(0).getImage();
+                byte[] bild = (byte[])arr.get(arr.size() - 1).getImage();
                 gridList.add(new GridItem(userlist[i], gridImageManipulation(bild)));
             }
         }

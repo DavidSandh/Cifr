@@ -143,4 +143,8 @@ public class Conversation extends AppCompatActivity {
         finish();
     }
 
+    public void onBackPressed(){
+        Intent intent = new Intent(this, ConversationList.class);
+        startActivity(intent);
+    }
 }

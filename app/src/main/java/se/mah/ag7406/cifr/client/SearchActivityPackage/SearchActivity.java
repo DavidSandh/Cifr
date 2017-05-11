@@ -66,7 +66,7 @@ public class SearchActivity extends AppCompatActivity  {
 
        userNameFound.setText("");
         findViewById(R.id.button).setVisibility(View.INVISIBLE);
-        findViewById(R.id.imageView).setVisibility(View.INVISIBLE);
+
 
 
     }
@@ -89,7 +89,7 @@ public class SearchActivity extends AppCompatActivity  {
                     EditText userNameFound = (EditText) findViewById(R.id.editText);
                     userNameFound.setText(name);
                     findViewById(R.id.button).setVisibility(View.VISIBLE);
-                    findViewById(R.id.imageView).setVisibility(View.VISIBLE);
+
                 }
             });
             userNameToAdd = name;
@@ -145,6 +145,10 @@ public class SearchActivity extends AppCompatActivity  {
         Intent intent = new Intent(this, LoginScreen.class);
         startActivity(intent);
         finish();
+    }
+    public void onBackPressed(){
+        Intent intent = new Intent(this, ConversationList.class);
+        startActivity(intent);
     }
 }
 

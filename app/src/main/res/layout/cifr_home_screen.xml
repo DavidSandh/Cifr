@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_dark"
+    android:background="@color/CifrColorYellow"
     tools:context="se.mah.ag7406.cifr.client.StartActivities.HomeScreen">
 
     <TextView
@@ -14,7 +14,7 @@
         android:fontFamily="sans-serif-condensed"
         android:text="@string/homescreen_title"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
+        android:textColor="@color/CifrColorGrey"
         android:textSize="36sp"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="116dp"
@@ -34,7 +34,7 @@
         android:onClick="register"
         android:text="@string/homescreen_register"
         android:textAllCaps="false"
-        android:textColor="@android:color/white"
+        android:textColor="@color/CifrColorGrey"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -51,7 +51,7 @@
         android:onClick="login"
         android:text="@string/homescreen_login"
         android:textAllCaps="false"
-        android:textColor="@android:color/white"
+        android:textColor="@color/CifrColorGrey"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

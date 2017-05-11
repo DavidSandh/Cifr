@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.view.MenuItem;
 
+import message.Message;
 import se.mah.ag7406.cifr.R;
+import se.mah.ag7406.cifr.client.ControllerPackage.Controller;
+import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
 import se.mah.ag7406.cifr.client.ConversationPackage.Conversation;
 
 
@@ -106,13 +109,27 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
          * @param context The view that was clicked.
          * @param view Where the menu will be anchored.
          */
-        public void showPopup(Context context, View view) {
-            PopupMenu popup = new PopupMenu(context, view);
+        public void showPopup(final Context context, final View view) {
+            final Controller cont = SuperClass.getController();
+            final PopupMenu popup = new PopupMenu(context, view);
             popup.getMenuInflater().inflate(R.menu.contact_list_popup_menu, popup.getMenu());
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 public boolean onMenuItemClick(MenuItem item) {
-                    if(item.getItemId() == 1) {
-//                        controller.removeUserFromContactList(textView.getText());
+
+                    if(item.getItemId() == R.id.contactRemoveButton) {
+                        cont.sendMessage(Message.CONTACTLIST_REMOVE, cont.getMyName(), textView.getText().toString());
+                        String[] list = cont.recieveUserList();
+                        String[] newlist = new String[list.length-1];
+                        int count = 0;
+                        for(int i=0; i<list.length;i++){
+                            if (!list[i].equalsIgnoreCase(textView.getText().toString())){
+                                newlist[count] = list[i];
+                                count++;
+                            }
+                        }
+                        cont.setUserList(newlist);
+                        Intent myIntent = new Intent(context, ContactList.class);
+                        context.startActivity(myIntent);
                     }
                     return false;
                 }

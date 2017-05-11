@@ -33,6 +33,7 @@ public class ContactList extends AppCompatActivity {
      * @param savedInstanceState
      */
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("Ubertest!!!" + "COntactlist startad");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cifr_contact_list);
         controller = SuperClass.getController();
@@ -94,5 +95,9 @@ public class ContactList extends AppCompatActivity {
         Intent intent = new Intent(this, LoginScreen.class);
         startActivity(intent);
         finish();
+    }
+    public void onBackPressed(){
+        Intent intent = new Intent(this, ConversationList.class);
+        startActivity(intent);
     }
 }
