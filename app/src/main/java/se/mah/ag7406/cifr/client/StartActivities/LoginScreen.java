@@ -49,7 +49,7 @@ public class LoginScreen extends AppCompatActivity {
         btn.setEnabled(false);
         EditText username = (EditText) findViewById(R.id.usernamelogin);
         EditText password = (EditText) findViewById(R.id.passwordlogin);
-        String name = username.getText().toString();
+        String name = username.getText().toString().toLowerCase();
         String pass = password.getText().toString();
         this.username = name;
         Log.d("före if sats", "username: "+ name + "passwoed: " + pass);

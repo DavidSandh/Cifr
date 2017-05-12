@@ -13,15 +13,17 @@ import android.graphics.Bitmap;
 public class ConversationItem {
     private String timeAndDate;
     private Bitmap image;
+    private String sender;
 
     /**
      * Creates the object with a String and a Bitmap.
      * @param timeAndDate The date and time when this message was received.
      * @param image Image of the message.
      */
-    public ConversationItem(String timeAndDate, Bitmap image) {
+    public ConversationItem(String timeAndDate, Bitmap image, String username) {
         this.timeAndDate = timeAndDate;
         this.image = image;
+        this.sender=username;
     }
 
     /**
@@ -55,5 +57,9 @@ public class ConversationItem {
      */
     public Bitmap getImage() {
         return image;
+    }
+
+    public String getSender(){
+        return sender;
     }
 }
