@@ -1,6 +1,5 @@
 package se.mah.ag7406.cifr.client.SearchActivityPackage;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -16,36 +15,20 @@ import se.mah.ag7406.cifr.client.ContactListPackage.ContactList;
 
 public class Notifications extends AppCompatActivity {
 
-
-
-
-
-
-
 // https://developer.android.com/training/notify-user/build-notification.html#notify
     //https://developer.android.com/guide/topics/ui/notifiers/notifications.html
 
-
     public void sendNotification(String user ){
-
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_menu_share)
-                .setContentTitle("En användre har lagt till dig.")
-                .setContentText( user +" vill lägga till dig i sin kontaktlista.");
+                .setContentTitle("A user has added you")
+                .setContentText( user +" wants to add you to their contact list");
 
         Intent intent = new Intent(this, ContactList.class);
-
-        PendingIntent resultPendingIntent =
-                PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-
-
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(resultPendingIntent);
-
         int mNotificationId = 000;
-
-        NotificationManager mNotifyMgr =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
+        NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mNotifyMgr.notify(mNotificationId, mBuilder.build());
 
     }
