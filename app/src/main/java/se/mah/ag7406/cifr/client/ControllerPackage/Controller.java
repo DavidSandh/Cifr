@@ -213,7 +213,7 @@ public class Controller implements Serializable {
             return null;
         }
         for (int i=0; i<userlist.length; i++){
-            if(map.containsKey(userlist[i])){
+            if(map.containsKey(userlist[i]) && (userlist[i]!=myName)){
                 System.out.println("Jag är i forloopen i griditems");
                 ArrayList<Message> arr = map.get(userlist[i]);
                 byte[] bild = (byte[])arr.get(arr.size() - 1).getImage();
@@ -257,7 +257,7 @@ public class Controller implements Serializable {
         for(int i=0;i<messageList.size();i++){
             System.out.println("I for Loop I ConversationItem" +messageList.get(i).getSender());
             byte[] bytes = (byte[])messageList.get(i).getImage();
-            conversationList.add(new ConversationItem(messageList.get(i).getDate().toString(), BitmapFactory.decodeByteArray(bytes, 0, bytes.length)));
+            conversationList.add(new ConversationItem(messageList.get(i).getDate().toString(), BitmapFactory.decodeByteArray(bytes, 0, bytes.length), messageList.get(i).getSender()));
         }
         return Arrays.copyOf(conversationList.toArray(), conversationList.toArray().length, ConversationItem[].class);
     }

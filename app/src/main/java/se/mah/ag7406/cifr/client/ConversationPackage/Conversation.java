@@ -69,24 +69,6 @@ public class Conversation extends AppCompatActivity {
     }
 
     /**
-     * Test method, to be removed.
-     */
-    public void setConversationData() { //Ska kallas i controllern? /Viktor
-        //Test-data för tillfället.
-        conversationItems = new ConversationItem[5];
-        ConversationItem item1 = new ConversationItem("Klockan är tio", BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_round));
-        ConversationItem item2 = new ConversationItem("Klockan är elva", BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_round));
-        ConversationItem item3 = new ConversationItem("Klockan är tolv", BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_round));
-        ConversationItem item4 = new ConversationItem("Klockan är tretton", BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_round));
-        ConversationItem item5 = new ConversationItem("Klockan är fjorton", BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_round));
-        conversationItems[0] = item1;
-        conversationItems[1] = item2;
-        conversationItems[2] = item3;
-        conversationItems[3] = item4;
-        conversationItems[4] = item5;
-    }
-
-    /**
      * Opens the activity where a message can be created and sent.
      * Called by the Button in the bottom of the screen.
      * @param view Required parameter for onClick implementation. Recognizes a view

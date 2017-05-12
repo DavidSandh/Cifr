@@ -37,9 +37,8 @@ public class SearchActivity extends AppCompatActivity  {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    String userNameSearch = userName.getText().toString();
+                    String userNameSearch = userName.getText().toString().toLowerCase();
                     ifExists(userNameSearch);
-                    System.out.println(userNameSearch);
                     return true;
                 }
                 return false;
@@ -48,20 +47,22 @@ public class SearchActivity extends AppCompatActivity  {
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                addUserToContacts(userNameToAdd);
+                if(controller.getMyName() != userNameToAdd){
+                    addUserToContacts(userNameToAdd);
+                }
             }
         });
     }
-    public void addUserToContacts(final String user){
-        System.out.println("addUserToContacts");
-        controller.sendMessage(Message.CONTACTLIST_ADD, controller.getMyName(), user);
-        this.runOnUiThread(new Runnable() {
-            public void run() {
-                Snackbar snackbar =Snackbar.make( findViewById(android.R.id.content), "User added", Snackbar.LENGTH_LONG );
-                snackbar.show();
-            }
-        });
-
+    public void addUserToContacts(final String userNameToAdd){
+        if(controller.getMyName() != userNameToAdd) {
+            controller.sendMessage(Message.CONTACTLIST_ADD, controller.getMyName(), userNameToAdd);
+            this.runOnUiThread(new Runnable() {
+                public void run() {
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "User added", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
+            });
+        }
       EditText userNameFound = (EditText) findViewById(R.id.editText);
 
        userNameFound.setText("");

@@ -62,7 +62,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
      * @param position The position of the item within the adapter's data set.
      */
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.textView.setText(conversationItems[position].getTimeAndDate());
+        holder.textView.setText(conversationItems[position].getTimeAndDate() + ", From: " + conversationItems[position].getSender());
         holder.imageView.setImageBitmap(conversationItems[position].getImage());
     }
 
