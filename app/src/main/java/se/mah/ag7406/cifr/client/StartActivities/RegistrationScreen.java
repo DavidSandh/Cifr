@@ -1,10 +1,8 @@
 package se.mah.ag7406.cifr.client.StartActivities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -70,6 +68,11 @@ public class RegistrationScreen extends AppCompatActivity {
         }
     }
 
+    /**
+     * Called by a click on the information icon. Displays in a dialog fragment
+     * the information regarding username and password format.
+     * @param view The view that is clicked. Required parameter for onClick implemenation.
+     */
     public void showInformation(View view ) {
         FragmentManager fragmentManager = this.getSupportFragmentManager();
         DialogFragment dialog = DialogFragmentInfo.newInstance();

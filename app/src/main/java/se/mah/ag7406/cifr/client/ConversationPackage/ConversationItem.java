@@ -19,6 +19,7 @@ public class ConversationItem {
      * Creates the object with a String and a Bitmap.
      * @param timeAndDate The date and time when this message was received.
      * @param image Image of the message.
+     * @param username Sender of the message.
      */
     public ConversationItem(String timeAndDate, Bitmap image, String username) {
         this.timeAndDate = timeAndDate;
@@ -59,6 +60,10 @@ public class ConversationItem {
         return image;
     }
 
+    /**
+     * Returns the sender of this message, so it can be displayed in the conversaiton.
+     * @return String with the username of sender.
+     */
     public String getSender(){
         return sender;
     }

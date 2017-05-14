@@ -126,7 +126,7 @@ public class Controller implements Serializable {
      * @param bit Bitmap to be converted
      * @return The resulting byte-array
      */
-    public byte[] convert(Bitmap bit){//för test
+    public byte[] convert(Bitmap bit){
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bit.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
@@ -230,10 +230,10 @@ public class Controller implements Serializable {
      * @return The scaled Bitmap image.
      */
     private Bitmap gridImageManipulation(byte[] image) {
-        int screenHeight = SuperClass.getContext().getResources().getDisplayMetrics().heightPixels;
+        //int screenHeight = SuperClass.getContext().getResources().getDisplayMetrics().heightPixels;
         int screenWidth = SuperClass.getContext().getResources().getDisplayMetrics().widthPixels;
         Bitmap newBitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
-        newBitmap = Bitmap.createScaledBitmap(newBitmap, 20, 20, true); //Gräsligt! /Viktor
+        newBitmap = Bitmap.createScaledBitmap(newBitmap, 20, 20, true);
         newBitmap = Bitmap.createScaledBitmap(newBitmap, (screenWidth/2)-10, (screenWidth/2)-10, true);
         return newBitmap;
     }
