@@ -147,8 +147,10 @@ public class Controller implements Serializable {
         new Thread() {
             public void run() {
                 if(name==null){
+                    System.out.println("name null");
                     client.sendRequest(new Message(type, user));
                 } else {
+                    System.out.println("name null");
                     client.sendRequest(new Message(type, name, user));
                 }
             }
@@ -385,11 +387,7 @@ public class Controller implements Serializable {
      */
     public void sendSearch(final String user, SearchActivity search) {
         this.search = search;
-        new Thread() {
-            public void run() {
-                client.sendRequest(new Message(Message.SEARCH, user));
-            }
-        }.start();
+        sendMessage(Message.SEARCH, getMyName(), user);
     }
 
 }
