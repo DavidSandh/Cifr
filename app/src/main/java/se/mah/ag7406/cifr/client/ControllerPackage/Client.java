@@ -57,7 +57,7 @@ public class Client {
      */
     public void sendRequest(Message message){
         if(output==null){
-            controller.responseLogin(new Message(3,true));
+            controller.responseLogin(new Message(3,false));
             clientRun();
         } else {
             try {

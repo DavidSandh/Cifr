@@ -45,7 +45,6 @@ public class LoginScreen extends AppCompatActivity {
      * Sends request on login and sets name of active user
      */
     public void login(View view){
-        controller.startClient();
         Button btn = (Button) findViewById(R.id.loginbutton);
         btn.setEnabled(false);
         EditText username = (EditText) findViewById(R.id.usernamelogin);
@@ -83,10 +82,15 @@ public class LoginScreen extends AppCompatActivity {
                 });
             }
         if(!response.getStatus()) {
-            Button btn = (Button) findViewById(R.id.loginbutton);
-            btn.setEnabled(true);
+            this.runOnUiThread(new Runnable() {
+                public void run() {
+                    Button btn = (Button) findViewById(R.id.loginbutton);
+                    btn.setEnabled(true);
+                }
+            });
         }
     }
+
 
     public void onBackPressed(){
         Intent intent = new Intent(this, HomeScreen.class);
