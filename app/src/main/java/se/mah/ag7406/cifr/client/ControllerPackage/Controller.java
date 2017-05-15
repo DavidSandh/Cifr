@@ -43,10 +43,7 @@ public class Controller implements Serializable {
 //        this.client = new Client("192.168.43.71", 1337, this);
 
 
-      //  this.client = new Client("10.0.2.2", 1337, this);
-
-        this.client = new Client("10.2.2.154", 1337, this);
-
+        this.client = new Client("192.168.43.71", 1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -86,15 +83,9 @@ public class Controller implements Serializable {
         for(int i =0; i<userList.length; i++){
             messageArrayList = new ArrayList<>();
             for(int j=0; j<messages.length; j++){
-
-                    if(userList[i].equalsIgnoreCase(messages[j].getSender())||userList[i].equalsIgnoreCase(messages[j].getRecipient())){
-                        messageArrayList.add(messages[j]);
-
+                if(userList[i].equalsIgnoreCase(messages[j].getSender())||userList[i].equalsIgnoreCase(messages[j].getRecipient())){
+                    messageArrayList.add(messages[j]);
                 }
-
-
-
-
             }
             if(!messageArrayList.isEmpty()) {
                 map.put(userList[i], messageArrayList);
@@ -108,7 +99,11 @@ public class Controller implements Serializable {
      * @param message Message to be saved
      */
     public void writeFile(Message message){
-        filehandler.saveToMachine(message);
+        if(message==null){
+            System.out.println("FÖRSÖKER SKRIVA ETT MESSAGE OBJEKT SOM ÄR NULL");
+        } else {
+            filehandler.saveToMachine(message);
+        }
     }
 
     /**
@@ -122,7 +117,7 @@ public class Controller implements Serializable {
         Bitmap newImage = encodeBitmap(image, messageText);
         byte[] msgImage = convert(newImage);
         final Message newMessage = new Message(Message.MESSAGE, myName, receiver, msgImage);
-        filehandler.saveToMachine(newMessage);
+        writeFile(newMessage);
         new Thread() {
             public void run() {
                 client.sendRequest(newMessage);
@@ -152,8 +147,10 @@ public class Controller implements Serializable {
         new Thread() {
             public void run() {
                 if(name==null){
+                    System.out.println("name null");
                     client.sendRequest(new Message(type, user));
                 } else {
+                    System.out.println("name null");
                     client.sendRequest(new Message(type, name, user));
                 }
             }
@@ -188,7 +185,7 @@ public class Controller implements Serializable {
      * @param message message to save
      */
     public void recieveMessage(Message message){
-        filehandler.saveToMachine(message);
+        writeFile(message);
     }
 
     /**
@@ -390,15 +387,7 @@ public class Controller implements Serializable {
      */
     public void sendSearch(final String user, SearchActivity search) {
         this.search = search;
-        new Thread() {
-            public void run() {
-                client.sendRequest(new Message(Message.SEARCH, user));
-            }
-        }.start();
+        sendMessage(Message.SEARCH, getMyName(), user);
     }
-
-
-
-
 
 }

@@ -8,15 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import message.Message;
 import se.mah.ag7406.cifr.R;
 import se.mah.ag7406.cifr.client.ControllerPackage.Controller;
-import se.mah.ag7406.cifr.client.ConversationListPackage.ConversationList;
 import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
+import se.mah.ag7406.cifr.client.ConversationListPackage.ConversationList;
 
 /**
  * The Registration-Screen for the Cifr-app
@@ -39,6 +38,7 @@ public class RegistrationScreen extends AppCompatActivity {
         setContentView(R.layout.activity_cifr_registration_screen);
         controller = SuperClass.getController();
         controller.startClient();
+
     }
 
     /**
@@ -47,8 +47,8 @@ public class RegistrationScreen extends AppCompatActivity {
      * @param view
      */
     public void login(View view){
-        Button btn = (Button) findViewById(R.id.loginbutton);
-        btn.setEnabled(false);
+        //Button btn = (Button) findViewById(R.id.loginbutton);
+        //btn.setEnabled(false);
         EditText username = (EditText) findViewById(R.id.usernameregister);
         EditText pass1 = (EditText) findViewById(R.id.password1register);
         EditText pass2 = (EditText) findViewById(R.id.password2register);
@@ -105,8 +105,12 @@ public class RegistrationScreen extends AppCompatActivity {
             });
         }
         if(!response.getStatus()) {
-            Button btn = (Button) findViewById(R.id.loginbutton);
-            btn.setEnabled(true);
+            this.runOnUiThread(new Runnable() {
+                public void run() {
+                    //Button btn = (Button) findViewById(R.id.loginbutton);
+                    //btn.setEnabled(true);
+                }
+            });
         }
     }
 }
