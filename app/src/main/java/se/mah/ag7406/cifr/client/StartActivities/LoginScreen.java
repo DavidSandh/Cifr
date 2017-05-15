@@ -83,7 +83,7 @@ public class LoginScreen extends AppCompatActivity {
             }
         if(!response.getStatus()) {
             Button btn = (Button) findViewById(R.id.loginbutton);
-            btn.setEnabled(true);
+//            btn.setEnabled(true);
         }
     }
 

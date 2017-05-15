@@ -1,9 +1,12 @@
 package se.mah.ag7406.cifr.client.SearchActivityPackage;
 
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -24,11 +27,12 @@ import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
 public class SearchActivity extends AppCompatActivity  {
     String userNameToAdd;
     private Controller controller;
-
+    private Notifications noti;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
         controller = SuperClass.getController();
         EditText userNameFound = (EditText) findViewById(R.id.editText);
         userNameFound.setKeyListener(null);
@@ -55,13 +59,20 @@ public class SearchActivity extends AppCompatActivity  {
     }
     public void addUserToContacts(final String userNameToAdd){
         if(controller.getMyName() != userNameToAdd) {
+
             controller.sendMessage(Message.CONTACTLIST_ADD, controller.getMyName(), userNameToAdd);
+            sendNotification(userNameToAdd);
+
             this.runOnUiThread(new Runnable() {
                 public void run() {
                     Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "User added", Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }
             });
+          //  noti = new Notifications(userNameToAdd);
+          //  noti.sendNotification(userNameToAdd);
+           // noti.showNotification();
+          //  sendNotification(userNameToAdd);
         }
       EditText userNameFound = (EditText) findViewById(R.id.editText);
 
@@ -151,5 +162,23 @@ public class SearchActivity extends AppCompatActivity  {
         Intent intent = new Intent(this, ConversationList.class);
         startActivity(intent);
     }
+
+    public void sendNotification(String user ){
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_menu_share)
+                .setContentTitle("A user has added you")
+                .setContentText( user +" wants to add you to their contact list");
+
+        Intent intent = new Intent(this, ContactList.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(resultPendingIntent);
+        int mNotificationId = 000;
+        NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        mNotifyMgr.notify(mNotificationId, mBuilder.build());
+
+    }
+
+
+
 }
 
