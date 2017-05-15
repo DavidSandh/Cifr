@@ -19,7 +19,8 @@
         android:layout_alignParentLeft="true"
         android:background="@color/CifrColorYellow"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/conversationUser" />
+        android:layout_below="@+id/conversationUser"
+        android:paddingBottom="47dp"/>
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -27,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:background="@android:color/transparent"
         android:backgroundTint="@color/CifrColorYellow"
         android:onClick="sendMessageActivityButton"
         android:visibility="visible"
