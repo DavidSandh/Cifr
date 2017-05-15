@@ -36,7 +36,9 @@ public class Client {
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
             output.flush();
-        }catch(IOException e){}
+        }catch(IOException e){
+
+        }
         new ServerListener().start();
     }
 
@@ -112,9 +114,11 @@ public class Client {
             Object message;
             while (true) {
                 try {
-                    message = (Object)input.readObject();
-                    Message mess = (Message)message;
-                    handleEvent(mess);
+                    if(input!=null){
+                        message = (Object)input.readObject();
+                        Message mess = (Message)message;
+                        handleEvent(mess);
+                    }
                 } catch (IOException ioe) {
                     ioe.printStackTrace();
                 } catch (ClassNotFoundException cnfe) {

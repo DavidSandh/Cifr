@@ -99,7 +99,11 @@ public class Controller implements Serializable {
      * @param message Message to be saved
      */
     public void writeFile(Message message){
-        filehandler.saveToMachine(message);
+        if(message==null){
+            System.out.println("FÖRSÖKER SKRIVA ETT MESSAGE OBJEKT SOM ÄR NULL");
+        } else {
+            filehandler.saveToMachine(message);
+        }
     }
 
     /**
@@ -113,7 +117,7 @@ public class Controller implements Serializable {
         Bitmap newImage = encodeBitmap(image, messageText);
         byte[] msgImage = convert(newImage);
         final Message newMessage = new Message(Message.MESSAGE, myName, receiver, msgImage);
-        filehandler.saveToMachine(newMessage);
+        writeFile(newMessage);
         new Thread() {
             public void run() {
                 client.sendRequest(newMessage);
@@ -179,7 +183,7 @@ public class Controller implements Serializable {
      * @param message message to save
      */
     public void recieveMessage(Message message){
-        filehandler.saveToMachine(message);
+        writeFile(message);
     }
 
     /**
