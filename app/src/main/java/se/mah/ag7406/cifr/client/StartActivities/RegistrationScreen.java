@@ -38,7 +38,7 @@ public class RegistrationScreen extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_cifr_registration_screen);
         controller = SuperClass.getController();
-        controller.startClient();
+
     }
 
     /**
@@ -47,6 +47,7 @@ public class RegistrationScreen extends AppCompatActivity {
      * @param view
      */
     public void login(View view){
+        controller.startClient();
         Button btn = (Button) findViewById(R.id.loginbutton);
         btn.setEnabled(false);
         EditText username = (EditText) findViewById(R.id.usernameregister);

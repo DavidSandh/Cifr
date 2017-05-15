@@ -45,6 +45,7 @@ public class LoginScreen extends AppCompatActivity {
      * Sends request on login and sets name of active user
      */
     public void login(View view){
+        controller.startClient();
         Button btn = (Button) findViewById(R.id.loginbutton);
         btn.setEnabled(false);
         EditText username = (EditText) findViewById(R.id.usernamelogin);
