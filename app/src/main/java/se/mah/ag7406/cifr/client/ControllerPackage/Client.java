@@ -1,7 +1,5 @@
 package se.mah.ag7406.cifr.client.ControllerPackage;
 
-import android.app.Notification;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -67,6 +65,7 @@ public class Client {
             clientRun();
         } else {
             try {
+                System.out.println(message.getType());
                 output.writeObject(message);
             } catch (IOException e) {
                 e.printStackTrace();

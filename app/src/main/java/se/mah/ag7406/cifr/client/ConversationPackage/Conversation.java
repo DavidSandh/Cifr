@@ -1,12 +1,10 @@
 package se.mah.ag7406.cifr.client.ConversationPackage;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -14,11 +12,11 @@ import android.widget.TextView;
 import se.mah.ag7406.cifr.R;
 import se.mah.ag7406.cifr.client.ContactListPackage.ContactList;
 import se.mah.ag7406.cifr.client.ControllerPackage.Controller;
+import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
 import se.mah.ag7406.cifr.client.ConversationListPackage.ConversationList;
 import se.mah.ag7406.cifr.client.CreateMessagePackage.CreateMessage;
-import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
 import se.mah.ag7406.cifr.client.SearchActivityPackage.SearchActivity;
-import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
+import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
 
 /**
  * Activity for displaying an ongoing conversation. This will be in the shape of a list
@@ -48,6 +46,7 @@ public class Conversation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
         controller = SuperClass.getController();
+        controller.setflag(true, conversationUsername, this);
         conversationItems = controller.getConversation(conversationUsername);
         if(conversationItems == null) {
             Intent createMsgintent = new Intent(this, CreateMessage.class);
@@ -64,6 +63,10 @@ public class Conversation extends AppCompatActivity {
             adapter = new ConversationAdapter(this, conversationItems);
             recyclerView.setAdapter(adapter);
         }
+    }
+    protected void onDestroy(){
+        controller.setflag(false, null, null);
+        super.onDestroy();
     }
 
     /**
@@ -127,4 +130,5 @@ public class Conversation extends AppCompatActivity {
         Intent intent = new Intent(this, ConversationList.class);
         startActivity(intent);
     }
+
 }

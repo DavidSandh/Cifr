@@ -1,5 +1,7 @@
 package se.mah.ag7406.cifr.client.ControllerPackage;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -12,6 +14,7 @@ import java.util.HashMap;
 
 import message.Message;
 import se.mah.ag7406.cifr.client.ConversationListPackage.GridItem;
+import se.mah.ag7406.cifr.client.ConversationPackage.Conversation;
 import se.mah.ag7406.cifr.client.ConversationPackage.ConversationItem;
 import se.mah.ag7406.cifr.client.SearchActivityPackage.SearchActivity;
 import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
@@ -31,6 +34,9 @@ public class Controller implements Serializable {
     private String myName;
     private BitmapEncoder bitmapEncoder = new BitmapEncoder();
     private SearchActivity search;
+    private boolean flag;
+    private String flagname;
+    private Activity ConversationActivity;
 
     public Controller(){
         filehandler = new FileHandler(this); //Filehandler tar controller som argument pga test.
@@ -187,6 +193,7 @@ public class Controller implements Serializable {
      */
     public void recieveMessage(Message message){
         writeFile(message);
+        checkflag(message.getSender());
     }
 
     /**
@@ -392,4 +399,17 @@ public class Controller implements Serializable {
         sendMessage(Message.SEARCH, getMyName(), user);
     }
 
+    public void setflag(boolean b, String conversationUsername, Activity activity) {
+        ConversationActivity = activity;
+        flag = b;
+        flagname = conversationUsername;
+    }
+
+    public void checkflag(String sender){
+        if (flag && sender.equalsIgnoreCase(flagname)){
+            Intent intent = new Intent(ConversationActivity, Conversation.class);
+            intent.putExtra("username" ,flagname);
+            ConversationActivity.startActivity(intent);
+        }
+    }
 }
