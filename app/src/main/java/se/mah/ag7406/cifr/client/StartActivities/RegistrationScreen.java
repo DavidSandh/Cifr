@@ -50,7 +50,7 @@ public class RegistrationScreen extends AppCompatActivity {
      */
     public void login(View view){
         Button btn = (Button) findViewById(R.id.loginbutton);
-        btn.setEnabled(false);
+//        btn.setEnabled(false);
         EditText username = (EditText) findViewById(R.id.usernameregister);
         EditText pass1 = (EditText) findViewById(R.id.password1register);
         EditText pass2 = (EditText) findViewById(R.id.password2register);

@@ -53,7 +53,7 @@ public class CryptographyUtil {
 
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance(ALGORITHM);
 
-        SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
+        SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
 
         // 512 is keysize
         keyGen.initialize(512, random);
@@ -69,4 +69,16 @@ public class CryptographyUtil {
 
 
     }
+//    public static void main(String[] args) throws Exception {
+//
+//        KeyPair generateKeyPair = generateKeyPair();
+//
+//        byte[] publicKey = generateKeyPair.getPublic().getEncoded();
+//        byte[] privateKey = generateKeyPair.getPrivate().getEncoded();
+//        byte[] encryptedData = encrypt(publicKey,
+//                "hi this is Visruth here".getBytes());
+//        byte[] decryptedData = decrypt(privateKey, encryptedData);
+//        System.out.println(new String(decryptedData));
+//
+//    }
 }

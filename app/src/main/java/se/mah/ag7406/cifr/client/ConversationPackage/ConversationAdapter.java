@@ -17,6 +17,7 @@ import android.widget.TextView;
 import se.mah.ag7406.cifr.R;
 import se.mah.ag7406.cifr.client.ControllerPackage.Controller;
 import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
+import se.mah.ag7406.cifr.client.CryptographyPackage.CryptographyUtil;
 
 /**
  * Adapter for the Conversation activity. It will fill the activity's RecyclerView
@@ -86,6 +87,90 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         private Controller controller;
         private Context context;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public ViewHolder(View view, Context context) {
             super(view);
             controller = SuperClass.getController();
@@ -95,11 +180,18 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
             imageView.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     Log.d("Log", "Click");
+                    System.out.println("test1231");
                     Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-                    String message = controller.decodeBitmap(image);
+                    byte[] message = controller.decodeBitmap(image);
+                    try {
+                        showMessage(new String(controller.decrypt(message)));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
                     Log.d("message", "message: " + message);
                     //Det loggade message är alltså bildens gömda meddelande/ Viktor
-                    showMessage(message);
                 }
             });
         }

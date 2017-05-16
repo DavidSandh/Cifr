@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -35,14 +36,14 @@ public class FileHandler {
     /**
      * Only used for testing, creates a mockup of a message.
      */
-    public void fortest() {//för test
-        Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder1);
-        boolean imagenulltest = image == null;
-        boolean controllernulltest = controller == null;
-        Bitmap newimage = controller.encodeBitmap(image, "Detta är ett test!!");
-        saveToMachine(new Message(0, "klas", "Testare", convert(newimage)));
-        //saveToMachine(new Message(0,"klas", "Testare", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder1))));
-    }
+//    public void fortest() {//för test
+//        Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder1);
+//        boolean imagenulltest = image == null;
+//        boolean controllernulltest = controller == null;
+////        Bitmap newimage = controller.encodeBitmap(image, "Detta är ett test!!");
+//        saveToMachine(new Message(0, "klas", "Testare", convert(newimage)));
+//        //saveToMachine(new Message(0,"klas", "Testare", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder1))));
+//    }
 
     /**
      * Converts bitmap to byte-array. Only used by fortest for testing reasons.
@@ -81,18 +82,36 @@ public class FileHandler {
     public void saveToMachine(Object object){
         update();
         String filename;
-        if(files.length != 0){
-            String lastFile = files[files.length-1].getName();
+        FilenameFilter fileNameFilter = new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                if(name.contains(controller.getMyName()+"_")) {
+                    return true;
+                }
+                return false;
+            }
+        };
+        System.out.println("te2");
+        if(file.listFiles(fileNameFilter).length != 0){
+            System.out.println("te2");
+            String lastFile = files[file.listFiles(fileNameFilter).length-1].getName();
+            System.out.println("te2");
             String[] parts = lastFile.split("_");
-            int number = Integer.parseInt(parts[1])+1;
-            filename = "file_" + number;
+            System.out.println("te2");
+            int number = file.listFiles(fileNameFilter).length+1;
+            System.out.println("te2");
+            filename = controller.getMyName()+ "_" + number;
         } else {
-            filename = "file_1";
+            System.out.println("te3123123");
+            filename = controller.getMyName()+ "_1";
+            System.out.println("te3123123");
         }
         try {
             FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
+            System.out.println("innan");
             oos.writeObject(object);
+            System.out.println("efter");
             oos.close();
         } catch (java.io.IOException e) {
             e.printStackTrace();
@@ -131,8 +150,17 @@ public class FileHandler {
         ArrayList<Object> list = new ArrayList();
         Object obj;
         int number = 1;
-        for (int i=0; i < file.listFiles().length; i++) {
-            obj = readObject(file + "/file_" + number);
+        FilenameFilter fileNameFilter = new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                if(name.contains(controller.getMyName()+ "_")) {
+                    return true;
+                }
+                return false;
+            }
+        };
+        for (int i=0; i < file.listFiles(fileNameFilter).length; i++) {
+            obj = readObject(file + "/" + controller.getMyName()+ "_" + number);
             number++;
             list.add(obj);
         }

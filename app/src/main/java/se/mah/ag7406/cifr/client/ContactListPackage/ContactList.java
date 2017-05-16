@@ -38,6 +38,11 @@ public class ContactList extends AppCompatActivity {
         setContentView(R.layout.activity_cifr_contact_list);
         controller = SuperClass.getController();
         usernames = controller.recieveUserList(); //controllern fyller listan med data.
+        System.out.println("skriver");
+        System.out.println(usernames);
+        for(int i = 0; i < usernames.length; i++) {
+            System.out.println(usernames[i]);
+        }
 //        setContacts();
         recyclerView = (RecyclerView) findViewById(R.id.contactListView);
         layoutManager = new LinearLayoutManager(this);

@@ -5,6 +5,9 @@ import android.graphics.BitmapFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
+import java.security.KeyPair;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,9 +15,14 @@ import java.util.HashMap;
 import message.Message;
 import se.mah.ag7406.cifr.client.ConversationListPackage.GridItem;
 import se.mah.ag7406.cifr.client.ConversationPackage.ConversationItem;
+import se.mah.ag7406.cifr.client.CryptographyPackage.CryptographyKeys;
+import se.mah.ag7406.cifr.client.CryptographyPackage.CryptographyUtil;
 import se.mah.ag7406.cifr.client.SearchActivityPackage.SearchActivity;
 import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
 import se.mah.ag7406.cifr.client.StartActivities.RegistrationScreen;
+
+import static android.R.attr.key;
+import static android.R.attr.publicKey;
 
 /**
  * Acts as controller for the logik in the application
@@ -27,23 +35,24 @@ public class Controller implements Serializable {
     private transient RegistrationScreen register;
     private final FileHandler filehandler;
     private transient String[] userList;
+    private transient String[] keyList;
     private String myName;
     private BitmapEncoder bitmapEncoder = new BitmapEncoder();
     private SearchActivity search;
 
-    public Controller(){
+    public Controller() {
         filehandler = new FileHandler(this); //Filehandler tar controller som argument pga test.
     }
 
     /**
      * Creates a new client and starts it.
      */
-    public void startClient(){
+    public void startClient() {
 //        this.client = new Client("192.168.1.83", 1337, this);
-//        this.client = new Client("192.168.43.71", 1337, this);
+        this.client = new Client("192.168.1.183", 1337, this);
 
 
-        this.client = new Client("10.0.2.2", 1337, this);
+//        this.client = new Client("10.0.2.2", 1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -53,41 +62,44 @@ public class Controller implements Serializable {
 
     /**
      * Sets the active users name
+     *
      * @param name Username
      */
-    public void setMyName(String name){
+    public void setMyName(String name) {
         this.myName = name;
     }
 
     /**
      * Returns the active users name
+     *
      * @return Username
      */
-    public String getMyName(){
+    public String getMyName() {
         return myName;
     }
 
     /**
      * Calls filehandler to read all files and sorts them according to conversations
      * with different users
+     *
      * @return Hashmap containg username as key and an ArrayList containing the messages
      */
-    public HashMap<String, ArrayList<Message>> readFiles(){
+    public HashMap<String, ArrayList<Message>> readFiles() {
         Object[] obj = filehandler.read();
         Message[] messages = Arrays.copyOf(obj, obj.length, Message[].class);
         HashMap<String, ArrayList<Message>> map = new HashMap();
         ArrayList<Message> messageArrayList;
-        if(userList==null){
+        if (userList == null) {
             return null;
         }
-        for(int i =0; i<userList.length; i++){
+        for (int i = 0; i < userList.length; i++) {
             messageArrayList = new ArrayList<>();
-            for(int j=0; j<messages.length; j++){
-                if(userList[i].equalsIgnoreCase(messages[j].getSender())||userList[i].equalsIgnoreCase(messages[j].getRecipient())){
+            for (int j = 0; j < messages.length; j++) {
+                if (userList[i].equalsIgnoreCase(messages[j].getSender()) || userList[i].equalsIgnoreCase(messages[j].getRecipient())) {
                     messageArrayList.add(messages[j]);
                 }
             }
-            if(!messageArrayList.isEmpty()) {
+            if (!messageArrayList.isEmpty()) {
                 map.put(userList[i], messageArrayList);
             }
         }
@@ -96,24 +108,45 @@ public class Controller implements Serializable {
 
     /**
      * Writes file to local storage by using filehandler
+     *
      * @param message Message to be saved
      */
-    public void writeFile(Message message){
+    public void writeFile(Message message) {
         filehandler.saveToMachine(message);
     }
 
     /**
      * Creates a new message object to be sent. This method is called from CrateMessage activity.
      * Here the written message is hidden within the image, and the image is sent towards the client.
-     * @param receiver The recipient of the message.
+     *
+     * @param receiver    The recipient of the message.
      * @param messageText Text that the image should hide.
-     * @param image Bitmap that is to be sent.
+     * @param image       Bitmap that is to be sent.
      */
-    public void sendMessage(String receiver, String messageText, Bitmap image) {
-        Bitmap newImage = encodeBitmap(image, messageText);
+    public void sendMessage(String receiver, String messageText, Bitmap image) throws Exception {
+        Bitmap newImage = null;
+        newImage = encodeBitmap(image, encrypt(receiver, messageText.getBytes()));
         byte[] msgImage = convert(newImage);
-        final Message newMessage = new Message(Message.MESSAGE, myName, receiver, msgImage);
+        final Message newMessage = new Message(Message.MESSAGE,myName, receiver, msgImage);
+//        Bitmap newImage = null;
+//        String localMessageText = myName + "|" + messageText;
+//        newImage = encodeBitmap(image, localMessageText.getBytes());
+//        byte[] msgImage = convert(newImage);
+//        Message localMessage = new Message(Message.MESSAGE, myName, receiver, msgImage);
         filehandler.saveToMachine(newMessage);
+//        try {
+////            byte[] nameByte = (myName + "|").getBytes();
+//            System.out.println(receiver);
+//            byte[] encryptByte = encrypt(receiver, messageText.getBytes());
+////            byte[] appendedBytes = new byte[nameByte.length + encryptByte.length];
+////            System.arraycopy(encryptByte, 0, appendedBytes, nameByte.length, encryptByte.length);
+//            newImage = encodeBitmap(image,  encryptByte);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println("test10");
+//        msgImage = convert(newImage);
+//        final Message newMessage = new Message(Message.MESSAGE, myName, receiver, msgImage);
         new Thread() {
             public void run() {
                 client.sendRequest(newMessage);
@@ -123,14 +156,64 @@ public class Controller implements Serializable {
 
     /**
      * Converts Bitmap to byte-array to help the serialization when saving and sending
+     *
      * @param bit Bitmap to be converted
      * @return The resulting byte-array
      */
-    public byte[] convert(Bitmap bit){//för test
+    public byte[] convert(Bitmap bit) {//för test
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bit.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
         return byteArray;
+    }
+
+    public byte[] decrypt(byte[] message) throws Exception {
+//        String msg = new String(message);
+//        String split[] = msg.split("\\|");
+//        if(split[0].equals(getMyName())) {
+//            return split[1].getBytes();
+//        }else {
+            byte[] byteToReturn = null;
+//            int nbrToRemove = getMyName().length() + 1;
+//            byte[] message1 = new byte[message.length - nbrToRemove];
+//            System.arraycopy(message, nbrToRemove, message1, 0, message1.length);
+            try {
+                System.out.println("Här");
+                System.out.println(Arrays.toString(message));
+                byte[] privateKey = (byte[])CryptographyKeys.readKey(myName);
+                byteToReturn = CryptographyUtil.decrypt(privateKey, message);
+                System.out.println("privkey " + Arrays.toString(privateKey));
+                System.out.println(Arrays.toString(byteToReturn));
+                System.out.println(new String(byteToReturn));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+//            System.out.println(byteToReturn + new String(byteToReturn));
+            return byteToReturn;
+//}
+//        return CryptographyUtil.decrypt((byte[]) CryptographyKeys.readKey(myName), message);
+    }
+
+    public byte[] encrypt(String receiver, byte[] message) throws Exception {
+        System.out.println(Arrays.toString(message));
+        byte[] publicKey = null;
+        String[] keyList = this.keyList;
+        for (int i = 0; i < keyList.length; i++) {
+            String[] split = keyList[i].split("\\|");
+            if (split[0].equals(receiver)) {
+                System.out.println("split1" + split[1]);
+                String[] byteValues = split[1].substring(1, split[1].length() - 1).split(",");
+                publicKey = new byte[byteValues.length];
+                for (int y = 0; y < publicKey.length; y++) {
+                    publicKey[y] = Byte.parseByte(byteValues[y].trim());
+                }
+                System.out.println("publickey " + Arrays.toString(publicKey));
+                System.out.println("message " + Arrays.toString(message));
+            }
+        }
+        byte[] bytes = CryptographyUtil.encrypt(publicKey,message);
+        System.out.println("KeyEncrypt " + Arrays.toString(bytes));
+        return CryptographyUtil.encrypt(publicKey,message);
     }
 
     /**
@@ -157,9 +240,9 @@ public class Controller implements Serializable {
      * @param message The string that is to be hidden within the bitmap.
      * @return A bitmap with a message encoded within.
      */
-    public Bitmap encodeBitmap(Bitmap image, String message) {
-        byte[] messageInBytes = message.getBytes();
-        Bitmap encodedBitmap = bitmapEncoder.encode(image, messageInBytes);
+    public Bitmap encodeBitmap(Bitmap image, byte[] message) {
+        Bitmap encodedBitmap = bitmapEncoder.encode(image, message);
+        System.out.println("efter encode");
         return encodedBitmap;
     }
 
@@ -168,10 +251,10 @@ public class Controller implements Serializable {
      * @param image The image to be decoded.
      * @return A string with the previously hidden text.
      */
-    public String decodeBitmap(Bitmap image) {
-        byte[] bytes = bitmapEncoder.decode(image);
-        String messageText = new String(bytes);
-        return messageText;
+    public byte[] decodeBitmap(Bitmap image) {
+        byte[] message = bitmapEncoder.decode(image);
+        System.out.println("decodeHÄR " + Arrays.toString(message));
+        return message;
     }
 
     /**
@@ -187,7 +270,17 @@ public class Controller implements Serializable {
      * @param list Contactlist
      */
     public void setUserList(String[] list){
-        this.userList = list;
+        String[] userList = new String[list.length];
+        this.keyList = list;
+        String[] split;
+        for(int i = 0; i < list.length; i++) {
+           split = list[i].split("\\|");
+            userList[i] = split[0];
+        }
+        for(int i = 0; i < userList.length; i++) {
+            System.out.println(userList[i]);
+        }
+        this.userList = userList;
     }
 
     /**
@@ -208,12 +301,14 @@ public class Controller implements Serializable {
     public GridItem[] getGridItems(){
         HashMap<String, ArrayList<Message>> map = readFiles();
         String[] userlist = recieveUserList();
+        System.out.println(userlist);
         ArrayList<GridItem> gridList = new ArrayList<>();
         if(userlist==null  ){
             return null;
         }
         for (int i=0; i<userlist.length; i++){
-            if(map.containsKey(userlist[i]) && (userlist[i]!=myName)){
+//            if(map.containsKey(userlist[i]) && (userlist[i]!=myName)){
+            if(map.containsKey(userlist[i])){
                 System.out.println("Jag är i forloopen i griditems");
                 ArrayList<Message> arr = map.get(userlist[i]);
                 byte[] bild = (byte[])arr.get(arr.size() - 1).getImage();
@@ -300,7 +395,20 @@ public class Controller implements Serializable {
         this.register = register;
         new Thread() {
             public void run(){
-                client.sendRequest(new Message(Message.REGISTER, name, password));
+                System.out.println("innancrash1");
+                KeyPair generateKeyPair = null;
+                try {
+                    System.out.println("innancrash2");
+                    generateKeyPair = CryptographyUtil.generateKeyPair();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (NoSuchProviderException e) {
+                    e.printStackTrace();
+                }
+                byte[] publicKey = generateKeyPair.getPublic().getEncoded();
+                byte[] privateKey = generateKeyPair.getPrivate().getEncoded();
+                CryptographyKeys.savePrivateKey(privateKey, name);
+                client.sendRequest(new Message(Message.REGISTER, name, Arrays.toString(publicKey), password ));
             }
         }.start();
     }
