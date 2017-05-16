@@ -23,24 +23,26 @@ public class Message implements Serializable {
     private Date date;
     private int type;
     private String[] contactList;
-    private byte[] key;
 
     /**
-     *  Constructor add all information and put date when sent.
-     * @param sender Sender of message
+     * Constructor add all information and put date when sent.
+     *
+     * @param sender    Sender of message
      * @param recipient Recipient of message
-     * @param image image to send
+     * @param image     image to send
      */
     public Message(int type, String sender, String recipient, Object image) {
         this.sender = sender;
         this.type = type;
         this.recipient = recipient;
-        this.image= image;
+        this.image = image;
         this.date = new Date();
     }
+
     /**
      * Constructs a message with a type, username and a String "data" that is used for different purposes
      * depending on the type parameter.
+     *
      * @param type
      * @param username
      * @param data
@@ -50,14 +52,10 @@ public class Message implements Serializable {
         this.data = data;
         this.type = type;
     }
-    public Message(int type, String username, String data, byte[] key) {
-        this.username = username;
-        this.data = data;
-        this.type = type;
-        this.key = key;
-    }
+
     /**
      * Constructor.
+     *
      * @param type
      * @param status
      * @param contactList
@@ -65,10 +63,12 @@ public class Message implements Serializable {
     public Message(int type, boolean status, String[] contactList) {
         this.status = status;
         this.type = type;
-        this.contactList=contactList;
+        this.contactList = contactList;
     }
+
     /**
      * Constructor used to notify client whether a request is valid or not.
+     *
      * @param type
      * @param status
      */
@@ -77,8 +77,10 @@ public class Message implements Serializable {
         this.type = type;
 
     }
+
     /**
      * Constructor used for a variety of purposes.
+     *
      * @param type
      * @param username
      */
@@ -86,8 +88,10 @@ public class Message implements Serializable {
         this.type = type;
         this.username = username;
     }
+
     /**
      * Constructor used to return a contact list to the CLient.
+     *
      * @param type
      * @param contactList
      */
@@ -98,6 +102,7 @@ public class Message implements Serializable {
 
     /**
      * returns image
+     *
      * @return image in message
      */
     public Object getImage() {
@@ -106,6 +111,7 @@ public class Message implements Serializable {
 
     /**
      * returns sender
+     *
      * @return sender of message
      */
     public String getSender() {
@@ -114,6 +120,7 @@ public class Message implements Serializable {
 
     /**
      * returns recipient
+     *
      * @return recipient of message
      */
     public String getRecipient() {
@@ -122,6 +129,7 @@ public class Message implements Serializable {
 
     /**
      * returns Date object
+     *
      * @return Date object
      */
     public String getDate() {
@@ -131,6 +139,7 @@ public class Message implements Serializable {
 
     /**
      * Returns the date object.
+     *
      * @return date
      */
     public Date getDateObject() {
@@ -139,6 +148,7 @@ public class Message implements Serializable {
 
     /**
      * returns Type.
+     *
      * @return type to return
      */
     public int getType() {
@@ -147,6 +157,7 @@ public class Message implements Serializable {
 
     /**
      * returns username
+     *
      * @return username
      */
     public String getUsername() {
@@ -155,6 +166,7 @@ public class Message implements Serializable {
 
     /**
      * returns password
+     *
      * @return password
      */
     public String getData() {
@@ -163,20 +175,19 @@ public class Message implements Serializable {
 
     /**
      * returns status
+     *
      * @return status
      */
     public boolean getStatus() {
         return status;
     }
+
     /**
      * returns contactList
+     *
      * @return
      */
     public String[] getContactList() {
         return contactList;
-    }
-
-    public byte[] getKey() {
-        return key;
     }
 }
