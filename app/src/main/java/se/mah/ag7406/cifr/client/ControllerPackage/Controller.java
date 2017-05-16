@@ -7,6 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 import message.Message;
@@ -42,8 +43,8 @@ public class Controller implements Serializable {
 //        this.client = new Client("192.168.1.83", 1337, this);
 //        this.client = new Client("192.168.43.71", 1337, this);
 
-
-        this.client = new Client("192.168.43.71", 1337, this);
+        this.client = new Client("10.0.2.2",1337,this);
+//        this.client = new Client("192.168.43.71", 1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -219,13 +220,14 @@ public class Controller implements Serializable {
             return null;
         }
         for (int i=0; i<userlist.length; i++){
-            if(map.containsKey(userlist[i]) && (userlist[i]!=myName)){
+            if(map.containsKey(userlist[i])){
                 System.out.println("Jag är i forloopen i griditems");
                 ArrayList<Message> arr = map.get(userlist[i]);
                 byte[] bild = (byte[])arr.get(arr.size() - 1).getImage();
-                gridList.add(new GridItem(userlist[i], gridImageManipulation(bild)));
+                gridList.add(new GridItem(userlist[i], gridImageManipulation(bild), arr.get(arr.size() - 1).getDateObject()));
             }
         }
+        Collections.sort(gridList, Collections.reverseOrder());
         return Arrays.copyOf(gridList.toArray(), gridList.toArray().length, GridItem[].class);
     }
 
