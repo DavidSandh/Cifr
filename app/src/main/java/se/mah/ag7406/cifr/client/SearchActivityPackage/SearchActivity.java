@@ -1,10 +1,13 @@
 package se.mah.ag7406.cifr.client.SearchActivityPackage;
 
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -89,6 +92,9 @@ public class SearchActivity extends AppCompatActivity  {
                     EditText userNameFound = (EditText) findViewById(R.id.editText);
                     userNameFound.setText(user);
                     findViewById(R.id.searchButton).setVisibility(View.VISIBLE);
+                    sendNotification(userNameToAdd);
+
+
 
                 }
             });
@@ -149,6 +155,24 @@ public class SearchActivity extends AppCompatActivity  {
     public void onBackPressed(){
         Intent intent = new Intent(this, ConversationList.class);
         startActivity(intent);
+    }
+
+
+
+
+    public void sendNotification(String user ){
+        android.support.v4.app.NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_menu_share)
+                .setContentTitle("A user has added you")
+                .setContentText( user +" wants to add you to their contact list");
+
+        Intent intent = new Intent(this, ContactList.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(resultPendingIntent);
+        int mNotificationId = 000;
+        NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        mNotifyMgr.notify(mNotificationId, mBuilder.build());
+
     }
 }
 
