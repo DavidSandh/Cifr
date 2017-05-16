@@ -11,11 +11,12 @@
 
     <ImageView
         android:id="@+id/conversationImageView"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/ic_launcher"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
+        android:scaleType="center"
         android:background="@color/CifrColorYellow" />
 
     <TextView

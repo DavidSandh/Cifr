@@ -94,11 +94,8 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
             textView = (TextView) view.findViewById(R.id.conversationTextView);
             imageView.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    Log.d("Log", "Click");
                     Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
                     String message = controller.decodeBitmap(image);
-                    Log.d("message", "message: " + message);
-                    //Det loggade message är alltså bildens gömda meddelande/ Viktor
                     showMessage(message);
                 }
             });

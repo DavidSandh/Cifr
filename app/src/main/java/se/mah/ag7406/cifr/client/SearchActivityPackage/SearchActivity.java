@@ -1,9 +1,12 @@
 package se.mah.ag7406.cifr.client.SearchActivityPackage;
 
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -22,7 +25,7 @@ import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
 
 
 public class SearchActivity extends AppCompatActivity  {
-    String userNameToAdd;
+    private String userNameToAdd;
     private Controller controller;
 
     @Override
@@ -31,6 +34,8 @@ public class SearchActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_search);
         controller = SuperClass.getController();
         EditText userNameFound = (EditText) findViewById(R.id.editText);
+
+
         userNameFound.setKeyListener(null);
         final EditText userName = (EditText) findViewById(R.id.editText2);
         userName.setOnKeyListener( new OnKeyListener() {
@@ -39,12 +44,17 @@ public class SearchActivity extends AppCompatActivity  {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     String userNameSearch = userName.getText().toString().toLowerCase();
                     ifExists(userNameSearch);
+                    EditText userNameFound = (EditText) findViewById(R.id.editText);
+
+                    userNameFound.setFocusableInTouchMode(false);
+                    userNameFound.setFocusable(false);
                     return true;
                 }
                 return false;
+                
             }
         });
-        Button button = (Button) findViewById(R.id.button);
+        Button button = (Button) findViewById(R.id.searchButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(controller.getMyName() != userNameToAdd){
@@ -53,9 +63,11 @@ public class SearchActivity extends AppCompatActivity  {
             }
         });
     }
-    public void addUserToContacts(final String userNameToAdd){
-        if(controller.getMyName() != userNameToAdd) {
-            controller.sendMessage(Message.CONTACTLIST_ADD, controller.getMyName(), userNameToAdd);
+    public void addUserToContacts(final String userNameToAdd) {
+        System.out.println("ANVÄNDARNAMENT I CONTROLLLER::    " + controller.getMyName());
+        if (!controller.getMyName().toLowerCase().equals(userNameToAdd.toLowerCase())) {
+            System.out.println("ANVÄNDARNAMENT I CONTROLLLER::    " + controller.getMyName() + "INNE I IFSATSEN");
+            controller.sendMessage(Message.CONTACTLIST_ADD, controller.getMyName(), userNameToAdd.toLowerCase());
             this.runOnUiThread(new Runnable() {
                 public void run() {
                     Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "User added", Snackbar.LENGTH_LONG);
@@ -63,13 +75,10 @@ public class SearchActivity extends AppCompatActivity  {
                 }
             });
         }
-      EditText userNameFound = (EditText) findViewById(R.id.editText);
+        EditText userNameFound = (EditText) findViewById(R.id.editText);
 
-       userNameFound.setText("");
-        findViewById(R.id.button).setVisibility(View.INVISIBLE);
-
-
-
+        userNameFound.setText("");
+        findViewById(R.id.searchButton).setVisibility(View.INVISIBLE);
     }
     public void ifExists (final String userName) {
         controller.sendSearch(userName, this);
@@ -89,7 +98,9 @@ public class SearchActivity extends AppCompatActivity  {
                 public void run() {
                     EditText userNameFound = (EditText) findViewById(R.id.editText);
                     userNameFound.setText(user);
-                    findViewById(R.id.button).setVisibility(View.VISIBLE);
+                    findViewById(R.id.searchButton).setVisibility(View.VISIBLE);
+                   // sendNotification(userNameToAdd);
+
 
                 }
             });
@@ -151,5 +162,24 @@ public class SearchActivity extends AppCompatActivity  {
         Intent intent = new Intent(this, ConversationList.class);
         startActivity(intent);
     }
+    public void sendNotification(String user ){
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+              .setSmallIcon(R.drawable.ic_menu_share)
+             .setContentTitle("A user has added you")
+              .setContentText( user +" wants to add you to their contact list");
+
+          Intent intent = new Intent(this, ContactList.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(resultPendingIntent);
+        int mNotificationId = 000;
+        NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        mNotifyMgr.notify(mNotificationId, mBuilder.build());
+        }
+
+
+
+        public String getUserNameToAdd(){
+            return userNameToAdd;
+        }
 }
 

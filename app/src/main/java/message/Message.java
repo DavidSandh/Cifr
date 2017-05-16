@@ -130,6 +130,14 @@ public class Message implements Serializable {
     }
 
     /**
+     * Returns the date object.
+     * @return date
+     */
+    public Date getDateObject() {
+        return date;
+    }
+
+    /**
      * returns Type.
      * @return type to return
      */

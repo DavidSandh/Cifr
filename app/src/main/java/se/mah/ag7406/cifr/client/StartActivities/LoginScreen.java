@@ -82,10 +82,15 @@ public class LoginScreen extends AppCompatActivity {
                 });
             }
         if(!response.getStatus()) {
-            Button btn = (Button) findViewById(R.id.loginbutton);
-            btn.setEnabled(true);
+            this.runOnUiThread(new Runnable() {
+                public void run() {
+                    Button btn = (Button) findViewById(R.id.loginbutton);
+                    btn.setEnabled(true);
+                }
+            });
         }
     }
+
 
     public void onBackPressed(){
         Intent intent = new Intent(this, HomeScreen.class);

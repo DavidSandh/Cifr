@@ -1,11 +1,14 @@
 package se.mah.ag7406.cifr.client.ControllerPackage;
 
+import android.app.Notification;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import message.Message;
+import se.mah.ag7406.cifr.client.SearchActivityPackage.Notifications;
 
 /**
  * Acts as Client to the server. Handles sorting of incoming messages and sending requests/messages.
@@ -19,6 +22,7 @@ public class Client {
     private ObjectInputStream input;
     private Controller controller;
     private Socket socket;
+    private Notifications noti;
 
     public Client(String IP, int port, Controller controller) {
         this.IP = IP;
@@ -36,7 +40,9 @@ public class Client {
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
             output.flush();
-        }catch(IOException e){}
+        }catch(IOException e){
+
+        }
         new ServerListener().start();
     }
 
@@ -57,7 +63,7 @@ public class Client {
      */
     public void sendRequest(Message message){
         if(output==null){
-            controller.responseLogin(new Message(3,true));
+            controller.responseLogin(new Message(3,false));
             clientRun();
         } else {
             try {
@@ -112,9 +118,11 @@ public class Client {
             Object message;
             while (true) {
                 try {
-                    message = (Object)input.readObject();
-                    Message mess = (Message)message;
-                    handleEvent(mess);
+                    if(input!=null){
+                        message = (Object)input.readObject();
+                        Message mess = (Message)message;
+                        handleEvent(mess);
+                    }
                 } catch (IOException ioe) {
                     ioe.printStackTrace();
                 } catch (ClassNotFoundException cnfe) {

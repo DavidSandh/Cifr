@@ -50,13 +50,11 @@ public class Conversation extends AppCompatActivity {
         controller = SuperClass.getController();
         conversationItems = controller.getConversation(conversationUsername);
         if(conversationItems == null) {
-            Log.d("test", "conversationItems är null");
             Intent createMsgintent = new Intent(this, CreateMessage.class);
             createMsgintent.putExtra("username", conversationUsername);
             startActivity(createMsgintent);
             finish();
         } else {
-            Log.d("test", "conversationItems är inte null, adapter startas");
             TextView usernameTextView = (TextView) findViewById(R.id.conversationUser);
             usernameTextView.setText(conversationUsername);
             recyclerView = (RecyclerView) findViewById(R.id.conversationView);
@@ -128,5 +126,7 @@ public class Conversation extends AppCompatActivity {
     public void onBackPressed(){
         Intent intent = new Intent(this, ConversationList.class);
         startActivity(intent);
+        finish();
+        
     }
 }

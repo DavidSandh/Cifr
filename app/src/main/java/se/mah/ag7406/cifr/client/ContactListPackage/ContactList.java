@@ -37,23 +37,12 @@ public class ContactList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cifr_contact_list);
         controller = SuperClass.getController();
-        usernames = controller.recieveUserList(); //controllern fyller listan med data.
-//        setContacts();
+        usernames = controller.recieveUserList();
         recyclerView = (RecyclerView) findViewById(R.id.contactListView);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ContactListAdapter(this, usernames);
         recyclerView.setAdapter(adapter);
-    }
-
-    /**
-     * Test method, to be removed.
-     */
-    public void setContacts() {
-        usernames = new String[3];
-        usernames[0] = new String("Sven");
-        usernames[1] = new String("Klas");
-        usernames[2] = new String("Olaf");
     }
 
     /**

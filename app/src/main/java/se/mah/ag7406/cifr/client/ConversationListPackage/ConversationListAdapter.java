@@ -16,6 +16,7 @@ import se.mah.ag7406.cifr.client.ConversationPackage.Conversation;
  * Adapter for the ConversationList activity. It will fill the activity's RecyclerView with
  * the proper views and data. This data is passed at construction. The data is a collection of GridItems,
  * in turn consisting of one image and a username.
+ * @author Viktor Ekström
  * Created by Viktor on 2017-04-06.
  */
 public class ConversationListAdapter extends RecyclerView.Adapter<ConversationListAdapter.ViewHolder> {
