@@ -25,7 +25,7 @@ import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
 
 
 public class SearchActivity extends AppCompatActivity  {
-    String userNameToAdd;
+    private String userNameToAdd;
     private Controller controller;
 
     @Override
@@ -34,6 +34,8 @@ public class SearchActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_search);
         controller = SuperClass.getController();
         EditText userNameFound = (EditText) findViewById(R.id.editText);
+
+
         userNameFound.setKeyListener(null);
         final EditText userName = (EditText) findViewById(R.id.editText2);
         userName.setOnKeyListener( new OnKeyListener() {
@@ -42,9 +44,14 @@ public class SearchActivity extends AppCompatActivity  {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     String userNameSearch = userName.getText().toString().toLowerCase();
                     ifExists(userNameSearch);
+                    EditText userNameFound = (EditText) findViewById(R.id.editText);
+
+                    userNameFound.setFocusableInTouchMode(false);
+                    userNameFound.setFocusable(false);
                     return true;
                 }
                 return false;
+                
             }
         });
         Button button = (Button) findViewById(R.id.searchButton);
@@ -92,6 +99,8 @@ public class SearchActivity extends AppCompatActivity  {
                     EditText userNameFound = (EditText) findViewById(R.id.editText);
                     userNameFound.setText(user);
                     findViewById(R.id.searchButton).setVisibility(View.VISIBLE);
+                   // sendNotification(userNameToAdd);
+
 
                 }
             });
@@ -165,6 +174,12 @@ public class SearchActivity extends AppCompatActivity  {
         int mNotificationId = 000;
         NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mNotifyMgr.notify(mNotificationId, mBuilder.build());
+        }
+
+
+
+        public String getUserNameToAdd(){
+            return userNameToAdd;
         }
 }
 
