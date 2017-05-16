@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/CifrColorYellow</item>
         <item name="colorPrimaryDark">@color/CifrColorYellow</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/CifrColorBlue</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
