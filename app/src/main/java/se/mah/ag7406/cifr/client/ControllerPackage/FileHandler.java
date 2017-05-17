@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -26,36 +27,11 @@ public class FileHandler {
     private File[] files;
     private Controller controller;
 
-    public FileHandler(Controller controller){
-        this.controller = controller; //Detta är för testande/Viktor
+    public FileHandler(Controller controller) {
+        this.controller = controller;
         this.context = SuperClass.getContext();
         update();
     }
-
-    /**
-     * Only used for testing, creates a mockup of a message.
-     */
-    public void fortest() {//för test
-        Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder1);
-        boolean imagenulltest = image == null;
-        boolean controllernulltest = controller == null;
-        Bitmap newimage = controller.encodeBitmap(image, "Detta är ett test!!");
-        saveToMachine(new Message(0, "klas", "Testare", convert(newimage)));
-        //saveToMachine(new Message(0,"klas", "Testare", convert(BitmapFactory.decodeResource(context.getResources(), R.drawable.bilder1))));
-    }
-
-    /**
-     * Converts bitmap to byte-array. Only used by fortest for testing reasons.
-     * @param bit bitmap to be convertet
-     * @return The Bytearray
-     */
-    public byte[] convert(Bitmap bit){//för test
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bit.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        return byteArray;
-    }
-
     /**
      * Updates variables to have the latest state of the files stored.
      */
@@ -78,17 +54,19 @@ public class FileHandler {
      * Saves object to local storage and names the file according to the existing files.
      * @param object to be saved
      */
-    public void saveToMachine(Object object){
+    public void saveToMachine(Object object, String reciever){
         update();
+        FilenameFilter fileNameFilter = new FileFilter();
         String filename;
-        if(files.length != 0){
-            String lastFile = files[files.length-1].getName();
-            String[] parts = lastFile.split("_");
-            int number = Integer.parseInt(parts[1])+1;
-            filename = "file_" + number;
-        } else {
-            filename = "file_1";
+        int number = 0;
+        String[] fileList = file.list(fileNameFilter);
+        for(int i = 0; i < fileList.length; i++) {
+            System.out.println(fileList[i]);
+            if(fileList[i].contains(reciever)) {
+                number++;
+            }
         }
+        filename = controller.getMyName() + "%" + reciever + "%" + number;
         try {
             FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -130,12 +108,38 @@ public class FileHandler {
         update();
         ArrayList<Object> list = new ArrayList();
         Object obj;
-        int number = 1;
-        for (int i=0; i < file.listFiles().length; i++) {
-            obj = readObject(file + "/file_" + number);
-            number++;
+        FileFilter fileNameFilter = new FileFilter();
+        String[] fileList = file.list(fileNameFilter);
+        for (int i=0; i < fileList.length; i++) {
+            obj = readObject(file + "/" + fileList[i]);
             list.add(obj);
         }
         return list.toArray();
+    }
+
+    public void delete(String name) {
+        FileFilter fileNameFilter = new FileFilter();
+        String[] fileList = file.list(fileNameFilter);
+        for(int i = 0; i < fileList.length; i++) {
+            if(fileList[i].contains(name)) {
+
+                File toDelete = new File(file + "/" + fileList[i]);
+                if (toDelete.delete()){
+                    System.out.println("file Deleted :" + toDelete.getPath());
+                } else {
+                    System.out.println("file not Deleted :" + toDelete.getPath());
+                }
+            }
+        }
+    }
+
+    private class FileFilter implements FilenameFilter {
+        @Override
+        public boolean accept(File dir, String name) {
+            if(name.contains(controller.getMyName())) {
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -97,7 +97,6 @@ public class Client {
                 controller.recieveSearch(message);
                 break;
             case Message.CONTACTLIST :
-                System.out.println("FICK EN LISTA!!!!!!!!!!!!!!!!!");
                 for(int i =0; i <message.getContactList().length; i++){
                     System.out.println(message.getContactList()[i]);
                 }

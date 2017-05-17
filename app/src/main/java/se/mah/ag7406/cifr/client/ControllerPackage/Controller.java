@@ -43,10 +43,10 @@ public class Controller implements Serializable {
 //        this.client = new Client("192.168.1.83", 1337, this);
 //        this.client = new Client("192.168.43.71", 1337, this);
 
-        this.client = new Client("10.2.11.78",1337,this);
+//        this.client = new Client("10.2.11.78",1337,this);
 
         //this.client = new Client("192.168.1.164",1337,this);
-//        this.client = new Client("192.168.43.71", 1337, this);
+        this.client = new Client("192.168.43.79", 1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -75,7 +75,7 @@ public class Controller implements Serializable {
      * with different users
      * @return Hashmap containg username as key and an ArrayList containing the messages
      */
-    public HashMap<String, ArrayList<Message>> readFiles(){
+    private HashMap<String, ArrayList<Message>> readFiles(){
         Object[] obj = filehandler.read();
         Message[] messages = Arrays.copyOf(obj, obj.length, Message[].class);
         HashMap<String, ArrayList<Message>> map = new HashMap();
@@ -106,11 +106,11 @@ public class Controller implements Serializable {
      * Writes file to local storage by using filehandler
      * @param message Message to be saved
      */
-    public void writeFile(Message message){
+    public void writeFile(Message message, String reciever){
         if(message==null){
             System.out.println("FÖRSÖKER SKRIVA ETT MESSAGE OBJEKT SOM ÄR NULL");
         } else {
-            filehandler.saveToMachine(message);
+            filehandler.saveToMachine(message, reciever);
         }
     }
 
@@ -125,7 +125,7 @@ public class Controller implements Serializable {
         Bitmap newImage = encodeBitmap(image, messageText);
         byte[] msgImage = convert(newImage);
         final Message newMessage = new Message(Message.MESSAGE, myName, receiver, msgImage);
-        writeFile(newMessage);
+        writeFile(newMessage, newMessage.getRecipient());
         new Thread() {
             public void run() {
                 client.sendRequest(newMessage);
@@ -193,7 +193,7 @@ public class Controller implements Serializable {
      * @param message message to save
      */
     public void recieveMessage(Message message){
-        writeFile(message);
+        writeFile(message, message.getSender());
     }
 
     /**
@@ -404,6 +404,10 @@ public class Controller implements Serializable {
     public void sendSearch(final String user, SearchActivity search) {
         this.search = search;
         sendMessage(Message.SEARCH, getMyName(), user);
+    }
+
+    public void delete(String name) {
+        filehandler.delete(name);
     }
 
 }
