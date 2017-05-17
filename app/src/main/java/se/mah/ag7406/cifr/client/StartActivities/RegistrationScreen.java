@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -47,8 +48,8 @@ public class RegistrationScreen extends AppCompatActivity {
      * @param view
      */
     public void login(View view){
-        //Button btn = (Button) findViewById(R.id.loginbutton);
-        //btn.setEnabled(false);
+        Button btn = (Button) findViewById(R.id.loginbutton);
+        btn.setEnabled(false);
         EditText username = (EditText) findViewById(R.id.usernameregister);
         EditText pass1 = (EditText) findViewById(R.id.password1register);
         EditText pass2 = (EditText) findViewById(R.id.password2register);
