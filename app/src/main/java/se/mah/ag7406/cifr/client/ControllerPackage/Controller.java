@@ -22,7 +22,7 @@ import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
 import se.mah.ag7406.cifr.client.StartActivities.RegistrationScreen;
 
 /**
- * Acts as controller for the logik in the application
+ * Acts as controller for the logic in the application
  * Created by Jens Andreassen and Viktor Ekström on 2017-04-06.
  */
 
@@ -41,7 +41,7 @@ public class Controller implements Serializable {
     private ArrayList<String> notifications = new ArrayList();
 
     public Controller(){
-        filehandler = new FileHandler(this); //Filehandler tar controller som argument pga test.
+        filehandler = new FileHandler(this);
     }
 
     /**
@@ -98,10 +98,8 @@ public class Controller implements Serializable {
 
                 if(userList[i].equalsIgnoreCase(messages[j].getSender())||userList[i].equalsIgnoreCase(messages[j].getRecipient())){
                     messageArrayList.add(messages[j]);
+                    }
                 }
-                }
-
-
             }
             if(!messageArrayList.isEmpty()) {
                 map.put(userList[i], messageArrayList);
@@ -229,11 +227,10 @@ public class Controller implements Serializable {
         if(userList!=null){
             if(list.length>userList.length){
                 search.sendNotification(search.getUserNameToAdd());
-        }
+            }
 
         }
         this.userList = list;
-
     }
 
     /**
@@ -290,7 +287,6 @@ public class Controller implements Serializable {
      * @return The scaled Bitmap image.
      */
     private Bitmap gridImageManipulation(byte[] image) {
-        //int screenHeight = SuperClass.getContext().getResources().getDisplayMetrics().heightPixels;
         int screenWidth = SuperClass.getContext().getResources().getDisplayMetrics().widthPixels;
         Bitmap newBitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
         newBitmap = Bitmap.createScaledBitmap(newBitmap, 20, 20, true);
@@ -306,18 +302,15 @@ public class Controller implements Serializable {
      * @return The array of gathered ConversationItems for display.
      */
     public ConversationItem[] getConversation(String username) {
-        System.out.println("I ConversationItem controller: Username: "+ username);
         HashMap<String, ArrayList<Message>> map = readFiles();
         ArrayList<Message> messageList = map.get(username);
         if(messageList == null) {
-            System.out.println("FELX: Messagelist: ICOnversation i controller: " + messageList);
             return null;
         }
         ArrayList<ConversationItem> conversationList = new ArrayList();
         for(int i=0;i<messageList.size();i++){
-            System.out.println("I for Loop I ConversationItem" +messageList.get(i).getSender());
             byte[] bytes = (byte[])messageList.get(i).getImage();
-            conversationList.add(new ConversationItem(messageList.get(i).getDate().toString(), BitmapFactory.decodeByteArray(bytes, 0, bytes.length), messageList.get(i).getSender()));
+            conversationList.add(new ConversationItem(messageList.get(i).getDate(), BitmapFactory.decodeByteArray(bytes, 0, bytes.length), messageList.get(i).getSender()));
         }
         return Arrays.copyOf(conversationList.toArray(), conversationList.toArray().length, ConversationItem[].class);
     }
@@ -341,7 +334,7 @@ public class Controller implements Serializable {
      * Handles the response regarding loginattempt from the server
      * @param response Message containing response from server
      */
-    public void responseLogin(Message response){
+    protected void responseLogin(Message response){
         if(login!=null) {
             login.response(response);
         } else {
@@ -369,14 +362,14 @@ public class Controller implements Serializable {
      * Handles the response regarding Registration from server
      * @param response Message containing the response
      */
-    public void responseRegister(Message response){
+    protected void responseRegister(Message response){
         register.response(response);
     }
 
     /**
      * Checks the format of the password and that both passwords entered are identical
-     * @param pass1
-     * @param pass2
+     * @param pass1 the first password field
+     * @param pass2 the second password field
      * @return true if correct otherwise false
      */
     public boolean checkpassword(String pass1, String pass2) {
@@ -390,11 +383,7 @@ public class Controller implements Serializable {
                 }
             }
         }
-        if (number && uppercase){
-            return true;
-        } else {
-            return false;
-        }
+        return number && uppercase;
     }
 
     /**
@@ -421,15 +410,13 @@ public class Controller implements Serializable {
         myName = null;
         userList=null;
         client.clientLogout();
-        //koppla ner klient??
     }
 
     /**
      * Handles response regarding search
      * @param message Message containing response
      */
-    public void recieveSearch(Message message) {
-        System.out.println("Svar från servern" + message.getUsername());
+    protected void recieveSearch(Message message) {
         search.response(message.getUsername());
     }
 
@@ -454,7 +441,7 @@ public class Controller implements Serializable {
         flagname = conversationUsername;
     }
 
-    public void checkflag(String sender){
+    private void checkflag(String sender){
         if (flag && flagname.equals("Convolistisactive")){
             Intent intent = new Intent(ConversationActivity, ConversationList.class);
             ConversationActivity.startActivity(intent);

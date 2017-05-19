@@ -30,7 +30,7 @@ public class RegistrationScreen extends AppCompatActivity {
 
     /**
      * Runs on Creation of the Activity calls superclass for instance of controller
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class RegistrationScreen extends AppCompatActivity {
     /**
      * Method to be run on Done button pressed
      * Checks format of username and passwords and sends request if correct
-     * @param view
+     * @param view view
      */
     public void login(View view){
         Button btn = (Button) findViewById(R.id.registrationButtonRegister);
@@ -71,6 +71,7 @@ public class RegistrationScreen extends AppCompatActivity {
             Toast.makeText(this, "The username is in the wrong format",
                         Toast.LENGTH_LONG).show();
         }
+        btn.setEnabled(true);
     }
 
     /**
@@ -81,7 +82,7 @@ public class RegistrationScreen extends AppCompatActivity {
     public void showInformation(View view ) {
         FragmentManager fragmentManager = this.getSupportFragmentManager();
         DialogFragment dialog = DialogFragmentInfo.newInstance();
-        dialog.show(fragmentManager, "dialogfragmen_info");
+        dialog.show(fragmentManager, "dialogfragment_info");
     }
 
     /**
@@ -116,8 +117,8 @@ public class RegistrationScreen extends AppCompatActivity {
         if(!response.getStatus()) {
             this.runOnUiThread(new Runnable() {
                 public void run() {
-                    //Button btn = (Button) findViewById(R.id.loginbutton);
-                    //btn.setEnabled(true);
+                    Button btn = (Button) findViewById(R.id.loginbutton);
+                    btn.setEnabled(true);
                 }
             });
         }

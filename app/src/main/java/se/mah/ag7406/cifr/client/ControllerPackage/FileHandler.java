@@ -16,32 +16,27 @@ import java.util.ArrayList;
  * Created by Jens Andreassen on 2017-04-19.
  */
 public class FileHandler {
-    private File file, folder;
+    private File file;
     private Context context;
     private File[] files;
     private Controller controller;
 
+    /**
+     * Constructor for the FileHandler
+     * @param controller Controller reference
+     */
     public FileHandler(Controller controller) {
         this.controller = controller;
         this.context = SuperClass.getContext();
         update();
     }
+
     /**
      * Updates variables to have the latest state of the files stored.
      */
     public void update(){
         file = context.getFilesDir();
         files = file.listFiles();
-    }
-
-    /**
-     * Deletes all messages stored. Only used for testing at the moment.
-     */
-    public void delete(){
-        update();
-        for (int i=0; i<files.length;i++){
-            files[i].delete();
-        }
     }
 
     /**
@@ -111,12 +106,15 @@ public class FileHandler {
         return list.toArray();
     }
 
+    /**
+     * Removes all messages sent from/to a user when removed from the contact list.
+     * @param name user that wsa removed from the contact list.
+     */
     public void delete(String name) {
         FileFilter fileNameFilter = new FileFilter();
         String[] fileList = file.list(fileNameFilter);
         for(int i = 0; i < fileList.length; i++) {
             if(fileList[i].contains(name)) {
-
                 File toDelete = new File(file + "/" + fileList[i]);
                 if (toDelete.delete()){
                     System.out.println("file Deleted :" + toDelete.getPath());
@@ -127,7 +125,17 @@ public class FileHandler {
         }
     }
 
+    /**
+     * Filters the files read.
+     */
     private class FileFilter implements FilenameFilter {
+
+        /**
+         * Filters the files that are read to only select the ones belonging to the right user.
+         * @param dir dir
+         * @param name name
+         * @return
+         */
         @Override
         public boolean accept(File dir, String name) {
             if(name.contains(controller.getMyName())) {

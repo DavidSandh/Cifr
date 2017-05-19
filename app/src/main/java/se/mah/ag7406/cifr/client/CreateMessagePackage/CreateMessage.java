@@ -36,7 +36,7 @@ public class CreateMessage extends AppCompatActivity {
     /**
      * Called when activity is first created. Extracts the username of the
      * conversation partner from the intent. The message will be sent to this user.
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +44,6 @@ public class CreateMessage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_message);
         receiver = intent.getStringExtra("username");
-        System.out.println("FELX: I CreateMessage: reciever: 2" + receiver);
-        System.out.println("CreateMessage: Receiver är " + receiver);
         controller = SuperClass.getController();
         EditText editText = (EditText) findViewById(R.id.createMessageText);
         editText.setHint("Write message to " + receiver + " here...");
@@ -67,20 +65,16 @@ public class CreateMessage extends AppCompatActivity {
             }});
         Button btn = (Button) findViewById(R.id.btnSend);
         btn.setEnabled(false);
-        EditText messaget = (EditText) findViewById(R.id.createMessageText);
-        String messageText = messaget.getText().toString();
-        System.out.println("CreateMessage: Texten i messageText: " + messageText);
-
+        EditText message = (EditText) findViewById(R.id.createMessageText);
+        String messageText = message.getText().toString();
         if (selectedImage == null){
             Toast.makeText(CreateMessage.this, "No image added",
                     Toast.LENGTH_LONG).show();
             btn.setEnabled(true);
         }
-
         if(selectedImage != null) {
             controller.sendMessage(receiver, messageText, resize(selectedImage, 400, 400));
             Intent intent = new Intent(this, Conversation.class);
-            System.out.println("FELX: I CreateMessage: reciever: 1 " + receiver);
             intent.putExtra("username", receiver);
             this.runOnUiThread(new Runnable(){
                 public void run(){
@@ -92,13 +86,20 @@ public class CreateMessage extends AppCompatActivity {
 
 
     }
+
+    /**
+     * Resizes all the Bitmaps before showing/sending them.
+     * @param image the image to be used.
+     * @param maxWidth the maximum width
+     * @param maxHeight the maximum height
+     * @return the resized image(BitMap)
+     */
     private static Bitmap resize(Bitmap image, int maxWidth, int maxHeight) {
         if (maxHeight > 0 && maxWidth > 0) {
             int width = image.getWidth();
             int height = image.getHeight();
             float ratioBitmap = (float) width / (float) height;
             float ratioMax = (float) maxWidth / (float) maxHeight;
-
             int finalWidth = maxWidth;
             int finalHeight = maxHeight;
             if (ratioMax > 1) {

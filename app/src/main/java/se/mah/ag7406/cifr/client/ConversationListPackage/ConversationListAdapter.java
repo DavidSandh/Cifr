@@ -72,16 +72,19 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
      * Describes an item view and metadata about its place within the RecyclerView.
      * Provides clickable TextViews for navigation to that particular conversation.
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    protected static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView textView;
         private ImageView imageView;
         private Context context;
 
-        public ViewHolder (View view) {
+        /**
+         * Constructor
+         * @param view the View to be held.
+         */
+        protected ViewHolder (View view) {
             super(view);
             textView = (TextView) view.findViewById(R.id.conversationItemTextView);
             imageView = (ImageView) view.findViewById(R.id.conversationItemImageView);
-            System.out.println("FELX: I Conversationlistadap : textview : " + textView.getText().toString());
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -95,5 +98,4 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
             });
         }
     }
-
 }
