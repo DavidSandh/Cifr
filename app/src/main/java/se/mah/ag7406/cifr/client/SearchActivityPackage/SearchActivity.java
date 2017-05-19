@@ -33,18 +33,18 @@ public class SearchActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         controller = SuperClass.getController();
-        EditText userNameFound = (EditText) findViewById(R.id.editText);
+        EditText userNameFound = (EditText) findViewById(R.id.searchUsername);
 
 
         userNameFound.setKeyListener(null);
-        final EditText userName = (EditText) findViewById(R.id.editText2);
+        final EditText userName = (EditText) findViewById(R.id.searchEnterUsername);
         userName.setOnKeyListener( new OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     String userNameSearch = userName.getText().toString().toLowerCase();
                     ifExists(userNameSearch);
-                    EditText userNameFound = (EditText) findViewById(R.id.editText);
+                    EditText userNameFound = (EditText) findViewById(R.id.searchUsername);
 
                     userNameFound.setFocusableInTouchMode(false);
                     userNameFound.setFocusable(false);
@@ -75,7 +75,7 @@ public class SearchActivity extends AppCompatActivity  {
                 }
             });
         }
-        EditText userNameFound = (EditText) findViewById(R.id.editText);
+        EditText userNameFound = (EditText) findViewById(R.id.searchUsername);
 
         userNameFound.setText("");
         findViewById(R.id.searchButton).setVisibility(View.INVISIBLE);
@@ -85,7 +85,7 @@ public class SearchActivity extends AppCompatActivity  {
         System.out.println("IFEXISTS");
     }
     public void response (final String user) {
-       final EditText userNameSearch = (EditText) findViewById(R.id.editText2);
+       final EditText userNameSearch = (EditText) findViewById(R.id.searchEnterUsername);
        final String name = userNameSearch.getText().toString();
         String newname = name.toLowerCase();
         System.out.println("RESPONSE" + user + " = " + newname);
@@ -96,7 +96,7 @@ public class SearchActivity extends AppCompatActivity  {
         if(user.equals(newname) ) {
             this.runOnUiThread(new Runnable() {
                 public void run() {
-                    EditText userNameFound = (EditText) findViewById(R.id.editText);
+                    EditText userNameFound = (EditText) findViewById(R.id.searchUsername);
                     userNameFound.setText(user);
                     findViewById(R.id.searchButton).setVisibility(View.VISIBLE);
                    // sendNotification(userNameToAdd);

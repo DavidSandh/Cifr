@@ -44,9 +44,9 @@ public class Controller implements Serializable {
 //        this.client = new Client("192.168.43.71", 1337, this);
 
 //        this.client = new Client("10.2.11.78",1337,this);
-
-        //this.client = new Client("192.168.1.164",1337,this);
-        this.client = new Client("192.168.43.79", 1337, this);
+        this.client = new Client("10.0.2.2", 1337, this);
+//        this.client = new Client("192.168.1.164",1337,this);
+//        this.client = new Client("192.168.43.79", 1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -217,6 +217,19 @@ public class Controller implements Serializable {
      */
     public String[] recieveUserList(){
         return userList;
+    }
+
+    /**
+     * Returns the userlist of the user sorted alphabetically.
+     * Used by the ContactList activity.
+     * @return alphabetical userlist.
+     */
+    public String[] getContactList() {
+        String[] contactList = userList;
+        if(contactList != null) {
+            Arrays.sort(contactList);
+        }
+        return contactList;
     }
 
     /**

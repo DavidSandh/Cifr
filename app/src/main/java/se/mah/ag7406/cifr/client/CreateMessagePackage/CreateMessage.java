@@ -62,12 +62,14 @@ public class CreateMessage extends AppCompatActivity {
         EditText messaget = (EditText) findViewById(R.id.createMessageText);
         String messageText = messaget.getText().toString();
         System.out.println("CreateMessage: Texten i messageText: " + messageText);
-//        controller.sendMessage(receiver, messageText, (Object)convert(selectedImage));
 
         if (selectedImage == null){
             Toast.makeText(CreateMessage.this, "No image added",
                     Toast.LENGTH_LONG).show();
-        } else {
+            btn.setEnabled(true);
+        }
+
+        if(selectedImage != null) {
             controller.sendMessage(receiver, messageText, selectedImage);
             Intent intent = new Intent(this, Conversation.class);
             System.out.println("FELX: I CreateMessage: reciever: 1 " + receiver);
@@ -77,12 +79,6 @@ public class CreateMessage extends AppCompatActivity {
         }
 
     }
-//    public byte[] convert(Bitmap bit){//för test
-//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//        bit.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-//        byte[] byteArray = stream.toByteArray();
-//        return byteArray;
-//    }
 
     /**
      * Enables choosing of a message from the image gallery of the device.
