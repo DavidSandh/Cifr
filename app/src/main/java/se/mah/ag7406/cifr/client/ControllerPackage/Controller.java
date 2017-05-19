@@ -21,6 +21,8 @@ import se.mah.ag7406.cifr.client.SearchActivityPackage.SearchActivity;
 import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
 import se.mah.ag7406.cifr.client.StartActivities.RegistrationScreen;
 
+import static se.mah.ag7406.cifr.client.ControllerPackage.BitmapEncoder.*;
+
 /**
  * Acts as controller for the logik in the application
  * Created by Jens Andreassen and Viktor Ekström on 2017-04-06.
@@ -115,7 +117,7 @@ public class Controller implements Serializable {
      * Writes file to local storage by using filehandler
      * @param message Message to be saved
      */
-    public void writeFile(Message message, String reciever){
+    private void writeFile(Message message, String reciever){
         if(message==null){
         } else {
             filehandler.saveToMachine(message, reciever);
@@ -146,7 +148,7 @@ public class Controller implements Serializable {
      * @param bit Bitmap to be converted
      * @return The resulting byte-array
      */
-    public byte[] convert(Bitmap bit){
+    private byte[] convert(Bitmap bit){
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bit.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
@@ -177,7 +179,7 @@ public class Controller implements Serializable {
      * @param message The string that is to be hidden within the bitmap.
      * @return A bitmap with a message encoded within.
      */
-    public Bitmap encodeBitmap(Bitmap image, String message) {
+    private Bitmap encodeBitmap(Bitmap image, String message) {
         byte[] messageInBytes = message.getBytes();
         Bitmap encodedBitmap = bitmapEncoder.encode(image, messageInBytes);
         return encodedBitmap;
@@ -189,7 +191,7 @@ public class Controller implements Serializable {
      * @return A string with the previously hidden text.
      */
     public String decodeBitmap(Bitmap image) {
-        byte[] bytes = bitmapEncoder.decode(image);
+        byte[] bytes = decode(image);
         return new String(bytes);
     }
 
@@ -450,11 +452,11 @@ public class Controller implements Serializable {
 
     private void checkflag(String sender){
         if (flag && flagname.equals("Convolistisactive")){
-            Intent intent = new Intent(ConversationActivity, ConversationList.class);
-            ConversationActivity.startActivity(intent);
+            Intent intent = new Intent(conversationActivity, ConversationList.class);
+            conversationActivity.startActivity  (intent);
         } else if (flag && sender.equalsIgnoreCase(flagname)){
             getNotificationflag(flagname);
-            Intent intent = new Intent(ConversationActivity, Conversation.class);
+            Intent intent = new Intent(conversationActivity, Conversation.class);
             intent.putExtra("username" ,flagname);
             conversationActivity.startActivity(intent);
         }

@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
-import java.io.IOException;
+import java.    io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -16,9 +16,9 @@ import java.util.ArrayList;
  * Created by Jens Andreassen on 2017-04-19.
  */
 public class FileHandler {
-    private File file, folder;
+    private File file;
     private Context context;
-    private File[] files;
+    private File[]  files;
     private Controller controller;
 
     public FileHandler(Controller controller) {
@@ -29,7 +29,7 @@ public class FileHandler {
     /**
      * Updates variables to have the latest state of the files stored.
      */
-    public void update(){
+    private void update(){
         file = context.getFilesDir();
         files = file.listFiles();
     }
@@ -48,7 +48,7 @@ public class FileHandler {
      * Saves object to local storage and names the file according to the existing files.
      * @param object to be saved
      */
-    public void saveToMachine(Object object, String reciever){
+    protected void saveToMachine(Object object, String reciever){
         update();
         FilenameFilter fileNameFilter = new FileFilter();
         String filename;
@@ -75,7 +75,7 @@ public class FileHandler {
      * @param filename file to be read.
      * @return the file.
      */
-    public Object readObject(String filename) {
+    private Object readObject(String filename) {
         FileInputStream fis;
         Object obj;
         try {
@@ -97,7 +97,7 @@ public class FileHandler {
      * Reads all the files at the local storage with help from readObject()
      * @return an Object-array with all the messages.
      */
-    public Object[] read(){
+    protected Object[] read(){
         update();
         ArrayList<Object> list = new ArrayList();
         Object obj;

@@ -14,7 +14,7 @@ import se.mah.ag7406.cifr.client.SearchActivityPackage.Notifications;
  */
 
 public class Client {
-    private String IP;
+    private String ip;
     private int port;
     private ObjectOutputStream output;
     private ObjectInputStream input;
@@ -22,8 +22,8 @@ public class Client {
     private Socket socket;
     private Notifications noti;
 
-    public Client(String IP, int port, Controller controller) {
-        this.IP = IP;
+    public Client(String ip, int port, Controller controller) {
+        this.ip = ip;
         this.port=port;
         this.controller = controller;
 
@@ -32,9 +32,9 @@ public class Client {
     /**
      * Starts the connection.
      */
-    public void clientRun() {
+    protected void clientRun() {
         try {
-            socket = new Socket(IP, port);
+            socket = new Socket(ip, port);
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
             output.flush();
@@ -47,7 +47,7 @@ public class Client {
     /**
      * Closes socket, output and input streams.
      */
-    public void clientLogout() {
+    protected void clientLogout() {
         try{
             socket.close();
             output.close();
@@ -59,7 +59,7 @@ public class Client {
      * Checks if connected and sends notification to controller if not, else sends request/message
      * @param message to be sent
      */
-    public void sendRequest(Message message){
+    protected void sendRequest(Message message){
         if(output==null){
             controller.responseLogin(new Message(3,false));
             clientRun();
@@ -77,7 +77,7 @@ public class Client {
      * Sorts the incoming message and sends it to the right method in controller.
      * @param message incoming message
      */
-    public void handleEvent(Message message){
+    private void handleEvent(Message message){
         int type = message.getType();
         switch (type){
             case Message.LOGIN :

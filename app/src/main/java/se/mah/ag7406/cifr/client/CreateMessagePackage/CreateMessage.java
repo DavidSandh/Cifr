@@ -36,7 +36,7 @@ public class CreateMessage extends AppCompatActivity {
     /**
      * Called when activity is first created. Extracts the username of the
      * conversation partner from the intent. The message will be sent to this user.
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
