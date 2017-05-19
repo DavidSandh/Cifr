@@ -37,6 +37,7 @@ public class Controller implements Serializable {
     private boolean flag;
     private String flagname;
     private Activity ConversationActivity;
+    private ArrayList<String> notifications = new ArrayList();
 
     public Controller(){
         filehandler = new FileHandler(this); //Filehandler tar controller som argument pga test.
@@ -51,7 +52,7 @@ public class Controller implements Serializable {
 
         //this.client = new Client("10.2.11.78",1337,this);
 
-        this.client = new Client("192.168.1.164",1337,this);
+        this.client = new Client("192.168.43.71",1337,this);
 //        this.client = new Client("192.168.43.71", 1337, this);
         new Thread() {
             public void run() {
@@ -201,6 +202,23 @@ public class Controller implements Serializable {
     public void recieveMessage(Message message){
         writeFile(message);
         checkflag(message.getSender());
+        setNotificationflag(message.getSender());
+    }
+
+    public void setNotificationflag(String sender){
+        if (!notifications.contains(sender)){
+            notifications.add(sender);
+        }
+    }
+
+    public boolean getNotificationflag(String sender){
+        if (notifications.contains(sender)){
+            notifications.remove(sender);
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     /**
@@ -212,7 +230,6 @@ public class Controller implements Serializable {
             if(list.length>userList.length){
                 search.sendNotification(search.getUserNameToAdd());
         }
-
         }
         this.userList = list;
 

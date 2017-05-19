@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import se.mah.ag7406.cifr.R;
+import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
 import se.mah.ag7406.cifr.client.ConversationPackage.Conversation;
 
 /**
@@ -51,6 +52,7 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
      * @param position The position of the item within the adapter's data set.
      */
     public void onBindViewHolder(ViewHolder holder, int position) {
+        String label = gridItems[position].getUsername() + SuperClass.getController().getNotificationflag(gridItems[position].getUsername());
         holder.textView.setText(gridItems[position].getUsername());
         holder.imageView.setImageBitmap(gridItems[position].getImage());
     }

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -38,8 +37,8 @@ public class CreateMessage extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Button btn = (Button) findViewById(R.id.btnSend);
-        btn.setEnabled(false);
+        //Button btn = (Button) findViewById(R.id.btnSend);
+        //btn.setEnabled(false);
         Intent intent = getIntent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_message);
@@ -68,7 +67,8 @@ public class CreateMessage extends AppCompatActivity {
             Toast.makeText(CreateMessage.this, "No image added",
                     Toast.LENGTH_LONG).show();
         } else {
-            controller.sendMessage(receiver, messageText, selectedImage);
+
+            controller.sendMessage(receiver, messageText, resize(selectedImage, 500, 500));
             Intent intent = new Intent(this, Conversation.class);
             System.out.println("FELX: I CreateMessage: reciever: 1 " + receiver);
             intent.putExtra("username", receiver);
@@ -76,6 +76,26 @@ public class CreateMessage extends AppCompatActivity {
             finish();
         }
 
+    }
+    private static Bitmap resize(Bitmap image, int maxWidth, int maxHeight) {
+        if (maxHeight > 0 && maxWidth > 0) {
+            int width = image.getWidth();
+            int height = image.getHeight();
+            float ratioBitmap = (float) width / (float) height;
+            float ratioMax = (float) maxWidth / (float) maxHeight;
+
+            int finalWidth = maxWidth;
+            int finalHeight = maxHeight;
+            if (ratioMax > 1) {
+                finalWidth = (int) ((float)maxHeight * ratioBitmap);
+            } else {
+                finalHeight = (int) ((float)maxWidth / ratioBitmap);
+            }
+            image = Bitmap.createScaledBitmap(image, finalWidth, finalHeight, true);
+            return image;
+        } else {
+            return image;
+        }
     }
 //    public byte[] convert(Bitmap bit){//för test
 //        ByteArrayOutputStream stream = new ByteArrayOutputStream();
