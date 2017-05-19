@@ -90,7 +90,6 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                     Intent intent;
                     context = view.getContext();
                     intent = new Intent(context, Conversation.class);
-                    System.out.println("ContactListAdapter Receiver är: " + textView.getText());
                     intent.putExtra("username", textView.getText());
                     context.startActivity(intent);
                 }
