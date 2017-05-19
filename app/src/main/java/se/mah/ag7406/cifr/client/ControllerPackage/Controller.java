@@ -36,7 +36,7 @@ public class Controller implements Serializable {
     private SearchActivity search;
     private boolean flag;
     private String flagname;
-    private Activity ConversationActivity;
+    private Activity conversationActivity;
     private ArrayList<String> notifications = new ArrayList();
 
     public Controller(){
@@ -95,7 +95,8 @@ public class Controller implements Serializable {
             for(int j=0; j<messages.length; j++){
                 if( messages[j]!=null ){
 
-                if(userList[i].equalsIgnoreCase(messages[j].getSender())||userList[i].equalsIgnoreCase(messages[j].getRecipient())){
+                if(userList[i].equalsIgnoreCase(messages[j].getSender())||
+                        userList[i].equalsIgnoreCase(messages[j].getRecipient())){
                     messageArrayList.add(messages[j]);
                 }
                 }
@@ -188,21 +189,20 @@ public class Controller implements Serializable {
      */
     public String decodeBitmap(Bitmap image) {
         byte[] bytes = bitmapEncoder.decode(image);
-        String messageText = new String(bytes);
-        return messageText;
+        return new String(bytes);
     }
 
     /**
      * Called upon incoming messages, saves to local storage
      * @param message message to save
      */
-    public void recieveMessage(Message message){
+    protected void recieveMessage(Message message){
         writeFile(message, message.getSender());
         checkflag(message.getSender());
         setNotificationflag(message.getSender());
     }
 
-    public void setNotificationflag(String sender){
+    private void setNotificationflag(String sender){
         if (!notifications.contains(sender)){
             notifications.add(sender);
         }
@@ -309,7 +309,8 @@ public class Controller implements Serializable {
         ArrayList<ConversationItem> conversationList = new ArrayList();
         for(int i=0;i<messageList.size();i++){
             byte[] bytes = (byte[])messageList.get(i).getImage();
-            conversationList.add(new ConversationItem(messageList.get(i).getDate().toString(), BitmapFactory.decodeByteArray(bytes, 0, bytes.length), messageList.get(i).getSender()));
+            conversationList.add(new ConversationItem(messageList.get(i).getDate().toString(),
+                    BitmapFactory.decodeByteArray(bytes, 0, bytes.length), messageList.get(i).getSender()));
         }
         return Arrays.copyOf(conversationList.toArray(), conversationList.toArray().length, ConversationItem[].class);
     }
@@ -333,7 +334,7 @@ public class Controller implements Serializable {
      * Handles the response regarding loginattempt from the server
      * @param response Message containing response from server
      */
-    public void responseLogin(Message response){
+    protected void responseLogin(Message response){
         if(login!=null) {
             login.response(response);
         } else {
@@ -348,7 +349,7 @@ public class Controller implements Serializable {
      * @param password Wanted password
      * @param register Instance of registrationScreen
      */
-    public void checkUsername(final String name,final String password, RegistrationScreen register) {
+    protected void checkUsername(final String name,final String password, RegistrationScreen register) {
         this.register = register;
         new Thread() {
             public void run(){
@@ -361,14 +362,14 @@ public class Controller implements Serializable {
      * Handles the response regarding Registration from server
      * @param response Message containing the response
      */
-    public void responseRegister(Message response){
+    protected void responseRegister(Message response){
         register.response(response);
     }
 
     /**
      * Checks the format of the password and that both passwords entered are identical
-     * @param pass1
-     * @param pass2
+     * @param pass1 first password
+     * @param pass2 second password
      * @return true if correct otherwise false
      */
     public boolean checkpassword(String pass1, String pass2) {
@@ -420,7 +421,7 @@ public class Controller implements Serializable {
      * Handles response regarding search
      * @param message Message containing response
      */
-    public void recieveSearch(Message message) {
+    protected void recieveSearch(Message message) {
         search.response(message.getUsername());
     }
 
@@ -440,16 +441,16 @@ public class Controller implements Serializable {
     }
 
     public void setflag(boolean b, String conversationUsername, Activity activity) {
-        ConversationActivity = activity;
+        conversationActivity = activity;
         flag = b;
         flagname = conversationUsername;
     }
 
-    public void checkflag(String sender){
+    private void checkflag(String sender){
         if (flag && sender.equalsIgnoreCase(flagname)){
-            Intent intent = new Intent(ConversationActivity, Conversation.class);
+            Intent intent = new Intent(conversationActivity, Conversation.class);
             intent.putExtra("username" ,flagname);
-            ConversationActivity.startActivity(intent);
+            conversationActivity.startActivity(intent);
         }
     }
 }
