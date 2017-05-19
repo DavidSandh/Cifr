@@ -3,14 +3,18 @@ package se.mah.ag7406.cifr.client.ConversationListPackage;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.view.View;
 
 import se.mah.ag7406.cifr.R;
 import se.mah.ag7406.cifr.client.ContactListPackage.ContactList;
 import se.mah.ag7406.cifr.client.ControllerPackage.Controller;
+import se.mah.ag7406.cifr.client.StartActivities.DialogFragmentInfo;
 import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
 import se.mah.ag7406.cifr.client.SearchActivityPackage.SearchActivity;
 import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
@@ -27,6 +31,7 @@ public class ConversationList extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private GridItem[] gridItems;
     private Controller controller;
+    private WelcomeDialogFragment fragment;
 
     /**
      * Called when the activity is first created. Initiates the required view and adapter
@@ -39,6 +44,9 @@ public class ConversationList extends AppCompatActivity {
         setContentView(R.layout.activity_conversation_list);
         controller = SuperClass.getController();
         gridItems = controller.getGridItems();
+        if(gridItems==null){
+            showInformation();
+        }
         recyclerView = (RecyclerView) findViewById(R.id.conversationList);
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
@@ -52,7 +60,11 @@ public class ConversationList extends AppCompatActivity {
     public void onBackPressed(){
 
     }
-
+    public void showInformation() {
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+        WelcomeDialogFragment welcomeFragment = WelcomeDialogFragment.newInstance();
+        welcomeFragment.show(fragmentManager, "fragment");
+    }
     /**
      * Used by the navigation menu to open the "home" screen. The "home" screen
      * is where the conversations are listed.

@@ -4,13 +4,13 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/fragmentInfoTextView"
+        android:id="@+id/contactsMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/registration_info"
+        android:text="@string/contactsMessage"
         android:textSize="16sp"
         android:padding="14dp"
-        android:background="@color/CifrColorGrey"
         android:textColor="@color/CifrColorYellow"
+        android:background="@color/CifrColorGrey"
         android:textStyle="bold"/>
 </LinearLayout>

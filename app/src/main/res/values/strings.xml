@@ -45,4 +45,6 @@
     <string name="ContactsString">Contacts</string>
     <string name="SearchString">Search users</string>
     <string name="LogoutString">Log out</string>
+    <string name="welcomeText">Hello! Thanks for using our app! If this is your first time using Cifr, swipe right to search for other users and add them. Then select them from your contact list and start chatting!</string>
+    <string name="contactsMessage">This page is empty because you don\'t have any contacts yet! Swipe right, select Search User and add your friends!</string>
 </resources>
