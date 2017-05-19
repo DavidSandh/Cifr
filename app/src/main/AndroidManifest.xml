@@ -9,6 +9,7 @@
 
     <application
         android:name=".client.ControllerPackage.SuperClass"
+
         android:allowBackup="true"
         android:icon="@drawable/cifrloggagul"
         android:label="@string/app_name"
@@ -16,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".client.StartActivities.HomeScreen">
+        <activity android:name=".client.StartActivities.HomeScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,9 +28,11 @@
         <activity
             android:name=".client.ContactListPackage.ContactList"
             android:label="Contacts"
+            android:screenOrientation="portrait"
             android:parentActivityName=".client.ConversationListPackage.ConversationList" />
         <activity
             android:name=".client.StartActivities.LoginScreen"
+            android:screenOrientation="portrait"
             android:parentActivityName=".client.StartActivities.HomeScreen">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
@@ -37,9 +41,11 @@
                 android:value=".client.StartActivities.HomeScreen" />
         </activity>
         <activity android:name=".client.ConversationListPackage.ConversationList"
+            android:screenOrientation="portrait"
             android:launchMode="standard"/>
         <activity
             android:name=".client.StartActivities.RegistrationScreen"
+            android:screenOrientation="portrait"
             android:parentActivityName=".client.StartActivities.HomeScreen">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
@@ -48,10 +54,13 @@
                 android:value=".client.StartActivities.HomeScreen" />
         </activity>
         <activity android:name=".client.ConversationPackage.Conversation"
+            android:screenOrientation="portrait"
             android:parentActivityName=".client.ConversationListPackage.ConversationList"/>
         <activity android:name=".client.CreateMessagePackage.CreateMessage"
+            android:screenOrientation="portrait"
             android:parentActivityName=".client.ConversationPackage.Conversation"/>
         <activity android:name=".client.SearchActivityPackage.SearchActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".client.ConversationListPackage.ConversationList"
             />
 

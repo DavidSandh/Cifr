@@ -1,10 +1,7 @@
 package se.mah.ag7406.cifr.client.ControllerPackage;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -13,9 +10,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-
-import message.Message;
-import se.mah.ag7406.cifr.R;
 
 /**
  * The class handles the reading and writing of messages to local storage.

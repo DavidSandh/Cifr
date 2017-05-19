@@ -36,7 +36,7 @@ public class ContactList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cifr_contact_list);
         controller = SuperClass.getController();
-        usernames = controller.recieveUserList();
+        usernames = controller.getContactList();
         recyclerView = (RecyclerView) findViewById(R.id.contactListView);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

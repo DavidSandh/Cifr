@@ -1,5 +1,7 @@
 package se.mah.ag7406.cifr.client.ControllerPackage;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -12,6 +14,7 @@ import java.util.HashMap;
 
 import message.Message;
 import se.mah.ag7406.cifr.client.ConversationListPackage.GridItem;
+import se.mah.ag7406.cifr.client.ConversationPackage.Conversation;
 import se.mah.ag7406.cifr.client.ConversationPackage.ConversationItem;
 import se.mah.ag7406.cifr.client.SearchActivityPackage.SearchActivity;
 import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
@@ -31,6 +34,10 @@ public class Controller implements Serializable {
     private String myName;
     private BitmapEncoder bitmapEncoder = new BitmapEncoder();
     private SearchActivity search;
+    private boolean flag;
+    private String flagname;
+    private Activity ConversationActivity;
+    private ArrayList<String> notifications = new ArrayList();
 
     public Controller(){
         filehandler = new FileHandler(this); //Filehandler tar controller som argument pga test.
@@ -43,10 +50,10 @@ public class Controller implements Serializable {
 //        this.client = new Client("192.168.1.83", 1337, this);
 //        this.client = new Client("192.168.43.71", 1337, this);
 
-//        this.client = new Client("10.2.11.78",1337,this);
+        this.client = new Client("192.168.43.71",1337,this);
 
         //this.client = new Client("192.168.1.164",1337,this);
-        this.client = new Client("192.168.43.79", 1337, this);
+//        this.client = new Client("192.168.43.71", 1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -191,6 +198,23 @@ public class Controller implements Serializable {
      */
     public void recieveMessage(Message message){
         writeFile(message, message.getSender());
+        checkflag(message.getSender());
+        setNotificationflag(message.getSender());
+    }
+
+    public void setNotificationflag(String sender){
+        if (!notifications.contains(sender)){
+            notifications.add(sender);
+        }
+    }
+
+    public boolean getNotificationflag(String sender){
+        if (notifications.contains(sender)){
+            notifications.remove(sender);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -214,6 +238,19 @@ public class Controller implements Serializable {
      */
     public String[] recieveUserList(){
         return userList;
+    }
+
+    /**
+     * Returns the userlist of the user sorted alphabetically.
+     * Used by the ContactList activity.
+     * @return alphabetical userlist.
+     */
+    public String[] getContactList() {
+        String[] contactList = userList;
+        if(contactList != null) {
+            Arrays.sort(contactList);
+        }
+        return contactList;
     }
 
     /**
@@ -402,4 +439,17 @@ public class Controller implements Serializable {
         filehandler.delete(name);
     }
 
+    public void setflag(boolean b, String conversationUsername, Activity activity) {
+        ConversationActivity = activity;
+        flag = b;
+        flagname = conversationUsername;
+    }
+
+    public void checkflag(String sender){
+        if (flag && sender.equalsIgnoreCase(flagname)){
+            Intent intent = new Intent(ConversationActivity, Conversation.class);
+            intent.putExtra("username" ,flagname);
+            ConversationActivity.startActivity(intent);
+        }
+    }
 }

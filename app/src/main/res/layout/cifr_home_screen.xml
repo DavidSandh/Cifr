@@ -8,7 +8,7 @@
     tools:context="se.mah.ag7406.cifr.client.StartActivities.HomeScreen">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/homescreenTitleTxtView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-condensed"
@@ -24,7 +24,7 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/searchButton"
+        android:id="@+id/homescreenRegisterBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="108dp"
@@ -34,13 +34,14 @@
         android:onClick="register"
         android:text="@string/homescreen_register"
         android:textAllCaps="false"
-        android:textColor="@color/CifrColorGrey"
+        android:textColor="@color/CifrColorBlue"
+        android:textColorLink="@color/CifrColorGrey"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/homescreenLoginBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="108dp"
@@ -51,11 +52,12 @@
         android:onClick="login"
         android:text="@string/homescreen_login"
         android:textAllCaps="false"
-        android:textColor="@color/CifrColorGrey"
+        android:textColor="@color/CifrColorBlue"
+        android:textColorLink="@color/CifrColorGrey"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/searchButton" />
+        app:layout_constraintRight_toLeftOf="@+id/homescreenRegisterBtn" />
 </android.support.constraint.ConstraintLayout>
 

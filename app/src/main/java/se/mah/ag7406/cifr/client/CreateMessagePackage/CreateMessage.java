@@ -63,8 +63,11 @@ public class CreateMessage extends AppCompatActivity {
         if (selectedImage == null){
             Toast.makeText(CreateMessage.this, "No image added",
                     Toast.LENGTH_LONG).show();
-        } else {
-            controller.sendMessage(receiver, messageText, selectedImage);
+            btn.setEnabled(true);
+        }
+
+        if(selectedImage != null) {
+            controller.sendMessage(receiver, messageText, resize(selectedImage, 400, 400));
             Intent intent = new Intent(this, Conversation.class);
             intent.putExtra("username", receiver);
             startActivity(intent);
@@ -72,12 +75,26 @@ public class CreateMessage extends AppCompatActivity {
         }
 
     }
-//    public byte[] convert(Bitmap bit){//för test
-//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//        bit.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-//        byte[] byteArray = stream.toByteArray();
-//        return byteArray;
-//    }
+    private static Bitmap resize(Bitmap image, int maxWidth, int maxHeight) {
+        if (maxHeight > 0 && maxWidth > 0) {
+            int width = image.getWidth();
+            int height = image.getHeight();
+            float ratioBitmap = (float) width / (float) height;
+            float ratioMax = (float) maxWidth / (float) maxHeight;
+
+            int finalWidth = maxWidth;
+            int finalHeight = maxHeight;
+            if (ratioMax > 1) {
+                finalWidth = (int) ((float)maxHeight * ratioBitmap);
+            } else {
+                finalHeight = (int) ((float)maxWidth / ratioBitmap);
+            }
+            image = Bitmap.createScaledBitmap(image, finalWidth, finalHeight, true);
+            return image;
+        } else {
+            return image;
+        }
+    }
 
     /**
      * Enables choosing of a message from the image gallery of the device.
