@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import message.Message;
+import se.mah.ag7406.cifr.client.ConversationListPackage.ConversationList;
 import se.mah.ag7406.cifr.client.ConversationListPackage.GridItem;
 import se.mah.ag7406.cifr.client.ConversationPackage.Conversation;
 import se.mah.ag7406.cifr.client.ConversationPackage.ConversationItem;
@@ -50,7 +51,7 @@ public class Controller implements Serializable {
 //        this.client = new Client("192.168.1.83", 1337, this);
 //        this.client = new Client("192.168.43.71", 1337, this);
 
-        this.client = new Client("192.168.43.71",1337,this);
+        this.client = new Client("10.0.2.2",1337,this);
 
         //this.client = new Client("192.168.1.164",1337,this);
 //        this.client = new Client("192.168.43.71", 1337, this);
@@ -201,8 +202,8 @@ public class Controller implements Serializable {
      */
     public void recieveMessage(Message message){
         writeFile(message, message.getSender());
-        checkflag(message.getSender());
         setNotificationflag(message.getSender());
+        checkflag(message.getSender());
     }
 
     public void setNotificationflag(String sender){
@@ -455,7 +456,11 @@ public class Controller implements Serializable {
     }
 
     public void checkflag(String sender){
-        if (flag && sender.equalsIgnoreCase(flagname)){
+        if (flag && flagname.equals("Convolistisactive")){
+            Intent intent = new Intent(ConversationActivity, ConversationList.class);
+            ConversationActivity.startActivity(intent);
+        } else if (flag && sender.equalsIgnoreCase(flagname)){
+            getNotificationflag(flagname);
             Intent intent = new Intent(ConversationActivity, Conversation.class);
             intent.putExtra("username" ,flagname);
             ConversationActivity.startActivity(intent);

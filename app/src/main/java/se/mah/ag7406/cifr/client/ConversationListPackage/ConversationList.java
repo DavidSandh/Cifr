@@ -3,10 +3,13 @@ package se.mah.ag7406.cifr.client.ConversationListPackage;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.view.View;
 
 import se.mah.ag7406.cifr.R;
 import se.mah.ag7406.cifr.client.ContactListPackage.ContactList;
@@ -14,6 +17,8 @@ import se.mah.ag7406.cifr.client.ControllerPackage.Controller;
 import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
 import se.mah.ag7406.cifr.client.SearchActivityPackage.SearchActivity;
 import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
+import se.mah.ag7406.cifr.client.SearchActivityPackage.SearchActivity;
+import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
 
 /**
  * Activity for displaying a list of ongoing conversations. These are
@@ -31,14 +36,18 @@ public class ConversationList extends AppCompatActivity {
     /**
      * Called when the activity is first created. Initiates the required view and adapter
      * and collects data from the controller for these.
-     * @param savedInstanceState
+     * @param savedInstanceState Saved instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation_list);
         controller = SuperClass.getController();
+        controller.setflag(true, "Convolistisactive", this);
         gridItems = controller.getGridItems();
+        if(gridItems==null){
+            showInformation();
+        }
         recyclerView = (RecyclerView) findViewById(R.id.conversationList);
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
@@ -46,13 +55,21 @@ public class ConversationList extends AppCompatActivity {
         recyclerView.setAdapter(recyclerAdapter);
     }
 
+    protected void onDestroy(){
+        controller.setflag(false, null, null);
+        super.onDestroy();
+    }
     /**
      * Overrides the back-button so that it does nothing.
      */
     public void onBackPressed(){
 
     }
-
+    public void showInformation() {
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+        WelcomeDialogFragment welcomeFragment = WelcomeDialogFragment.newInstance();
+        welcomeFragment.show(fragmentManager, "fragment");
+    }
     /**
      * Used by the navigation menu to open the "home" screen. The "home" screen
      * is where the conversations are listed.
