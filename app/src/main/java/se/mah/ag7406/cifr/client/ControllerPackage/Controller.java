@@ -50,7 +50,7 @@ public class Controller implements Serializable {
 //        this.client = new Client("192.168.1.83", 1337, this);
 //        this.client = new Client("192.168.43.71", 1337, this);
 
-        this.client = new Client("10.2.11.78",1337,this);
+        this.client = new Client("10.0.2.2",1337,this);
 
         //this.client = new Client("192.168.1.164",1337,this);
 //        this.client = new Client("192.168.43.71", 1337, this);
@@ -201,7 +201,6 @@ public class Controller implements Serializable {
      */
     public void recieveMessage(Message message){
         writeFile(message, message.getSender());
-        writeFile(message);
         checkflag(message.getSender());
         setNotificationflag(message.getSender());
     }
