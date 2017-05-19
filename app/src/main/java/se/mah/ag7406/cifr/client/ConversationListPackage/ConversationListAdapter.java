@@ -52,7 +52,7 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
      * @param position The position of the item within the adapter's data set.
      */
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String label = gridItems[position].getUsername() + SuperClass.getController().getNotificationflag(gridItems[position].getUsername());
+        String label = gridItems[position].getUsername() + " " + SuperClass.getController().getNotificationflag(gridItems[position].getUsername());
         holder.textView.setText(label);
         holder.imageView.setImageBitmap(gridItems[position].getImage());
     }
@@ -85,10 +85,11 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    String[] parts = textView.getText().toString().split(" ");
                     final Intent intent;
                     context = view.getContext();
                     intent = new Intent(context, Conversation.class);
-                    intent.putExtra("username", textView.getText().toString());
+                    intent.putExtra("username", parts[0]);
                     context.startActivity(intent);
                 }
             });

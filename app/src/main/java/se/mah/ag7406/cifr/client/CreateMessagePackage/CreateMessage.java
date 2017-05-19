@@ -71,12 +71,6 @@ public class CreateMessage extends AppCompatActivity {
 
         if(selectedImage != null) {
             controller.sendMessage(receiver, messageText, resize(selectedImage, 400, 400));
-        } else {
-            btn.setEnabled(true);
-        }
-
-        if(selectedImage != null) {
-            controller.sendMessage(receiver, messageText, selectedImage);
             Intent intent = new Intent(this, Conversation.class);
             System.out.println("FELX: I CreateMessage: reciever: 1 " + receiver);
             intent.putExtra("username", receiver);
