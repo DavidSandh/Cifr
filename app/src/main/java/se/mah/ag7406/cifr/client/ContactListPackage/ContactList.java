@@ -2,6 +2,7 @@ package se.mah.ag7406.cifr.client.ContactListPackage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import se.mah.ag7406.cifr.R;
 import se.mah.ag7406.cifr.client.ControllerPackage.Controller;
 import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
 import se.mah.ag7406.cifr.client.ConversationListPackage.ConversationList;
+import se.mah.ag7406.cifr.client.ConversationListPackage.WelcomeDialogFragment;
 import se.mah.ag7406.cifr.client.SearchActivityPackage.SearchActivity;
 import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
 
@@ -37,11 +39,19 @@ public class ContactList extends AppCompatActivity {
         setContentView(R.layout.activity_cifr_contact_list);
         controller = SuperClass.getController();
         usernames = controller.getContactList();
+        if(usernames==null){
+            showInformation();
+        }
         recyclerView = (RecyclerView) findViewById(R.id.contactListView);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ContactListAdapter(this, usernames);
         recyclerView.setAdapter(adapter);
+    }
+    public void showInformation() {
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+        ContactsDialogFragment contactsFragment = ContactsDialogFragment.newInstance();
+        contactsFragment.show(fragmentManager, "contacts_fragment");
     }
 
     /**

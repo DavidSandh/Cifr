@@ -10,6 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import message.Message;
@@ -25,6 +26,7 @@ import se.mah.ag7406.cifr.client.ConversationListPackage.ConversationList;
 public class RegistrationScreen extends AppCompatActivity {
     private Controller controller;
     private String name;
+    private ProgressBar spinner;
 
     /**
      * Runs on Creation of the Activity calls superclass for instance of controller
@@ -39,7 +41,8 @@ public class RegistrationScreen extends AppCompatActivity {
         setContentView(R.layout.activity_cifr_registration_screen);
         controller = SuperClass.getController();
         controller.startClient();
-
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.GONE);
     }
 
     /**
@@ -50,6 +53,7 @@ public class RegistrationScreen extends AppCompatActivity {
     public void login(View view){
         Button btn = (Button) findViewById(R.id.registrationButtonRegister);
         btn.setEnabled(false);
+        spinner.setVisibility(View.VISIBLE);
         EditText username = (EditText) findViewById(R.id.usernameregister);
         EditText pass1 = (EditText) findViewById(R.id.password1register);
         EditText pass2 = (EditText) findViewById(R.id.password2register);
@@ -86,6 +90,10 @@ public class RegistrationScreen extends AppCompatActivity {
      * @param response Message containing response
      */
     public void response(Message response){
+        this.runOnUiThread(new Runnable(){
+            public void run(){
+                spinner.setVisibility(View.GONE);
+            }});
         if (response.getType() == 3) {
             this.runOnUiThread(new Runnable() {
                 public void run() {

@@ -31,4 +31,5 @@
         android:textSize="40sp"
         android:textColor="@color/CifrColorBlue"
         />
+
 </RelativeLayout>

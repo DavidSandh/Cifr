@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class CreateMessage extends AppCompatActivity {
     private Bitmap selectedImage;
     private int PICK_IMAGE_REQUEST = 1;
     private Controller controller;
+    private ProgressBar spinner;
 
     /**
      * Called when activity is first created. Extracts the username of the
@@ -45,6 +47,8 @@ public class CreateMessage extends AppCompatActivity {
         controller = SuperClass.getController();
         EditText editText = (EditText) findViewById(R.id.createMessageText);
         editText.setHint("Write message to " + receiver + " here...");
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.GONE);
     }
 
     /**
@@ -55,6 +59,10 @@ public class CreateMessage extends AppCompatActivity {
      *             which is clicked.
      */
     public void sendMessage(View view) {
+        this.runOnUiThread(new Runnable(){
+            public void run(){
+                spinner.setVisibility(View.VISIBLE);
+            }});
         Button btn = (Button) findViewById(R.id.btnSend);
         btn.setEnabled(false);
         EditText messaget = (EditText) findViewById(R.id.createMessageText);
@@ -70,9 +78,14 @@ public class CreateMessage extends AppCompatActivity {
             controller.sendMessage(receiver, messageText, resize(selectedImage, 400, 400));
             Intent intent = new Intent(this, Conversation.class);
             intent.putExtra("username", receiver);
+            this.runOnUiThread(new Runnable(){
+                public void run(){
+                    spinner.setVisibility(View.GONE);
+                }});
             startActivity(intent);
             finish();
         }
+
 
     }
     private static Bitmap resize(Bitmap image, int maxWidth, int maxHeight) {

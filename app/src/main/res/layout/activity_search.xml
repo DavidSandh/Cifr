@@ -84,8 +84,5 @@
         android:layout_gravity="start"
         android:background="@color/CifrColorGrey"
         android:textColor="@color/CifrColorYellow" />
-
-
-
 </android.support.v4.widget.DrawerLayout>
 
