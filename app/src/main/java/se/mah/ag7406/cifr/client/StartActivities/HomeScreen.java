@@ -16,7 +16,7 @@ public class HomeScreen extends AppCompatActivity {
 
     /**
      *Runs on Creation of the Activity
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class HomeScreen extends AppCompatActivity {
 
     /**
      *  Method to be run on button login pressed, starts LoginScreen Activity
-     * @param view
+     * @param view the Login View
      */
     public void login(View view){
         Intent intent = new Intent(this, LoginScreen.class);
@@ -43,6 +43,10 @@ public class HomeScreen extends AppCompatActivity {
         Intent intent = new Intent(this, RegistrationScreen.class);
         startActivity(intent);
     }
+
+    /**
+     * Overrides the onBackPressed() method.
+     */
     public void onBackPressed(){
 
     }

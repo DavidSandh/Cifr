@@ -43,7 +43,7 @@ public class DialogFragmentInfo extends DialogFragment {
      * @return A new view filled with the proper layout.
      */
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.dialogfragmen_info, container);
+        return inflater.inflate(R.layout.dialogfragment_info, container);
     }
 
     /**

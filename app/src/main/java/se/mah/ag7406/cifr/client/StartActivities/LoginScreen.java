@@ -29,7 +29,7 @@ public class LoginScreen extends AppCompatActivity {
 
     /**
      * Runs on Creation of the Activity calls superclass for instance of controller
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,6 @@ public class LoginScreen extends AppCompatActivity {
         controller.startClient();
         spinner = (ProgressBar)findViewById(R.id.progressBar1);
         spinner.setVisibility(View.GONE);
-
     }
 
     /**
@@ -60,9 +59,8 @@ public class LoginScreen extends AppCompatActivity {
         this.username = name;
         Log.d("före if sats", "username: "+ name + "passwoed: " + pass);
         controller.checkLogin(name, pass, this);
-        //controller.setMyName(name); //För test
-
     }
+
     /**
      * Handles response from server and notifies user of failed attempt
      * or starts ConversationList activity on succes
@@ -101,7 +99,9 @@ public class LoginScreen extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Overrides the onBackPressed() method.
+     */
     public void onBackPressed(){
         Intent intent = new Intent(this, HomeScreen.class);
         startActivity(intent);

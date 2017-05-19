@@ -14,19 +14,23 @@ import se.mah.ag7406.cifr.client.SearchActivityPackage.Notifications;
  */
 
 public class Client {
-    private String IP;
+    private String ip;
     private int port;
     private ObjectOutputStream output;
     private ObjectInputStream input;
     private Controller controller;
     private Socket socket;
-    private Notifications noti;
 
-    public Client(String IP, int port, Controller controller) {
-        this.IP = IP;
+    /**
+     * Constructor for client.
+     * @param ip the ip-adress to the server
+     * @param port the port number
+     * @param controller a Controller reference
+     */
+    public Client(String ip, int port, Controller controller) {
+        this.ip = ip;
         this.port=port;
         this.controller = controller;
-
     }
 
     /**
@@ -34,13 +38,11 @@ public class Client {
      */
     public void clientRun() {
         try {
-            socket = new Socket(IP, port);
+            socket = new Socket(ip, port);
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
             output.flush();
-        }catch(IOException e){
-
-        }
+        }catch(IOException e){}
         new ServerListener().start();
     }
 
@@ -65,7 +67,6 @@ public class Client {
             clientRun();
         } else {
             try {
-                System.out.println(message.getType());
                 output.writeObject(message);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -96,14 +97,7 @@ public class Client {
                 controller.recieveSearch(message);
                 break;
             case Message.CONTACTLIST :
-                for(int i =0; i <message.getContactList().length; i++){
-                    System.out.println(message.getContactList()[i]);
-                }
                 controller.setUserList(message.getContactList());
-                break;
-            case Message.CONTACTLIST_ADD :
-                break;
-            case Message.CONTACTLIST_REMOVE :
                 break;
         }
     }

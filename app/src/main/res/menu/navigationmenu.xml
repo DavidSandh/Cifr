@@ -9,6 +9,7 @@
         android:background="@color/CifrColorYellow"
         android:icon="@mipmap/ic_home_black_24dp"
         android:onClick="home"
+        android:textColor="@color/CifrColorYellow"
         android:title="Conversations"
         app:showAsAction="ifRoom" />
     <item

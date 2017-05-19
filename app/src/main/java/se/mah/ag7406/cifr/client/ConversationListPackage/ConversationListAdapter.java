@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import se.mah.ag7406.cifr.R;
-import se.mah.ag7406.cifr.client.ControllerPackage.Controller;
 import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
 import se.mah.ag7406.cifr.client.ConversationPackage.Conversation;
 
@@ -43,8 +42,7 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
      */
     public ConversationListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = (View) inflater.inflate(R.layout.conversation_list_item, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     /**
@@ -53,7 +51,7 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
      * @param position The position of the item within the adapter's data set.
      */
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String label = gridItems[position].getUsername();
+        String label = gridItems[position].getUsername() + " " + SuperClass.getController().getNotificationflag(gridItems[position].getUsername());
         holder.textView.setText(label);
         if(SuperClass.getController().getNotificationflag(gridItems[position].getUsername())) {
             System.out.println("ViewHolder if sats om den är där");
@@ -77,22 +75,20 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
      * Describes an item view and metadata about its place within the RecyclerView.
      * Provides clickable TextViews for navigation to that particular conversation.
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    protected static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView textView;
         private TextView flagView;
         private ImageView imageView;
         private Context context;
 
-
-        public ViewHolder (View view) {
+        /**
+         * Constructor
+         * @param view the View to be held.
+         */
+        protected ViewHolder (View view) {
             super(view);
-
             textView = (TextView) view.findViewById(R.id.conversationItemTextView);
             imageView = (ImageView) view.findViewById(R.id.conversationItemImageView);
-            flagView = (TextView) view.findViewById(R.id.conversationItemFlag);
-
-
-            System.out.println("FELX: I Conversationlistadap : textview : " + textView.getText().toString());
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -106,5 +102,4 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
             });
         }
     }
-
 }
