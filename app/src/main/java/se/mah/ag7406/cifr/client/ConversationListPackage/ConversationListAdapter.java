@@ -54,6 +54,10 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
     public void onBindViewHolder(ViewHolder holder, int position) {
         String label = gridItems[position].getUsername() + " " + SuperClass.getController().getNotificationflag(gridItems[position].getUsername());
         holder.textView.setText(label);
+        if(SuperClass.getController().getNotificationflag(gridItems[position].getUsername())) {
+            System.out.println("ViewHolder if sats om den är där");
+            holder.flagView.setVisibility(View.VISIBLE);
+        }
         holder.imageView.setImageBitmap(gridItems[position].getImage());
     }
 
@@ -74,6 +78,7 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
      */
     protected static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView textView;
+        private TextView flagView;
         private ImageView imageView;
         private Context context;
 
