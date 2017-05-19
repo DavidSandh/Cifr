@@ -99,7 +99,7 @@ public class SearchActivity extends AppCompatActivity  {
                     EditText userNameFound = (EditText) findViewById(R.id.searchUsername);
                     userNameFound.setText(user);
                     findViewById(R.id.searchButton).setVisibility(View.VISIBLE);
-                   // sendNotification(userNameToAdd);
+                   //sendNotification(userNameToAdd);
 
 
                 }
