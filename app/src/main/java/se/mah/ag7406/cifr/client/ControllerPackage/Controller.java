@@ -108,7 +108,6 @@ public class Controller implements Serializable {
      */
     public void writeFile(Message message, String reciever){
         if(message==null){
-            System.out.println("FÖRSÖKER SKRIVA ETT MESSAGE OBJEKT SOM ÄR NULL");
         } else {
             filehandler.saveToMachine(message, reciever);
         }
@@ -155,10 +154,8 @@ public class Controller implements Serializable {
         new Thread() {
             public void run() {
                 if(name==null){
-                    System.out.println("name null");
                     client.sendRequest(new Message(type, user));
                 } else {
-                    System.out.println("name null");
                     client.sendRequest(new Message(type, name, user));
                 }
             }
@@ -234,8 +231,7 @@ public class Controller implements Serializable {
             return null;
         }
         for (int i=0; i<userlist.length; i++){
-            if(map.containsKey(userlist[i])){
-                System.out.println("Jag är i forloopen i griditems");
+            if(map.containsKey(userlist[i])) {
                 ArrayList<Message> arr = map.get(userlist[i]);
                 byte[] bild = (byte[])arr.get(arr.size() - 1).getImage();
                 gridList.add(new GridItem(userlist[i], gridImageManipulation(bild), arr.get(arr.size() - 1).getDateObject()));
@@ -268,16 +264,13 @@ public class Controller implements Serializable {
      * @return The array of gathered ConversationItems for display.
      */
     public ConversationItem[] getConversation(String username) {
-        System.out.println("I ConversationItem controller: Username: "+ username);
         HashMap<String, ArrayList<Message>> map = readFiles();
         ArrayList<Message> messageList = map.get(username);
         if(messageList == null) {
-            System.out.println("FELX: Messagelist: ICOnversation i controller: " + messageList);
             return null;
         }
         ArrayList<ConversationItem> conversationList = new ArrayList();
         for(int i=0;i<messageList.size();i++){
-            System.out.println("I for Loop I ConversationItem" +messageList.get(i).getSender());
             byte[] bytes = (byte[])messageList.get(i).getImage();
             conversationList.add(new ConversationItem(messageList.get(i).getDate().toString(), BitmapFactory.decodeByteArray(bytes, 0, bytes.length), messageList.get(i).getSender()));
         }
@@ -391,7 +384,6 @@ public class Controller implements Serializable {
      * @param message Message containing response
      */
     public void recieveSearch(Message message) {
-        System.out.println("Svar från servern" + message.getUsername());
         search.response(message.getUsername());
     }
 

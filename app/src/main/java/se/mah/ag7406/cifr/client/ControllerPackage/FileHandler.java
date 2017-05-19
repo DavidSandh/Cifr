@@ -61,7 +61,6 @@ public class FileHandler {
         int number = 0;
         String[] fileList = file.list(fileNameFilter);
         for(int i = 0; i < fileList.length; i++) {
-            System.out.println(fileList[i]);
             if(fileList[i].contains(reciever)) {
                 number++;
             }
@@ -124,11 +123,7 @@ public class FileHandler {
             if(fileList[i].contains(name)) {
 
                 File toDelete = new File(file + "/" + fileList[i]);
-                if (toDelete.delete()){
-                    System.out.println("file Deleted :" + toDelete.getPath());
-                } else {
-                    System.out.println("file not Deleted :" + toDelete.getPath());
-                }
+                toDelete.delete();
             }
         }
     }

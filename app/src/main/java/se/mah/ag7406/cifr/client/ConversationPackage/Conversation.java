@@ -44,7 +44,6 @@ public class Conversation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
         conversationUsername = intent.getStringExtra("username");
-        System.out.println("CONV USERNAME" + conversationUsername);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
         controller = SuperClass.getController();

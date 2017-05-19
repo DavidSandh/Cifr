@@ -64,9 +64,7 @@ public class SearchActivity extends AppCompatActivity  {
         });
     }
     public void addUserToContacts(final String userNameToAdd) {
-        System.out.println("ANVÄNDARNAMENT I CONTROLLLER::    " + controller.getMyName());
         if (!controller.getMyName().toLowerCase().equals(userNameToAdd.toLowerCase())) {
-            System.out.println("ANVÄNDARNAMENT I CONTROLLLER::    " + controller.getMyName() + "INNE I IFSATSEN");
             controller.sendMessage(Message.CONTACTLIST_ADD, controller.getMyName(), userNameToAdd.toLowerCase());
             this.runOnUiThread(new Runnable() {
                 public void run() {
@@ -82,17 +80,13 @@ public class SearchActivity extends AppCompatActivity  {
     }
     public void ifExists (final String userName) {
         controller.sendSearch(userName, this);
-        System.out.println("IFEXISTS");
     }
     public void response (final String user) {
        final EditText userNameSearch = (EditText) findViewById(R.id.editText2);
        final String name = userNameSearch.getText().toString();
         String newname = name.toLowerCase();
-        System.out.println("RESPONSE" + user + " = " + newname);
-
         if(user!= null){
             user.toLowerCase();
-
         if(user.equals(newname) ) {
             this.runOnUiThread(new Runnable() {
                 public void run() {

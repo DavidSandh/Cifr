@@ -42,8 +42,6 @@ public class CreateMessage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_message);
         receiver = intent.getStringExtra("username");
-        System.out.println("FELX: I CreateMessage: reciever: 2" + receiver);
-        System.out.println("CreateMessage: Receiver är " + receiver);
         controller = SuperClass.getController();
         EditText editText = (EditText) findViewById(R.id.createMessageText);
         editText.setHint("Write message to " + receiver + " here...");
@@ -61,8 +59,6 @@ public class CreateMessage extends AppCompatActivity {
         btn.setEnabled(false);
         EditText messaget = (EditText) findViewById(R.id.createMessageText);
         String messageText = messaget.getText().toString();
-        System.out.println("CreateMessage: Texten i messageText: " + messageText);
-//        controller.sendMessage(receiver, messageText, (Object)convert(selectedImage));
 
         if (selectedImage == null){
             Toast.makeText(CreateMessage.this, "No image added",
@@ -70,7 +66,6 @@ public class CreateMessage extends AppCompatActivity {
         } else {
             controller.sendMessage(receiver, messageText, selectedImage);
             Intent intent = new Intent(this, Conversation.class);
-            System.out.println("FELX: I CreateMessage: reciever: 1 " + receiver);
             intent.putExtra("username", receiver);
             startActivity(intent);
             finish();

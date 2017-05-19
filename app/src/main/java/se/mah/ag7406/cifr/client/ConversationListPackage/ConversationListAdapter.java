@@ -79,7 +79,6 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
             super(view);
             textView = (TextView) view.findViewById(R.id.conversationItemTextView);
             imageView = (ImageView) view.findViewById(R.id.conversationItemImageView);
-            System.out.println("FELX: I Conversationlistadap : textview : " + textView.getText().toString());
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
