@@ -118,7 +118,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
                     if(item.getItemId() == R.id.contactRemoveButton) {
                         cont.sendMessage(Message.CONTACTLIST_REMOVE, cont.getMyName(), textView.getText().toString());
-                        String[] list = cont.recieveUserList();
+                        cont.delete(textView.getText().toString());                       String[] list = cont.recieveUserList();
                         String[] newlist = new String[list.length-1];
                         int count = 0;
                         for(int i=0; i<list.length;i++){

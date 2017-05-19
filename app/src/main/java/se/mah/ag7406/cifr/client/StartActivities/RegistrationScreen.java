@@ -48,7 +48,7 @@ public class RegistrationScreen extends AppCompatActivity {
      * @param view
      */
     public void login(View view){
-        Button btn = (Button) findViewById(R.id.loginbutton);
+        Button btn = (Button) findViewById(R.id.registrationButtonRegister);
         btn.setEnabled(false);
         EditText username = (EditText) findViewById(R.id.usernameregister);
         EditText pass1 = (EditText) findViewById(R.id.password1register);

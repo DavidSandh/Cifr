@@ -37,8 +37,6 @@ public class CreateMessage extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Button btn = (Button) findViewById(R.id.btnSend);
-        //btn.setEnabled(false);
         Intent intent = getIntent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_message);
@@ -58,17 +56,20 @@ public class CreateMessage extends AppCompatActivity {
      *             which is clicked.
      */
     public void sendMessage(View view) {
+        Button btn = (Button) findViewById(R.id.btnSend);
+        btn.setEnabled(false);
         EditText messaget = (EditText) findViewById(R.id.createMessageText);
         String messageText = messaget.getText().toString();
         System.out.println("CreateMessage: Texten i messageText: " + messageText);
-//        controller.sendMessage(receiver, messageText, (Object)convert(selectedImage));
 
         if (selectedImage == null){
             Toast.makeText(CreateMessage.this, "No image added",
                     Toast.LENGTH_LONG).show();
-        } else {
+            btn.setEnabled(true);
+        }
 
-            controller.sendMessage(receiver, messageText, resize(selectedImage, 500, 500));
+        if(selectedImage != null) {
+            controller.sendMessage(receiver, messageText, selectedImage);
             Intent intent = new Intent(this, Conversation.class);
             System.out.println("FELX: I CreateMessage: reciever: 1 " + receiver);
             intent.putExtra("username", receiver);
@@ -97,12 +98,6 @@ public class CreateMessage extends AppCompatActivity {
             return image;
         }
     }
-//    public byte[] convert(Bitmap bit){//för test
-//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//        bit.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-//        byte[] byteArray = stream.toByteArray();
-//        return byteArray;
-//    }
 
     /**
      * Enables choosing of a message from the image gallery of the device.
