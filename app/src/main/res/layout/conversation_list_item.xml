@@ -31,4 +31,16 @@
         android:textSize="40sp"
         android:textColor="@color/CifrColorBlue"
         />
+
+    <TextView
+        android:id="@+id/conversationItemFlag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="*"
+        android:textSize="22sp"
+        android:textColor="@color/CifrColorYellow"
+        android:layout_alignBottom="@id/conversationItemTextView"
+        android:gravity="right"
+        android:visibility="invisible"
+        />
 </RelativeLayout>

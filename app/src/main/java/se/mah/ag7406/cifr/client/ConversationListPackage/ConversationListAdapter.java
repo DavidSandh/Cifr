@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import se.mah.ag7406.cifr.R;
+import se.mah.ag7406.cifr.client.ControllerPackage.Controller;
 import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
 import se.mah.ag7406.cifr.client.ConversationPackage.Conversation;
 
@@ -52,8 +53,12 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
      * @param position The position of the item within the adapter's data set.
      */
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String label = gridItems[position].getUsername() + " " + SuperClass.getController().getNotificationflag(gridItems[position].getUsername());
+        String label = gridItems[position].getUsername();
         holder.textView.setText(label);
+        if(SuperClass.getController().getNotificationflag(gridItems[position].getUsername())) {
+            System.out.println("ViewHolder if sats om den är där");
+            holder.flagView.setVisibility(View.VISIBLE);
+        }
         holder.imageView.setImageBitmap(gridItems[position].getImage());
     }
 
@@ -74,13 +79,19 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView textView;
+        private TextView flagView;
         private ImageView imageView;
         private Context context;
 
+
         public ViewHolder (View view) {
             super(view);
+
             textView = (TextView) view.findViewById(R.id.conversationItemTextView);
             imageView = (ImageView) view.findViewById(R.id.conversationItemImageView);
+            flagView = (TextView) view.findViewById(R.id.conversationItemFlag);
+
+
             System.out.println("FELX: I Conversationlistadap : textview : " + textView.getText().toString());
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
