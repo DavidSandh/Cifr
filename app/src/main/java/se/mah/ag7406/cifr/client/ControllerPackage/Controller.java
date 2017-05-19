@@ -94,14 +94,9 @@ public class Controller implements Serializable {
         for(int i =0; i<userList.length; i++){
             messageArrayList = new ArrayList<>();
             for(int j=0; j<messages.length; j++){
-                if( messages[j]!=null ){
-
-                if(userList[i].equalsIgnoreCase(messages[j].getSender())||userList[i].equalsIgnoreCase(messages[j].getRecipient())){
+                if(messages[j]!=null && (userList[i].equalsIgnoreCase(messages[j].getSender())||userList[i].equalsIgnoreCase(messages[j].getRecipient()))){
                     messageArrayList.add(messages[j]);
                 }
-                }
-
-
             }
             if(!messageArrayList.isEmpty()) {
                 map.put(userList[i], messageArrayList);
