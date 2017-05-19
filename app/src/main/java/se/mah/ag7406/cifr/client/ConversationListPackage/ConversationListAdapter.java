@@ -53,7 +53,7 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
      */
     public void onBindViewHolder(ViewHolder holder, int position) {
         String label = gridItems[position].getUsername() + SuperClass.getController().getNotificationflag(gridItems[position].getUsername());
-        holder.textView.setText(gridItems[position].getUsername());
+        holder.textView.setText(label);
         holder.imageView.setImageBitmap(gridItems[position].getImage());
     }
 

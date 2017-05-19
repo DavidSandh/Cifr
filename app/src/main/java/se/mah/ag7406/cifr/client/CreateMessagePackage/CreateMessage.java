@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -65,6 +66,12 @@ public class CreateMessage extends AppCompatActivity {
         if (selectedImage == null){
             Toast.makeText(CreateMessage.this, "No image added",
                     Toast.LENGTH_LONG).show();
+            btn.setEnabled(true);
+        }
+
+        if(selectedImage != null) {
+            controller.sendMessage(receiver, messageText, resize(selectedImage, 400, 400));
+        } else {
             btn.setEnabled(true);
         }
 
