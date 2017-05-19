@@ -32,12 +32,11 @@ public class ConversationList extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private GridItem[] gridItems;
     private Controller controller;
-    private WelcomeDialogFragment fragment;
 
     /**
      * Called when the activity is first created. Initiates the required view and adapter
      * and collects data from the controller for these.
-     * @param savedInstanceState
+     * @param savedInstanceState Saved instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
