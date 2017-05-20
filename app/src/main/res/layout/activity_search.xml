@@ -16,64 +16,62 @@
         tools:layout_editor_absoluteX="0dp">
 
 
+
         <EditText
-            android:id="@+id/searchEnterUsername"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
+            android:id="@+id/editText"
+            android:layout_width="229dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="248dp"
             android:ems="10"
-            android:hint="@string/search_hintusername"
+            android:textColor="@color/CifrColorGrey"
             android:inputType="textPersonName"
-            android:textCursorDrawable="@color/CifrColorGrey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.443"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" />
+            tools:text="Enter a username..."
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="8dp"
+            tools:layout_editor_absoluteY="245dp" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@+id/editText"
+            android:layout_marginLeft="77dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/editText"
+            android:layout_marginStart="14dp" />
 
         <Button
             android:id="@+id/searchButton"
-            android:layout_width="215dp"
-            android:layout_height="48dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="132dp"
+            android:layout_height="49dp"
+            android:text="Search"
             android:background="@color/CifrColorBlue"
-            android:fontFamily="sans-serif-condensed"
-            android:onClick=""
-            android:text="@string/search_adduser"
-            android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@color/CifrColorGrey"
-            android:textSize="30sp"
-            android:typeface="normal"
-            android:visibility="invisible"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.852" />
+            app:layout_constraintRight_toLeftOf="@+id/addButton"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintTop_toBottomOf="@+id/editText" />
 
-
-        <EditText
-            android:id="@+id/searchUsername"
-            android:layout_width="148dp"
-            android:layout_height="47dp"
-            android:layout_marginBottom="16dp"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            android:textAlignment="center"
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="132dp"
+            android:layout_height="49dp"
+            android:background="@color/CifrColorBlue"
+            android:text="Add User"
             android:textColor="@color/CifrColorGrey"
-            android:textCursorDrawable="@color/CifrColorGrey"
-            app:layout_constraintBottom_toTopOf="@+id/searchButton"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/searchButton"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     </android.support.constraint.ConstraintLayout>
 
