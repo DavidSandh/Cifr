@@ -1,5 +1,6 @@
 package se.mah.ag7406.cifr.client.ConversationListPackage;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ import se.mah.ag7406.cifr.client.ConversationPackage.Conversation;
 public class ConversationListAdapter extends RecyclerView.Adapter<ConversationListAdapter.ViewHolder> {
     private LayoutInflater inflater;
     private GridItem[] gridItems;
+    private Context context;
 
     /**
      * Initialises the adapter with the context of the activity and the data to be used.
@@ -32,6 +34,7 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
     public ConversationListAdapter(Context context, GridItem[] array) {
         this.inflater = LayoutInflater.from(context);
         this.gridItems = array;
+        this.context = context;
     }
 
     /**
@@ -50,12 +53,16 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
      * @param holder The ViewHolder that should be updated with the content of the data set.
      * @param position The position of the item within the adapter's data set.
      */
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        String label = gridItems[position].getUsername() + " " + SuperClass.getController().getNotificationflag(gridItems[position].getUsername());
-        holder.textView.setText(label);
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        holder.textView.setText(gridItems[position].getUsername());
         if(SuperClass.getController().getNotificationflag(gridItems[position].getUsername())) {
             System.out.println("ViewHolder if sats om den är där");
-            holder.flagView.setVisibility(View.VISIBLE);
+            Activity activity = (Activity) context;
+            activity.runOnUiThread(new Runnable() {
+                public void run() {
+                    holder.flagView.setVisibility(View.VISIBLE);
+                }
+            });
         }
         holder.imageView.setImageBitmap(gridItems[position].getImage());
     }
