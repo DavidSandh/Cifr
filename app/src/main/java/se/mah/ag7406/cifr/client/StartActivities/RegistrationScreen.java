@@ -117,8 +117,12 @@ public class RegistrationScreen extends AppCompatActivity {
         if(!response.getStatus()) {
             this.runOnUiThread(new Runnable() {
                 public void run() {
+
                     Button btn = (Button) findViewById(R.id.loginbutton);
-                    btn.setEnabled(true);
+                    if(btn!=null){
+                        btn.setEnabled(true);
+
+                    }
                 }
             });
         }

@@ -59,7 +59,7 @@ public class Controller implements Serializable {
 //        this.client = new Client("192.168.1.83", 1337, this);
         this.client = new Client("192.168.1.83", 1337, this);
 
-//        this.client = new Client("10.0.2.2",1337,this);
+        this.client = new Client("192.168.1.111",1337,this);
 
         //this.client = new Client("192.168.1.164",1337,this);
 //        this.client = new Client("192.168.43.71", 1337, this);
@@ -102,7 +102,9 @@ public class Controller implements Serializable {
         for(int i =0; i<userList.length; i++){
             messageArrayList = new ArrayList<>();
             for(int j=0; j<messages.length; j++){
-                if(messages[j]!=null && (userList[i].equalsIgnoreCase(messages[j].getSender())||userList[i].equalsIgnoreCase(messages[j].getRecipient()))){
+                if( messages[j]!=null ){
+
+                if(userList[i].equalsIgnoreCase(messages[j].getSender())||userList[i].equalsIgnoreCase(messages[j].getRecipient())){
                     messageArrayList.add(messages[j]);
                     }
                 }

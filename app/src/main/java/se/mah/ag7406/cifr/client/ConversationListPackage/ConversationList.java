@@ -79,7 +79,7 @@ public class ConversationList extends AppCompatActivity {
      * is where the conversations are listed.
      * @param item Item pressed in the menu.
      */
-    protected void home(MenuItem item){
+    public void home(MenuItem item){
         Intent intent = new Intent(this, ConversationList.class);
         startActivity(intent);
         finish();
@@ -90,7 +90,7 @@ public class ConversationList extends AppCompatActivity {
      * screen is where the conversation list is located.
      * @param item Item pressed in the menu.
      */
-    protected void contacts(MenuItem item){
+    public void contacts(MenuItem item){
         Intent intent = new Intent(this, ContactList.class);
         startActivity(intent);
         finish();

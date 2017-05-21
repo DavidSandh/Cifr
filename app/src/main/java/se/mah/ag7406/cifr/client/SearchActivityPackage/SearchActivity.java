@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import message.Message;
@@ -23,42 +24,69 @@ import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
 import se.mah.ag7406.cifr.client.ConversationListPackage.ConversationList;
 import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
 
+import static android.R.attr.button;
+import static android.R.attr.fastScrollPreviewBackgroundLeft;
+
 
 public class SearchActivity extends AppCompatActivity  {
     private String userNameToAdd;
     private Controller controller;
+    private Button buttonAdd;
+    private Button buttonSearch;
+    private EditText userNameSearch;
+    private CheckBox checkBox;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         controller = SuperClass.getController();
-        EditText userNameFound = (EditText) findViewById(R.id.searchUsername);
+        checkBox = (CheckBox) findViewById(R.id.checkBox);
+        checkBox.setEnabled(false);
 
 
-        userNameFound.setKeyListener(null);
-        final EditText userName = (EditText) findViewById(R.id.searchEnterUsername);
-        userName.setOnKeyListener( new OnKeyListener() {
+
+       // userNameFound.setKeyListener(null);
+        userNameSearch = (EditText) findViewById(R.id.editText);
+        userNameSearch.setOnKeyListener( new OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    String userNameSearch = userName.getText().toString().toLowerCase();
-                    ifExists(userNameSearch);
-                    EditText userNameFound = (EditText) findViewById(R.id.searchUsername);
+                    String userNameSearched = userNameSearch.getText().toString().toLowerCase();
+                    //EditText userNameFound = (EditText) findViewById(R.id.searchUsername);
 
-                    userNameFound.setFocusableInTouchMode(false);
-                    userNameFound.setFocusable(false);
+                    //userNameFound.setFocusableInTouchMode(false);
+                    //userNameFound.setFocusable(false);
                     return true;
                 }
                 return false;
                 
             }
         });
-        Button button = (Button) findViewById(R.id.searchButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        buttonAdd = (Button) findViewById(R.id.addButton);
+        buttonAdd.setFocusableInTouchMode(false);
+        buttonAdd.setFocusable(false);
+        buttonAdd.setEnabled(false);
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(controller.getMyName() != userNameToAdd){
+                if(!controller.getMyName().equals(userNameToAdd)){
                     addUserToContacts(userNameToAdd);
+                }
+            }
+        });
+     buttonSearch = (Button) findViewById(R.id.searchButton);
+        buttonSearch.setFocusableInTouchMode(false);
+        buttonSearch.setFocusable(false);
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(!controller.getMyName().equals(userNameToAdd)){
+                    String userNameSearched = userNameSearch.getText().toString().toLowerCase();
+                    ifExists(userNameSearched);
+
                 }
             }
         });
@@ -66,50 +94,81 @@ public class SearchActivity extends AppCompatActivity  {
     public void addUserToContacts(final String userNameToAdd) {
         if (!controller.getMyName().toLowerCase().equals(userNameToAdd.toLowerCase())) {
             controller.sendMessage(Message.CONTACTLIST_ADD, controller.getMyName(), userNameToAdd.toLowerCase());
+
+        }
+
+        if(userNameToAdd.toLowerCase().equals(controller.getMyName().toLowerCase())) {
             this.runOnUiThread(new Runnable() {
                 public void run() {
-                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "User added", Snackbar.LENGTH_LONG);
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "You cant't add yourself!", Snackbar.LENGTH_LONG);
                     snackbar.show();
-                }
-            });
-        }
-        EditText userNameFound = (EditText) findViewById(R.id.searchUsername);
+                    }
+                });
 
-        userNameFound.setText("");
-        findViewById(R.id.searchButton).setVisibility(View.INVISIBLE);
-    }
+
+            }
+
+                else {
+                this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "User added", Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                    }
+                });
+            }
+        userNameSearch = (EditText) findViewById(R.id.editText);
+        userNameSearch.setText("");
+        checkBox = (CheckBox) findViewById(R.id.checkBox);
+        checkBox.setChecked(false);
+        buttonAdd = (Button) findViewById(R.id.addButton);
+        buttonAdd.setEnabled(false);
+
+        }
+
+
+
+
+
     public void ifExists (final String userName) {
         controller.sendSearch(userName, this);
     }
     public void response (final String user) {
-       final EditText userNameSearch = (EditText) findViewById(R.id.searchEnterUsername);
-       final String name = userNameSearch.getText().toString();
-        String newname = name.toLowerCase();
-        if(user!= null){
+        final Button buttonAdd = (Button) findViewById(R.id.addButton);
+
+        final EditText userNameSearch = (EditText) findViewById(R.id.editText);
+        final String name = userNameSearch.getText().toString();
+        String newName = name.toLowerCase();
+        if (user != null){
             user.toLowerCase();
-        if(user.equals(newname) ) {
+
+        if (user.equals(newName)) {
             this.runOnUiThread(new Runnable() {
                 public void run() {
-                    EditText userNameFound = (EditText) findViewById(R.id.searchUsername);
-                    userNameFound.setText(user);
-                    findViewById(R.id.searchButton).setVisibility(View.VISIBLE);
-                   //sendNotification(userNameToAdd);
-
+                    // EditText userNameFound = (EditText) findViewById(R.id.searchUsername);
+                    // userNameFound.setText(user);
+                    //findViewById(R.id.searchButton).setVisibility(View.VISIBLE);
+                    //sendNotification(userNameToAdd);
+                    buttonAdd.setEnabled(true);
+                    CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox);
+                    checkBox.setEnabled(true);
+                    checkBox.setChecked(true);
 
                 }
             });
             userNameToAdd = name;
         }
-        }  else {
-                this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        Snackbar snackbar =Snackbar.make( findViewById(android.R.id.content), "User does not exist. Try another username", Snackbar.LENGTH_LONG );
-                        userNameSearch.setText("");
-                        snackbar.show();
-                    }
-                });
-        }
-    }
+        } else {
+            this.runOnUiThread(new Runnable() {
+                public void run() {
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "User does not exist. Try another username", Snackbar.LENGTH_LONG);
+                    userNameSearch.setText("");
+                    snackbar.show();
+                }
+            });
+        }}
+
+
+
 
 
     /**
