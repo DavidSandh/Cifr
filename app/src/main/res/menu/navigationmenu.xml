@@ -1,36 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/CifrColorGrey"
-    app:itemTextColor="@color/CifrColorYellow"
-    app:itemIconTint="@color/CifrColorYellow">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <item
-        android:background="@color/CifrColorYellow"
         android:icon="@mipmap/ic_home_black_24dp"
         android:onClick="home"
-        android:title="Start"
-        android:textColor="@color/CifrColorYellow"
+        android:title="Conversations"
         app:showAsAction="ifRoom" />
     <item
-        android:background="@color/CifrColorGrey"
         android:icon="@mipmap/ic_supervisor_account_black_24dp"
         android:onClick="contacts"
-        android:textColor="@color/CifrColorYellow"
         android:title="Contacts"
         app:showAsAction="ifRoom" />
     <item
-        android:background="@color/CifrColorGrey"
         android:icon="@mipmap/ic_search_black_24dp"
         android:onClick="search"
-        android:textColor="@color/CifrColorYellow"
         android:title="Search Users"
         app:showAsAction="ifRoom" />
     <item
-        android:background="@color/CifrColorGrey"
         android:icon="@mipmap/ic_exit_to_app_black_24dp"
         android:onClick="logout"
-        android:textColor="@color/CifrColorYellow"
         android:title="Log Out"
         app:showAsAction="ifRoom" />
 </menu>

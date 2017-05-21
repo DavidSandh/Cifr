@@ -1,9 +1,14 @@
 package se.mah.ag7406.cifr.client.ControllerPackage;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.app.NotificationCompat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
@@ -13,6 +18,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import message.Message;
+import se.mah.ag7406.cifr.R;
 import se.mah.ag7406.cifr.client.ConversationListPackage.ConversationList;
 import se.mah.ag7406.cifr.client.ConversationListPackage.GridItem;
 import se.mah.ag7406.cifr.client.ConversationPackage.Conversation;
@@ -20,6 +26,8 @@ import se.mah.ag7406.cifr.client.ConversationPackage.ConversationItem;
 import se.mah.ag7406.cifr.client.SearchActivityPackage.SearchActivity;
 import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
 import se.mah.ag7406.cifr.client.StartActivities.RegistrationScreen;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
  * Acts as controller for the logic in the application
@@ -49,9 +57,9 @@ public class Controller implements Serializable {
      */
     public void startClient(){
 //        this.client = new Client("192.168.1.83", 1337, this);
-//        this.client = new Client("192.168.43.71", 1337, this);
+        this.client = new Client("192.168.1.83", 1337, this);
 
-        this.client = new Client("10.0.2.2",1337,this);
+        this.client = new Client("192.168.1.111",1337,this);
 
         //this.client = new Client("192.168.1.164",1337,this);
 //        this.client = new Client("192.168.43.71", 1337, this);
@@ -100,7 +108,6 @@ public class Controller implements Serializable {
                     messageArrayList.add(messages[j]);
                     }
                 }
-            }
             if(!messageArrayList.isEmpty()) {
                 map.put(userList[i], messageArrayList);
             }
@@ -195,21 +202,45 @@ public class Controller implements Serializable {
     }
 
     /**
-     * Called upon incoming messages, saves to local storage
+     * Called upon incoming messages, saves to local storage and sends a notification
      * @param message message to save
      */
     public void recieveMessage(Message message){
         writeFile(message, message.getSender());
         setNotificationflag(message.getSender());
         checkflag(message.getSender());
+
+        Context context = SuperClass.getContext();
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
+                .setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_VIBRATE| Notification.DEFAULT_SOUND)
+                .setSmallIcon(R.mipmap.ic_message_black_48dp)
+                .setContentTitle("New Message!")
+                .setContentText( message.getSender() +" has sent you a new pic");
+
+        Intent intent = new Intent(context, ConversationList.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(resultPendingIntent);
+        int mNotificationId = 000;
+        NotificationManager mNotifyMgr = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+        mNotifyMgr.notify(mNotificationId, mBuilder.build());
     }
 
+    /**
+     * used for setting a new message notification in the Conversationlistactivity
+     * @param sender
+     */
     public void setNotificationflag(String sender){
         if (!notifications.contains(sender)){
             notifications.add(sender);
         }
     }
 
+    /**
+     * used for setting a new message notification in the Conversationlistactivity
+     * @param sender
+     * @return
+     */
     public boolean getNotificationflag(String sender){
         if (notifications.contains(sender)){
             notifications.remove(sender);
@@ -432,16 +463,31 @@ public class Controller implements Serializable {
         sendMessage(Message.SEARCH, getMyName(), user);
     }
 
+    /**
+     * Deletes files from internal storage
+     * @param name
+     */
     public void delete(String name) {
         filehandler.delete(name);
     }
 
+    /**
+     * Sets flag for the active activity, used for refreshing conversations with new messages
+     * @param b
+     * @param conversationUsername
+     * @param activity
+     */
     public void setflag(boolean b, String conversationUsername, Activity activity) {
         ConversationActivity = activity;
         flag = b;
         flagname = conversationUsername;
     }
 
+    /**
+     * Checks if a conversation is active or if the conversationlistactivity is active and
+     * restarts it with the new message.
+     * @param sender
+     */
     private void checkflag(String sender){
         if (flag && flagname.equals("Convolistisactive")){
             Intent intent = new Intent(ConversationActivity, ConversationList.class);
