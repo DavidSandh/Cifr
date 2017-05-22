@@ -22,5 +22,7 @@
         android:layout_gravity="start"
         android:background="@color/CifrColorGrey"
         android:textColor="@color/CifrColorYellow"
-        app:menu="@menu/navigationmenu"></android.support.design.widget.NavigationView>
+        app:itemIconTint="@color/CifrColorYellow"
+        app:itemTextColor="@color/CifrColorYellow"
+        app:menu="@menu/navigationmenu"/>
 </android.support.v4.widget.DrawerLayout>

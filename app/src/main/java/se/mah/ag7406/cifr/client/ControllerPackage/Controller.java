@@ -57,8 +57,9 @@ public class Controller implements Serializable {
      */
     public void startClient(){
 //        this.client = new Client("192.168.1.83", 1337, this);
-
-        this.client = new Client("192.168.1.83",1337,this);
+//        this.client = new Client("192.168.1.83", 1337, this);
+        this.client = new Client("10.0.2.2",1337,this);
+//        this.client = new Client("192.168.0.93",1337,this);
 
         //this.client = new Client("192.168.1.164",1337,this);
 //        this.client = new Client("192.168.43.71", 1337, this);
@@ -113,6 +114,7 @@ public class Controller implements Serializable {
         }
         return map;
     }
+
 
     /**
      * Writes file to local storage by using filehandler
@@ -255,7 +257,7 @@ public class Controller implements Serializable {
      * @param list Contactlist
      */
     public void setUserList(String[] list){
-        if(userList!=null){
+        if(userList!=null && list != null){
             if(list.length>userList.length){
                 search.sendNotification(search.getUserNameToAdd());
             }
