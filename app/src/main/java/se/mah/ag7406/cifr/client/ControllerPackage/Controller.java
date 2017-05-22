@@ -57,9 +57,8 @@ public class Controller implements Serializable {
      */
     public void startClient(){
 //        this.client = new Client("192.168.1.83", 1337, this);
-        this.client = new Client("192.168.1.83", 1337, this);
 
-        this.client = new Client("192.168.1.111",1337,this);
+        this.client = new Client("192.168.1.83",1337,this);
 
         //this.client = new Client("192.168.1.164",1337,this);
 //        this.client = new Client("192.168.43.71", 1337, this);
@@ -91,25 +90,25 @@ public class Controller implements Serializable {
      * with different users
      * @return Hashmap containg username as key and an ArrayList containing the messages
      */
-    private HashMap<String, ArrayList<Message>> readFiles(){
+    private HashMap<String, ArrayList<Message>> readFiles() {
         Object[] obj = filehandler.read();
         Message[] messages = Arrays.copyOf(obj, obj.length, Message[].class);
         HashMap<String, ArrayList<Message>> map = new HashMap();
         ArrayList<Message> messageArrayList;
-        if(userList==null){
+        if (userList == null) {
             return null;
         }
-        for(int i =0; i<userList.length; i++){
+        for (int i = 0; i < userList.length; i++) {
             messageArrayList = new ArrayList<>();
-            for(int j=0; j<messages.length; j++){
-                if( messages[j]!=null ){
-
-                if(userList[i].equalsIgnoreCase(messages[j].getSender())||userList[i].equalsIgnoreCase(messages[j].getRecipient())){
-                    messageArrayList.add(messages[j]);
+            for (int j = 0; j < messages.length; j++) {
+                if (messages[j] != null) {
+                    if (userList[i].equalsIgnoreCase(messages[j].getSender()) || userList[i].equalsIgnoreCase(messages[j].getRecipient())) {
+                        messageArrayList.add(messages[j]);
                     }
                 }
-            if(!messageArrayList.isEmpty()) {
-                map.put(userList[i], messageArrayList);
+                if (!messageArrayList.isEmpty()) {
+                    map.put(userList[i], messageArrayList);
+                }
             }
         }
         return map;
@@ -260,7 +259,6 @@ public class Controller implements Serializable {
             if(list.length>userList.length){
                 search.sendNotification(search.getUserNameToAdd());
             }
-
         }
         this.userList = list;
     }
