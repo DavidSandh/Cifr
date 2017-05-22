@@ -257,11 +257,6 @@ public class Controller implements Serializable {
      * @param list Contactlist
      */
     public void setUserList(String[] list){
-        if(userList!=null && list != null){
-            if(list.length>userList.length){
-                search.sendNotification(search.getUserNameToAdd());
-            }
-        }
         this.userList = list;
     }
 
