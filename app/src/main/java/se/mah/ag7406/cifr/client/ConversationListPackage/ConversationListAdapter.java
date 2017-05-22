@@ -84,7 +84,7 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
      */
     protected static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView textView;
-        private TextView flagView;
+        private ImageView flagView;
         private ImageView imageView;
         private Context context;
 
@@ -96,6 +96,7 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationLi
             super(view);
             textView = (TextView) view.findViewById(R.id.conversationItemTextView);
             imageView = (ImageView) view.findViewById(R.id.conversationItemImageView);
+            flagView = (ImageView) view.findViewById(R.id.conversationItemFlag);
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
