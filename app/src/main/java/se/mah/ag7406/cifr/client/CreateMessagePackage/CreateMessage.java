@@ -59,10 +59,6 @@ public class CreateMessage extends AppCompatActivity {
      *             which is clicked.
      */
     public void sendMessage(View view) {
-        this.runOnUiThread(new Runnable(){
-            public void run(){
-                spinner.setVisibility(View.VISIBLE);
-            }});
         Button btn = (Button) findViewById(R.id.btnSend);
         btn.setEnabled(false);
         EditText message = (EditText) findViewById(R.id.createMessageText);
@@ -73,6 +69,10 @@ public class CreateMessage extends AppCompatActivity {
             btn.setEnabled(true);
         }
         if(selectedImage != null) {
+            this.runOnUiThread(new Runnable(){
+                public void run(){
+                    spinner.setVisibility(View.VISIBLE);
+                }});
             controller.sendMessage(receiver, messageText, resize(selectedImage, 400, 400));
             Intent intent = new Intent(this, Conversation.class);
             intent.putExtra("username", receiver);
