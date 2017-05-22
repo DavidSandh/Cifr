@@ -240,19 +240,19 @@ public class SearchActivity extends AppCompatActivity {
 
         public String checkUserList(){
             String[] list = controller.getContactList();
-
-
-            for (int i = 0 ; i< list.length; i++ ){
-                if(userNameToAdd.toLowerCase().equals(list[i].toLowerCase())){
+            String res = new String();
+            if(list != null) {
+            for (int i = 0 ; i< list.length; i++ ) {
+                if (userNameToAdd.toLowerCase().equals(list[i].toLowerCase())) {
                     System.out.println(userNameToAdd);
-
                     System.out.println(list[i]);
-                    return list[i];
+                    res = list[i];
                 }
             }
-            return "ingen i listan";
-
-
+                } else {
+                    res = "ingen i listan";
+                }
+                return res;
         }
 }
 
