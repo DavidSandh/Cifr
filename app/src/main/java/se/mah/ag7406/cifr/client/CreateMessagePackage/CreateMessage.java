@@ -73,7 +73,7 @@ public class CreateMessage extends AppCompatActivity {
                 public void run(){
                     spinner.setVisibility(View.VISIBLE);
                 }});
-            controller.sendMessage(receiver, messageText, resize(selectedImage, 400, 400));
+            controller.sendMessage(receiver, messageText, resize(selectedImage, 500, 500));
             Intent intent = new Intent(this, Conversation.class);
             intent.putExtra("username", receiver);
             this.runOnUiThread(new Runnable(){
