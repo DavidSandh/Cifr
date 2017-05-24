@@ -73,7 +73,8 @@ public class CreateMessage extends AppCompatActivity {
                 public void run(){
                     spinner.setVisibility(View.VISIBLE);
                 }});
-            controller.sendMessage(receiver, messageText, resize(selectedImage, 500, 500));
+//            controller.sendMessage(receiver, messageText, resize(selectedImage, 500, 500));
+            controller.sendMessage(receiver, messageText, resizeImage(selectedImage));
             Intent intent = new Intent(this, Conversation.class);
             intent.putExtra("username", receiver);
             this.runOnUiThread(new Runnable(){
@@ -112,6 +113,30 @@ public class CreateMessage extends AppCompatActivity {
         } else {
             return image;
         }
+    }
+
+    /**
+     * Resize the image to be sent.
+     * @param image Image to be resized.
+     * @return Resized image.
+     */
+    private Bitmap resizeImage(Bitmap image) {
+        int finalWidth = image.getWidth();
+        int finalHeight = image.getHeight();
+        int maxWidth = SuperClass.getContext().getResources().getDisplayMetrics().widthPixels - 10;
+        int maxHeight = SuperClass.getContext().getResources().getDisplayMetrics().heightPixels - 10;
+
+        if(image.getWidth() > maxWidth) {
+            finalWidth = maxWidth;
+            finalHeight = (finalWidth * image.getHeight()) / image.getWidth();
+        }
+
+        if(image.getHeight() > maxHeight) {
+            finalHeight = maxHeight;
+            finalWidth = (finalHeight * image.getWidth()) / image.getHeight();
+        }
+        image = Bitmap.createScaledBitmap(image, finalWidth, finalHeight, true);
+        return image;
     }
 
     /**
