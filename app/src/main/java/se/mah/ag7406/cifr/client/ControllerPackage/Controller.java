@@ -34,19 +34,19 @@ import static android.content.Context.NOTIFICATION_SERVICE;
  * Created by Jens Andreassen and Viktor Ekström on 2017-04-06.
  */
 
-public class Controller implements Serializable {
+public class Controller {
     private Client client;
-    private transient LoginScreen login;
-    private transient RegistrationScreen register;
+    private LoginScreen login;
+    private RegistrationScreen register;
     private final FileHandler filehandler;
-    private transient String[] userList;
+    private String[] userList;
     private String myName;
     private BitmapEncoder bitmapEncoder = new BitmapEncoder();
     private SearchActivity search;
     private boolean flag;
     private String flagname;
     private Activity ConversationActivity;
-    private ArrayList<String> notifications = new ArrayList();
+    private ArrayList<String> notifications = new ArrayList<>();
 
     public Controller(){
         filehandler = new FileHandler(this);
@@ -56,13 +56,8 @@ public class Controller implements Serializable {
      * Creates a new client and starts it.
      */
     public void startClient(){
-//        this.client = new Client("192.168.1.83", 1337, this);
-//        this.client = new Client("192.168.1.83", 1337, this);
 //        this.client = new Client("10.0.2.2",1337,this);
-        this.client = new Client("217.208.88.201",1337,this);
-//         this.client=new Client("192.168.1.108",1337,this);
-        //this.client = new Client("192.168.1.164",1337,this);
-//        this.client = new Client("192.168.43.71", 1337, this);
+        this.client = new Client("52.58.109.154", 1337, this);
         new Thread() {
             public void run() {
                 client.clientRun();
@@ -94,7 +89,7 @@ public class Controller implements Serializable {
     private HashMap<String, ArrayList<Message>> readFiles() {
         Object[] obj = filehandler.read();
         Message[] messages = Arrays.copyOf(obj, obj.length, Message[].class);
-        HashMap<String, ArrayList<Message>> map = new HashMap();
+        HashMap<String, ArrayList<Message>> map = new HashMap<>();
         ArrayList<Message> messageArrayList;
         if (userList == null) {
             return null;
@@ -334,7 +329,7 @@ public class Controller implements Serializable {
         if(messageList == null) {
             return null;
         }
-        ArrayList<ConversationItem> conversationList = new ArrayList();
+        ArrayList<ConversationItem> conversationList = new ArrayList<>();
         for(int i=0;i<messageList.size();i++){
             byte[] bytes = (byte[])messageList.get(i).getImage();
             conversationList.add(new ConversationItem(messageList.get(i).getDate(), BitmapFactory.decodeByteArray(bytes, 0, bytes.length), messageList.get(i).getSender()));
@@ -460,7 +455,7 @@ public class Controller implements Serializable {
 
     /**
      * Deletes files from internal storage
-     * @param name
+     * @param name Name of file.
      */
     public void delete(String name) {
         filehandler.delete(name);
@@ -468,9 +463,9 @@ public class Controller implements Serializable {
 
     /**
      * Sets flag for the active activity, used for refreshing conversations with new messages
-     * @param b
-     * @param conversationUsername
-     * @param activity
+     * @param b The flag, true or false.
+     * @param conversationUsername The name of the conversation partner.
+     * @param activity Context where the flag i set.
      */
     public void setflag(boolean b, String conversationUsername, Activity activity) {
         ConversationActivity = activity;
@@ -481,7 +476,7 @@ public class Controller implements Serializable {
     /**
      * Checks if a conversation is active or if the conversationlistactivity is active and
      * restarts it with the new message.
-     * @param sender
+     * @param sender Sender of the new message.
      */
     private void checkflag(String sender){
         if (flag && flagname.equals("Convolistisactive")){
