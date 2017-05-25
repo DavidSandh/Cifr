@@ -48,6 +48,10 @@ public class ContactList extends AppCompatActivity {
         adapter = new ContactListAdapter(this, usernames);
         recyclerView.setAdapter(adapter);
     }
+
+    /**
+     * creates and show fragment with information.
+     */
     public void showInformation() {
         FragmentManager fragmentManager = this.getSupportFragmentManager();
         ContactsDialogFragment contactsFragment = ContactsDialogFragment.newInstance();
@@ -94,6 +98,10 @@ public class ContactList extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    /**
+     * Goes to ConversationList when back is pressed.
+     */
     public void onBackPressed(){
         Intent intent = new Intent(this, ConversationList.class);
         startActivity(intent);

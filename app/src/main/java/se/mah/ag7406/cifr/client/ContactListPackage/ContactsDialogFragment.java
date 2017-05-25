@@ -54,6 +54,6 @@ public class ContactsDialogFragment extends DialogFragment {
     public void onCreateView (View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         textView = (TextView) view.findViewById(R.id.contactsMessage);
-//        textView.setText(R.string.welcomeText);
+
     }
 }
