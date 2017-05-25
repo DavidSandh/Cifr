@@ -28,6 +28,12 @@ import static android.R.attr.button;
 import static android.R.attr.fastScrollPreviewBackgroundLeft;
 
 
+/**
+ * Class used for searching after other users, registered on the server.
+ * Sends a message to the server with a string of the user searched for.
+ * @Author Max Henriksson
+ */
+
 public class SearchActivity extends AppCompatActivity {
     private String userNameToAdd;
     private Controller controller;
@@ -36,6 +42,12 @@ public class SearchActivity extends AppCompatActivity {
     private EditText userNameSearch;
     private CheckBox checkBox;
 
+
+    /**
+     * Method called when the activity is first created.
+     * Sets listeners and sets buttons inactive.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,17 +55,12 @@ public class SearchActivity extends AppCompatActivity {
         controller = SuperClass.getController();
         checkBox = (CheckBox) findViewById(R.id.checkBox);
         checkBox.setEnabled(false);
-        // userNameFound.setKeyListener(null);
         userNameSearch = (EditText) findViewById(R.id.editText);
         userNameSearch.setOnKeyListener(new OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     String userNameSearched = userNameSearch.getText().toString().toLowerCase();
-                    //EditText userNameFound = (EditText) findViewById(R.id.searchUsername);
-
-                    //userNameFound.setFocusableInTouchMode(false);
-                    //userNameFound.setFocusable(false);
                     return true;
                 }
                 return false;
@@ -83,6 +90,14 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+
+    /**
+     * Sends a message to the server if the String is of the right format.
+     * A message that later adds the user to the Contactlist. Otherwise the user
+     * will be prompted with snackbar.
+     * @param userNameToAdd username searched for
+     */
+
     public void addUserToContacts(final String userNameToAdd) {
 
         if (userNameToAdd.toLowerCase().equals(checkUserList().toLowerCase())){
@@ -110,11 +125,7 @@ public class SearchActivity extends AppCompatActivity {
                     snackbar.show();
                 }
             });
-
-
         }
-
-
         userNameSearch = (EditText) findViewById(R.id.editText);
         userNameSearch.setText("");
         checkBox = (CheckBox) findViewById(R.id.checkBox);
@@ -123,12 +134,24 @@ public class SearchActivity extends AppCompatActivity {
         buttonAdd.setEnabled(false);
     }
 
-
+    /**
+     * Sends a message to the with the specified string to check
+     * if the user exists.
+     * @param userName name searched for
+     */
 
     public void ifExists (final String userName) {
         controller.sendSearch(userName, this);
     }
 
+
+    /**
+     * Method called when a message is received from the server.
+     * Compares the string received from the server with string the
+     * user searched for.
+     *
+     * @param user name returned by server
+     */
     public void response (final String user) {
         final Button buttonAdd = (Button) findViewById(R.id.addButton);
         final EditText userNameSearch = (EditText) findViewById(R.id.editText);
@@ -139,10 +162,6 @@ public class SearchActivity extends AppCompatActivity {
         if (user.equals(newName)) {
             this.runOnUiThread(new Runnable() {
                 public void run() {
-                    // EditText userNameFound = (EditText) findViewById(R.id.searchUsername);
-                    // userNameFound.setText(user);
-                    //findViewById(R.id.searchButton).setVisibility(View.VISIBLE);
-                    //sendNotification(userNameToAdd);
                     buttonAdd.setEnabled(true);
                     CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox);
                     checkBox.setEnabled(true);
@@ -216,26 +235,10 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     /**
-     * Notifies the user when added to a contact list.
-     * @param user user
+     * Checks if the user has the specified user searched
+     * for already in her contactlist.
+     * @return String user
      */
-    public void sendNotification(String user ){
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-              .setSmallIcon(R.drawable.ic_menu_share)
-             .setContentTitle("A user has added you")
-              .setContentText( user +" wants to add you to their contact list");
-
-          Intent intent = new Intent(this, ContactList.class);
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(resultPendingIntent);
-        int mNotificationId = 000;
-        NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        mNotifyMgr.notify(mNotificationId, mBuilder.build());
-        }
-
-        public String getUserNameToAdd(){
-            return userNameToAdd;
-        }
 
 
         public String checkUserList(){
@@ -244,8 +247,6 @@ public class SearchActivity extends AppCompatActivity {
             if(list != null) {
             for (int i = 0 ; i< list.length; i++ ) {
                 if (userNameToAdd.toLowerCase().equals(list[i].toLowerCase())) {
-                    System.out.println(userNameToAdd);
-                    System.out.println(list[i]);
                     res = list[i];
                 }
             }
