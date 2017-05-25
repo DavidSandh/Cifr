@@ -11,7 +11,6 @@ import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 
 import java.io.ByteArrayOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

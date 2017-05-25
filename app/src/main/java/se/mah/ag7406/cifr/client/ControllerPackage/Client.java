@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import message.Message;
-import se.mah.ag7406.cifr.client.SearchActivityPackage.Notifications;
 
 /**
  * Acts as Client to the server. Handles sorting of incoming messages and sending requests/messages.
@@ -54,7 +53,9 @@ public class Client {
             socket.close();
             output.close();
             input.close();
-        } catch(IOException e) {}
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
