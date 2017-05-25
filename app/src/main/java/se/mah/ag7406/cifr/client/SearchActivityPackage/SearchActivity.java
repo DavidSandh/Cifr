@@ -1,12 +1,8 @@
 package se.mah.ag7406.cifr.client.SearchActivityPackage;
 
-
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -23,10 +19,6 @@ import se.mah.ag7406.cifr.client.ControllerPackage.Controller;
 import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
 import se.mah.ag7406.cifr.client.ConversationListPackage.ConversationList;
 import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
-
-import static android.R.attr.button;
-import static android.R.attr.fastScrollPreviewBackgroundLeft;
-
 
 /**
  * Class used for searching after other users, registered on the server.
@@ -90,7 +82,6 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-
     /**
      * Sends a message to the server if the String is of the right format.
      * A message that later adds the user to the Contactlist. Otherwise the user
@@ -107,7 +98,6 @@ public class SearchActivity extends AppCompatActivity {
                     snackbar.show();
                 }
             });
-
         }
          else if (!controller.getMyName().toLowerCase().equals(userNameToAdd.toLowerCase())) {
             controller.sendMessage(Message.CONTACTLIST_ADD, controller.getMyName(), userNameToAdd.toLowerCase());
@@ -239,8 +229,6 @@ public class SearchActivity extends AppCompatActivity {
      * for already in her contactlist.
      * @return String user
      */
-
-
         public String checkUserList(){
             String[] list = controller.getContactList();
             String res = new String();
@@ -256,7 +244,3 @@ public class SearchActivity extends AppCompatActivity {
                 return res;
         }
 }
-
-
-
-
