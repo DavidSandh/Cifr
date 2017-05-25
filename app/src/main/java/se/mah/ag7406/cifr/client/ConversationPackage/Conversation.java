@@ -27,7 +27,7 @@ import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
  */
 public class Conversation extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private ConversationAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ConversationItem[] conversationItems;
     private String conversationUsername;

@@ -73,7 +73,6 @@ public class CreateMessage extends AppCompatActivity {
                 public void run(){
                     spinner.setVisibility(View.VISIBLE);
                 }});
-//            controller.sendMessage(receiver, messageText, resize(selectedImage, 500, 500));
             controller.sendMessage(receiver, messageText, resizeImage(selectedImage));
             Intent intent = new Intent(this, Conversation.class);
             intent.putExtra("username", receiver);
@@ -84,39 +83,11 @@ public class CreateMessage extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-
-
     }
 
     /**
-     * Resizes all the Bitmaps before showing/sending them.
-     * @param image the image to be used.
-     * @param maxWidth the maximum width
-     * @param maxHeight the maximum height
-     * @return the resized image(BitMap)
-     */
-    private static Bitmap resize(Bitmap image, int maxWidth, int maxHeight) {
-        if (maxHeight > 0 && maxWidth > 0) {
-            int width = image.getWidth();
-            int height = image.getHeight();
-            float ratioBitmap = (float) width / (float) height;
-            float ratioMax = (float) maxWidth / (float) maxHeight;
-            int finalWidth = maxWidth;
-            int finalHeight = maxHeight;
-            if (ratioMax > 1) {
-                finalWidth = (int) ((float)maxHeight * ratioBitmap);
-            } else {
-                finalHeight = (int) ((float)maxWidth / ratioBitmap);
-            }
-            image = Bitmap.createScaledBitmap(image, finalWidth, finalHeight, true);
-            return image;
-        } else {
-            return image;
-        }
-    }
-
-    /**
-     * Resize the image to be sent.
+     * Resize the image to be sent. Is based on this device's screen size. Will keep
+     * the current ratio.
      * @param image Image to be resized.
      * @return Resized image.
      */

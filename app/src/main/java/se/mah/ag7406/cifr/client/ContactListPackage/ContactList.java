@@ -24,7 +24,7 @@ import se.mah.ag7406.cifr.client.StartActivities.LoginScreen;
  */
 public class ContactList extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private ContactListAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private String[] usernames;
     private Controller controller;

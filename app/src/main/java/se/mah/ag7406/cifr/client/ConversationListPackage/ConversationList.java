@@ -23,7 +23,7 @@ import se.mah.ag7406.cifr.client.ControllerPackage.SuperClass;
  */
 public class ConversationList extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter recyclerAdapter;
+    private ConversationListAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private GridItem[] gridItems;
     private Controller controller;
@@ -40,14 +40,14 @@ public class ConversationList extends AppCompatActivity {
         controller = SuperClass.getController();
         controller.setflag(true, "Convolistisactive", this);
         gridItems = controller.getGridItems();
-        if(gridItems==null){
+        if(gridItems == null){
             showInformation();
         }
         recyclerView = (RecyclerView) findViewById(R.id.conversationList);
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerAdapter = new ConversationListAdapter(this, gridItems);
-        recyclerView.setAdapter(recyclerAdapter);
+        adapter = new ConversationListAdapter(this, gridItems);
+        recyclerView.setAdapter(adapter);
     }
 
     /**
