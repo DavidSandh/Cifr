@@ -63,6 +63,10 @@ public class Conversation extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
         }
     }
+
+    /**
+     * Removes flag when activity is destroyed.
+     */
     protected void onDestroy(){
         controller.setflag(false, null, null);
         super.onDestroy();
@@ -125,6 +129,9 @@ public class Conversation extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Goes to ConversationList intent when back is pressed.
+     */
     public void onBackPressed(){
         Intent intent = new Intent(this, ConversationList.class);
         startActivity(intent);

@@ -142,6 +142,10 @@ public class CreateMessage extends AppCompatActivity {
             }
         }
     }
+
+    /**
+     * Finish when back is pressed.
+     */
     @Override
     public void onBackPressed() {
         finish();
